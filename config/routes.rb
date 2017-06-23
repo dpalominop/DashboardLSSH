@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :areas
   devise_for :users, ActiveAdmin::Devise.config
   root to: "admin/dashboard#index"
   ActiveAdmin.routes(self)
