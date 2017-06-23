@@ -6,4 +6,8 @@ class CreateRoles < ActiveRecord::Migration[5.1]
       t.timestamps
     end
   end
+
+  def self.down
+    drop_table :roles
+  end
 end

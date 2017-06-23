@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @command_list.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @command_list.description %>
+</p>
+
+<p>
+  <strong>Network element:</strong>
+  <%= @command_list.network_element %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @command_list.role %>
+</p>
+
+<%= link_to 'Edit', edit_command_list_path(@command_list) %> |
+<%= link_to 'Back', command_lists_path %>

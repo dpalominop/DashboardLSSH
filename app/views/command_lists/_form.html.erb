@@ -1,0 +1,37 @@
+<%= form_with(model: command_list, local: true) do |form| %>
+  <% if command_list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(command_list.errors.count, "error") %> prohibited this command_list from being saved:</h2>
+
+      <ul>
+      <% command_list.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :command_list_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :command_list_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :network_element_id %>
+    <%= form.text_field :network_element_id, id: :command_list_network_element_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :role_id %>
+    <%= form.text_field :role_id, id: :command_list_role_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

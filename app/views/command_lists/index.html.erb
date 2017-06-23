@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Command Lists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Network element</th>
+      <th>Role</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @command_lists.each do |command_list| %>
+      <tr>
+        <td><%= command_list.name %></td>
+        <td><%= command_list.description %></td>
+        <td><%= command_list.network_element %></td>
+        <td><%= command_list.role %></td>
+        <td><%= link_to 'Show', command_list %></td>
+        <td><%= link_to 'Edit', edit_command_list_path(command_list) %></td>
+        <td><%= link_to 'Destroy', command_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Command List', new_command_list_path %>

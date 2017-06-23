@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :command_lists
   resources :roles
   resources :commands
   resources :network_elements

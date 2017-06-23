@@ -6,4 +6,8 @@ class CreateCommands < ActiveRecord::Migration[5.1]
       t.timestamps
     end
   end
+
+  def self.down
+    drop_table :commands
+  end
 end
