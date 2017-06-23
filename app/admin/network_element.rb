@@ -1,15 +1,47 @@
 ActiveAdmin.register NetworkElement do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+    permit_params :name, :description, :ip, :port, area_ids: []
 
+    index :title => "Network Elements" do
+        selectable_column
+        id_column
+        column :name
+        column :description
+        column :ip
+        column :port
+        actions
+    end
+
+    filter :name
+    filter :description
+    filter :ip
+    filter :port
+
+    form do |f|
+        f.inputs "Network Element Details" do
+            f.input :name
+            f.input :description
+            f.input :ip
+            f.input :port
+            f.input :area_ids, as: :check_boxes, collection: Area.all, :label => 'Areas'
+        end
+        f.actions
+    end
+
+    show do
+        panel "Area Elements" do
+            table_for network_element.areas do
+                column :name
+                column :description
+            end
+        end
+    end
+
+    sidebar "Network Element Details", only: :show do
+        attributes_table_for network_element do
+            row :name
+            row :description
+            row :ip
+            row :port
+        end
+    end
 end
