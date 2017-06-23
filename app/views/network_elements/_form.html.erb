@@ -1,0 +1,37 @@
+<%= form_with(model: network_element, local: true) do |form| %>
+  <% if network_element.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(network_element.errors.count, "error") %> prohibited this network_element from being saved:</h2>
+
+      <ul>
+      <% network_element.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :network_element_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :network_element_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ip %>
+    <%= form.text_field :ip, id: :network_element_ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :port %>
+    <%= form.number_field :port, id: :network_element_port %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

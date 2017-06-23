@@ -1,0 +1,2 @@
+class NetworkElement < ApplicationRecord
+end

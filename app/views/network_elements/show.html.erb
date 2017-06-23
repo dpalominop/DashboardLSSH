@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @network_element.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @network_element.description %>
+</p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @network_element.ip %>
+</p>
+
+<p>
+  <strong>Port:</strong>
+  <%= @network_element.port %>
+</p>
+
+<%= link_to 'Edit', edit_network_element_path(@network_element) %> |
+<%= link_to 'Back', network_elements_path %>

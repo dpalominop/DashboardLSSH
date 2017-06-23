@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Network Elements</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Ip</th>
+      <th>Port</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @network_elements.each do |network_element| %>
+      <tr>
+        <td><%= network_element.name %></td>
+        <td><%= network_element.description %></td>
+        <td><%= network_element.ip %></td>
+        <td><%= network_element.port %></td>
+        <td><%= link_to 'Show', network_element %></td>
+        <td><%= link_to 'Edit', edit_network_element_path(network_element) %></td>
+        <td><%= link_to 'Destroy', network_element, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Network Element', new_network_element_path %>
