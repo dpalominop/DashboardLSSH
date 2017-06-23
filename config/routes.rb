@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :commands
   resources :network_elements
   resources :areas
   devise_for :users, ActiveAdmin::Devise.config
