@@ -57,4 +57,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 
 # ActiveAdmin
-gem 'activeadmin'
+gem 'activeadmin', github: 'activeadmin/activeadmin'
+
+# ActiveMaterial
+gem "active_material", github: "vigetlabs/active_material"
