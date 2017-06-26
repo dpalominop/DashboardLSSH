@@ -8,10 +8,14 @@ ActiveAdmin.register CommandList do
         column :name
         column :description
         column 'Network Element' do |cl|
-            link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
+            if cl.network_element_id then
+                link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
+            end
         end
         column 'Role' do |cl|
-            link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
+            if cl.role_id then
+                link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
+            end
         end
         actions
     end
@@ -45,10 +49,14 @@ ActiveAdmin.register CommandList do
             row :name
             row :description
             row 'Network Element' do |cl|
-                link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
+                if cl.network_element_id then
+                    link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
+                end
             end
             row 'Role' do |cl|
-                link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
+                if cl.role_id then
+                    link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
+                end
             end
         end
     end

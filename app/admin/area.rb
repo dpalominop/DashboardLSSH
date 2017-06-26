@@ -23,12 +23,12 @@ ActiveAdmin.register Area do
 
     show do
         panel "Network Elements" do
-            # table_for area.network_elements do
-            #     column :name
-            #     column :description
-            #     column :ip
-            #     column :port
-            # end
+            table_for area.network_elements do
+                column :name
+                column :description
+                column :ip
+                column :port
+            end
         end
     end
 

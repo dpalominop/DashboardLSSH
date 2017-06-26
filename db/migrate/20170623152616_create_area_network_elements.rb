@@ -1,11 +1,11 @@
 class CreateAreaNetworkElements < ActiveRecord::Migration[5.1]
   def self.up
-    create_table :area_network_elements, :id => false do |t|
-        t.integer :area_id
-        t.integer :network_element_id
-    end
+    create_table :area_network_elements do |t|
+        t.references :area, foreign_key: true
+        t.references :network_element, foreign_key: true
 
-    add_index :area_network_elements, [:area_id, :network_element_id]
+        t.timestamps
+    end
   end
 
   def self.down
