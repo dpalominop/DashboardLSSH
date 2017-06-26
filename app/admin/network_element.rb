@@ -28,8 +28,15 @@ ActiveAdmin.register NetworkElement do
     end
 
     show do
-        panel "Area Elements" do
+        panel "Areas to which belongs " do
             table_for network_element.areas do
+                column :name
+                column :description
+            end
+        end
+
+        panel "Assigned Commands lists " do
+            table_for network_element.command_lists do
                 column :name
                 column :description
             end
