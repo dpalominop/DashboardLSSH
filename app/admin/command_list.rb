@@ -7,8 +7,12 @@ ActiveAdmin.register CommandList do
         id_column
         column :name
         column :description
-        column :network_element_id
-        column :role_id
+        column 'Network Element' do |cl|
+            link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
+        end
+        column 'Role' do |cl|
+            link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
+        end
         actions
     end
 
@@ -37,11 +41,15 @@ ActiveAdmin.register CommandList do
     end
 
     sidebar "Commands Lists Details", only: :show do
-        attributes_table_for area do
+        attributes_table_for command_list do
             row :name
             row :description
-            row :network_element_id
-            row :role_id
+            row 'Network Element' do |cl|
+                link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
+            end
+            row 'Role' do |cl|
+                link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
+            end
         end
     end
 
