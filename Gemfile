@@ -61,3 +61,6 @@ gem 'activeadmin', github: 'activeadmin/activeadmin'
 
 # ActiveMaterial
 gem "active_material", github: "vigetlabs/active_material"
+
+# ActiveAdmin Addons
+gem 'activeadmin_addons'
