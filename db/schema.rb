@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623221151) do
+ActiveRecord::Schema.define(version: 20170703152210) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -51,6 +51,13 @@ ActiveRecord::Schema.define(version: 20170623221151) do
     t.index ["command_list_id"], name: "index_command_command_lists_on_command_list_id"
   end
 
+  create_table "command_list_employees", force: :cascade do |t|
+    t.integer "command_list_id"
+    t.integer "employee_id"
+    t.index ["command_list_id"], name: "index_command_list_employees_on_command_list_id"
+    t.index ["employee_id"], name: "index_command_list_employees_on_employee_id"
+  end
+
   create_table "command_lists", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -66,6 +73,17 @@ ActiveRecord::Schema.define(version: 20170623221151) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.string "last_name"
+    t.string "username"
+    t.string "document"
+    t.integer "area_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["area_id"], name: "index_employees_on_area_id"
   end
 
   create_table "network_elements", force: :cascade do |t|

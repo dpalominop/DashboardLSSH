@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :employees
   resources :command_lists
   resources :roles
   resources :commands
