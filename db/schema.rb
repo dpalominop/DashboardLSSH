@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20170703152210) do
 
   create_table "employees", force: :cascade do |t|
     t.string "name"
-    t.string "last_name"
+    t.string "lastname"
     t.string "username"
     t.string "document"
     t.integer "area_id"
