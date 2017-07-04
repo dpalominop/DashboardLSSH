@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 20170703152210) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["area_id"], name: "index_employees_on_area_id"
+    t.index ["document"], name: "index_employees_on_document", unique: true
+    t.index ["username"], name: "index_employees_on_username", unique: true
   end
 
   create_table "network_elements", force: :cascade do |t|

@@ -60,7 +60,7 @@ gem 'devise'
 gem 'activeadmin', github: 'activeadmin/activeadmin'
 
 # ActiveMaterial
-gem "active_material", github: "vigetlabs/active_material"
+#gem "active_material", github: "vigetlabs/active_material"
 
 # ActiveAdmin Addons
-gem 'activeadmin_addons'
+gem 'activeadmin_addons', github: 'platanus/activeadmin_addons'

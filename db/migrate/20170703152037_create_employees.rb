@@ -9,5 +9,8 @@ class CreateEmployees < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :employees, :username, unique: true
+    add_index :employees, :document, unique: true
   end
 end
