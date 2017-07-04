@@ -10,7 +10,11 @@
 
 // Active Admin's got SASS!
 @import "active_admin/mixins";
-@import "active_admin/base";
+//@import "active_admin/base";
+$theme-primary: #00689f;
+$theme-accent: #7dd2f7;
+$theme-accent-fallback: #ff7547;
+@import "active_material";
 @import "activeadmin_addons/all";
 
 // Overriding any non-variable SASS must be done after the fact.

@@ -21,21 +21,21 @@ ActiveAdmin.register Area do
         f.actions
     end
 
-    show do
-        panel "Network Elements" do
-            table_for area.network_elements do
-                column :name
-                column :description
-                column :ip
-                column :port
-            end
-        end
-    end
+    # show do
+    #     panel "Network Elements" do
+    #         table_for area.network_elements do
+    #             column :name
+    #             column :description
+    #             column :ip
+    #             column :port
+    #         end
+    #     end
+    # end
 
-    sidebar "Area Details", only: :show do
-        attributes_table_for area do
-            row :name
-            row :description
-        end
-    end
+    # sidebar "Area Details", only: :show do
+    #     attributes_table_for area do
+    #         row :name
+    #         row :description
+    #     end
+    # end
 end
