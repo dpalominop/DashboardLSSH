@@ -8,9 +8,6 @@ class CommandList < ApplicationRecord
     has_many :command_list_employees, :dependent => :destroy
     has_many :employees, through: :command_list_employees
 
-    validates :name, :presence => false
-    validates :description, :presence => false
-    validates :network_element_id, :presence => false
-    validates :role_id, :presence => false
-    validates :command_ids, :presence => false
+    validates :network_element_id, :presence => true
+    validates :role_id, :presence => true
 end
