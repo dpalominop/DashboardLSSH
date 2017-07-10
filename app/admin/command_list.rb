@@ -4,7 +4,7 @@ ActiveAdmin.register CommandList do
     
     index :title => "Commands Lists" do
         selectable_column
-        id_column
+        #id_column
         column :name
         column :description
         column 'Network Element' do |cl|

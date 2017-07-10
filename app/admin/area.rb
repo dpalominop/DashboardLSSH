@@ -3,7 +3,7 @@ ActiveAdmin.register Area do
 
     index :title => "Areas" do
         selectable_column
-        id_column
+        #id_column
         column :name
         column :description
         actions
