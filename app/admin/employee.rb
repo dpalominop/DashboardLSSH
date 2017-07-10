@@ -32,7 +32,7 @@ ActiveAdmin.register Employee do
         f.actions
     end
 
-    show do
+    show title: :username do
         panel "Command Lists" do
             table_for employee.command_lists do
                 column :name
