@@ -3,12 +3,16 @@ ActiveAdmin.register Employee do
 
     index :title => "Employees" do
         selectable_column
-        id_column
+        #id_column
         column :name
         column :lastname
         column :username
         column :document
-        column :area_id
+        column 'Area' do |emp|
+            if emp.area_id then
+                link_to Area.find(emp.area_id).name, admin_area_path(emp.area_id)
+            end
+        end
         actions
     end
 
