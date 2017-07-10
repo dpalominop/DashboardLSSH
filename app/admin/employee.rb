@@ -32,6 +32,11 @@ ActiveAdmin.register Employee do
             table_for employee.command_lists do
                 column :name
                 column :description
+                column 'Network Element' do |emp|
+                    if emp.network_element_id then
+                        link_to NetworkElement.find(emp.network_element_id).name, admin_network_element_path(emp.network_element_id)
+                    end
+                end
             end
         end
     end
