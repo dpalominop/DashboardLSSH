@@ -1,5 +1,6 @@
 ActiveAdmin.register Area do
-    permit_params :name, :description, network_element_ids: []
+    menu :priority => 2
+    permit_params :name, :description, network_element_ids: [], employee_ids: []
 
     index :title => "Areas" do
         selectable_column
@@ -16,18 +17,16 @@ ActiveAdmin.register Area do
         f.inputs "Area Details" do
             f.input :name
             f.input :description
-            f.input :network_element_ids, as: :check_boxes, collection: NetworkElement.all, :label => 'Network Elements'
+            f.input :network_element_ids, as: :tags, collection: NetworkElement.all, :label => 'Network Elements'
+            f.input :employee_ids, as: :tags, collection: Employee.all, :label => 'Employee'
         end
         f.actions
     end
 
     # show do
     #     panel "Network Elements" do
-    #         table_for area.network_elements do
-    #             column :name
-    #             column :description
-    #             column :ip
-    #             column :port
+    #         table_for(area.employees) do |e|
+    #             e.column :name
     #         end
     #     end
     # end

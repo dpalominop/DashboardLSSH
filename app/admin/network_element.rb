@@ -1,4 +1,5 @@
 ActiveAdmin.register NetworkElement do
+    menu :priority => 3
     permit_params :name, :description, :ip, :port, area_ids: []
 
     index :title => "Network Elements" do
