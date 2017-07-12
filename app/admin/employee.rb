@@ -1,5 +1,6 @@
 ActiveAdmin.register Employee do
-    menu :priority => 5
+    menu :parent => "Employee Management"
+    #menu :priority => 5
     permit_params :name, :lastname, :username, :document, :area_id, command_list_ids: []
 
     index :title => "Employees" do

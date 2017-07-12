@@ -1,4 +1,5 @@
 ActiveAdmin.register CommandList do
+    menu :parent => "Security Management"
 
     permit_params :name, :description, :network_element_id, :role_id, command_ids: []
     

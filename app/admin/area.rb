@@ -1,5 +1,6 @@
 ActiveAdmin.register Area do
-    menu :priority => 2
+    menu :parent => "Employee Management"
+    #menu :priority => 2
     permit_params :name, :description, network_element_ids: [], employee_ids: []
 
     index :title => "Areas" do
