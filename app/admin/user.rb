@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
   menu :parent => "System"
-  permit_params :email, :password, :password_confirmation, :username, :name
+  permit_params :email, :password, :password_confirmation, :username, :name, :role
 
   index do
     selectable_column
@@ -8,6 +8,7 @@ ActiveAdmin.register User do
     column :name
     column :username
     column :email
+    column :role
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
@@ -18,12 +19,14 @@ ActiveAdmin.register User do
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
+  filter :role
 
   form do |f|
     f.inputs "Admin Details" do
       f.input :name
       f.input :username
       f.input :email
+      f.input :role, as: :select, collection: User::ROLES, :label => 'Role'
       f.input :password
 #      f.input :password, :label => "New Password"
       f.input :password_confirmation
