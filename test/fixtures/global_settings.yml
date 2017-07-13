@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  logpath: MyString
+  loglevel: MyString
+  logfilename: MyString
+  syslogname: MyString
+
+two:
+  logpath: MyString
+  loglevel: MyString
+  logfilename: MyString
+  syslogname: MyString

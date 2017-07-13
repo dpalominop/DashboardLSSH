@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703152210) do
+ActiveRecord::Schema.define(version: 20170713154424) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -86,6 +86,15 @@ ActiveRecord::Schema.define(version: 20170703152210) do
     t.index ["area_id"], name: "index_employees_on_area_id"
     t.index ["document"], name: "index_employees_on_document", unique: true
     t.index ["username"], name: "index_employees_on_username", unique: true
+  end
+
+  create_table "global_settings", force: :cascade do |t|
+    t.string "logpath", default: "/var/log/lssh/"
+    t.string "loglevel", default: "4"
+    t.string "logfilename", default: "%y%m%d-%u"
+    t.string "syslogname", default: "syslog"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "network_elements", force: :cascade do |t|
