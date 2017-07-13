@@ -7,4 +7,6 @@ class User < ApplicationRecord
   validates :username,    :presence => true
 
   ROLES = %i[admin user banned]
+
+  validates :role, :presence => true
 end

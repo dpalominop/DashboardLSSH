@@ -2,7 +2,7 @@ ActiveAdmin.register User do
   menu :parent => "System"
   permit_params :email, :password, :password_confirmation, :username, :name, :role
 
-  index do
+  index :download_links => false do
     selectable_column
     #id_column
     column :name
