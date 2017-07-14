@@ -64,3 +64,6 @@ gem "active_material", github: "vigetlabs/active_material"
 
 # ActiveAdmin Addons
 gem 'activeadmin_addons', github: 'platanus/activeadmin_addons'
+
+# Cancancan
+gem 'cancancan', '~> 2.0'

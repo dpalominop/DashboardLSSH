@@ -5,8 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :username,    :presence => true
+  validates :role,        :presence => true
 
   ROLES = %i[admin user banned]
-
-  validates :role, :presence => true
 end

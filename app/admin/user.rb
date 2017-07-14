@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  menu :parent => "System"
+  menu :parent => "System", :if => proc{ can? :manage, User}
   permit_params :email, :password, :password_confirmation, :username, :name, :role
 
   index :download_links => false do

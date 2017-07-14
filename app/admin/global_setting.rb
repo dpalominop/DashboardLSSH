@@ -1,5 +1,5 @@
 ActiveAdmin.register GlobalSetting, as: "Global Settings" do
-    menu :parent => "System"
+    menu :parent => "System", :if => proc{ can? :manage, User}
     permit_params :logpath, :loglevel, :logfilename, :syslogname
     actions :index, :update, :edit
 
