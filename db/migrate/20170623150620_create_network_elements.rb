@@ -8,5 +8,7 @@ class CreateNetworkElements < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :network_elements, :ip, unique: true
   end
 end
