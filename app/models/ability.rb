@@ -7,6 +7,12 @@ class Ability
       #user ||= User.new # guest user (not logged in)
       if user.role == "admin"
         can :manage, :all
+      elsif user.role == "user"
+        can :manage, :all
+        cannot :manage, User
+        cannot :manage, GlobalSetting
+      else
+        cannot :manage, :all
       end
     #
     # The first argument to `can` is the action you are giving the user
