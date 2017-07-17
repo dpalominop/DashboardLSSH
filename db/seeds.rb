@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create!(name: 'Administador', username: 'admin', email: 'admin@example.com', role: 'admin',password: 'password', password_confirmation: 'password')
 GlobalSetting.create!()
+DefaultPermission.create!()
