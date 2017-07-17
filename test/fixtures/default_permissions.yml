@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  forbidden: MyString
+  warning_counter: 1
+  intro: MyText
+  prompt: MyString
+  timer: 1
+  strict: 1
+  history_file: MyString
+
+two:
+  forbidden: MyString
+  warning_counter: 1
+  intro: MyText
+  prompt: MyString
+  timer: 1
+  strict: 1
+  history_file: MyString

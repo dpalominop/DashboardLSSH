@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713220633) do
+ActiveRecord::Schema.define(version: 20170717205612) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -71,6 +74,18 @@ ActiveRecord::Schema.define(version: 20170713220633) do
 
   create_table "commands", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "default_permissions", force: :cascade do |t|
+    t.string "forbidden", default: "[';', '&', '|','`','>','<', '$(', '${']"
+    t.integer "warning_counter", default: 2
+    t.text "intro", default: "== My personal intro ==\nWelcome to lssh\nType '?' or 'help' to get the list of allowed commands"
+    t.string "prompt", default: "%u@%h"
+    t.integer "timer", default: 5
+    t.integer "strict", default: 0
+    t.string "history_file", default: "/home/%u/.lssh_history"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

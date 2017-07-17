@@ -1,0 +1,2 @@
+class DefaultPermission < ApplicationRecord
+end
