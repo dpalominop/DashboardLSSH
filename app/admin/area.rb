@@ -24,18 +24,32 @@ ActiveAdmin.register Area do
         f.actions
     end
 
-    # show do
-    #     panel "Network Elements" do
-    #         table_for(area.employees) do |e|
-    #             e.column :name
-    #         end
-    #     end
-    # end
+    show do
+        panel "Network Elements" do
+            table_for resource.network_elements do
+                column 'Name' do |ne|
+                    link_to ne.name, admin_network_element_path(ne.id)
+                end
+                column :ip
+                column :port
+            end
+        end
 
-    # sidebar "Area Details", only: :show do
-    #     attributes_table_for area do
-    #         row :name
-    #         row :description
-    #     end
-    # end
+        panel "Employees" do
+            table_for resource.employees do
+                column 'Username' do |emp|
+                    link_to emp.username, admin_employee_path(emp.id)
+                end
+                column :name
+                column :document
+            end
+        end
+    end
+
+    sidebar "Area Details", only: :show do
+        attributes_table_for resource do
+            row :name
+            row :description
+        end
+    end
 end
