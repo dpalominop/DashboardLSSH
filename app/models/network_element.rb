@@ -4,5 +4,5 @@ class NetworkElement < ApplicationRecord
 
     has_many :command_lists
 
-    validates :ip,    :presence => true
+    validates :ip,    :presence => true,  :uniqueness => true
 end
