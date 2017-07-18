@@ -36,11 +36,13 @@ ActiveAdmin.register Employee do
     show title: :username do
         panel "Command Lists" do
             table_for employee.command_lists do
-                column :name
+                column 'Name' do |cl|
+                    link_to cl.name, admin_command_list_path(cl.id)
+                end
                 column :description
-                column 'Network Element' do |emp|
-                    if emp.network_element_id then
-                        link_to NetworkElement.find(emp.network_element_id).name, admin_network_element_path(emp.network_element_id)
+                column 'Network Element' do |cl|
+                    if cl.network_element_id then
+                        link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
                     end
                 end
             end
@@ -53,7 +55,11 @@ ActiveAdmin.register Employee do
             row :lastname
             row :username
             row :document
-            row :area_id
+            row 'Area' do |emp|
+                if emp.area_id then
+                    link_to Area.find(emp.area_id).name, admin_area_path(emp.id)
+                end
+            end
         end
     end
 
