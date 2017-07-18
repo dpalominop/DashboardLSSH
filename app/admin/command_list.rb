@@ -2,7 +2,7 @@ ActiveAdmin.register CommandList do
     menu :parent => "Security Management"
 
     permit_params :name, :description, :network_element_id, :role_id, command_ids: []
-    
+
     index :title => "Commands Lists" do
         selectable_column
         #id_column
@@ -32,7 +32,7 @@ ActiveAdmin.register CommandList do
             f.input :description
             f.input :network_element_id, as: :select, collection: NetworkElement.all, :label => 'Network Elements'
             f.input :role_id, as: :select, collection: Role.all, :label => 'Roles'
-            f.input :command_ids, as: :check_boxes, collection: Command.all, :label => 'Commands'
+            f.input :command_ids, as: :tags, collection: Command.all, :label => 'Commands'
         end
         f.actions
     end
