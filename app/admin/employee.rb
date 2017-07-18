@@ -1,13 +1,12 @@
 ActiveAdmin.register Employee do
     menu :parent => "Employee Management"
     #menu :priority => 5
-    permit_params :name, :lastname, :username, :document, :area_id, command_list_ids: []
+    permit_params :name, :username, :document, :area_id, command_list_ids: []
 
     index :title => "Employees" do
         selectable_column
         #id_column
         column :name
-        column :lastname
         column :username
         column :document
         column 'Area' do |emp|
@@ -24,7 +23,6 @@ ActiveAdmin.register Employee do
     form do |f|
         f.inputs "Employee Details" do
             f.input :name
-            f.input :lastname
             f.input :username
             f.input :document
             f.input :area_id, as: :select, collection: Area.all, :label => 'Area'
@@ -52,7 +50,6 @@ ActiveAdmin.register Employee do
     sidebar "Employee Details", only: :show do
         attributes_table_for employee do
             row :name
-            row :lastname
             row :username
             row :document
             row 'Area' do |emp|
