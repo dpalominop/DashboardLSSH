@@ -10,4 +10,7 @@ class CommandList < ApplicationRecord
 
     validates :network_element_id, :presence => true
     validates :role_id, :presence => true
+
+    validates :network_element_id, uniqueness: { scope: :role_id, message: "This combination with Role has been taken" }
+    validates :role_id, uniqueness: { scope: :network_element_id, message: "This combination with Network Element has been taken" }
 end

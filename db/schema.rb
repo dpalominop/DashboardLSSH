@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718161030) do
+ActiveRecord::Schema.define(version: 20170718162351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20170718161030) do
     t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["network_element_id", "role_id"], name: "index_command_lists_on_network_element_id_and_role_id", unique: true
     t.index ["network_element_id"], name: "index_command_lists_on_network_element_id"
     t.index ["role_id"], name: "index_command_lists_on_role_id"
   end
