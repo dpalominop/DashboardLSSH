@@ -1,7 +1,7 @@
 ActiveAdmin.register CommandList do
     menu :parent => "Security Management"
 
-    permit_params :name, :description, :network_element_id, :role_id, command_ids: []
+    permit_params :name, :description, :network_element_id, :role_id, command_ids: [], sudo_command_ids: []
 
     index :title => "Commands Lists" do
         selectable_column
@@ -26,6 +26,14 @@ ActiveAdmin.register CommandList do
     filter :network_element_id
     filter :role_id
 
+    # member_action :update, method: [:put, :patch] do
+    #   logger.debug "command_list_command_sudo_ids"
+    #   command_sudos_ids = params[:command_list][:command_list_command_sudo_ids]
+    #   params[:command_list] = params[:command_list].except(:command_list_command_sudo_ids)
+    #   CommandListCommandSudo.create(command_list_id: resource.id, command_id: command_sudos_ids)
+    #   update!
+    # end
+
     form do |f|
         f.inputs "Commands Lists Details" do
             f.input :name
@@ -33,6 +41,7 @@ ActiveAdmin.register CommandList do
             f.input :network_element_id, as: :select, collection: NetworkElement.all, :label => 'Network Elements'
             f.input :role_id, as: :select, collection: Role.all, :label => 'Roles'
             f.input :command_ids, as: :tags, collection: Command.all, :label => 'Commands'
+            f.input :sudo_command_ids, as: :tags, collection: SudoCommand.all, :label => 'Sudo Commands'
         end
         f.actions
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718162351) do
+ActiveRecord::Schema.define(version: 20170719225712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(version: 20170718162351) do
     t.integer "employee_id"
     t.index ["command_list_id"], name: "index_command_list_employees_on_command_list_id"
     t.index ["employee_id"], name: "index_command_list_employees_on_employee_id"
+  end
+
+  create_table "command_list_sudo_commands", force: :cascade do |t|
+    t.bigint "command_list_id"
+    t.bigint "sudo_command_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["command_list_id"], name: "index_command_list_sudo_commands_on_command_list_id"
+    t.index ["sudo_command_id"], name: "index_command_list_sudo_commands_on_sudo_command_id"
   end
 
   create_table "command_lists", force: :cascade do |t|
@@ -128,6 +137,12 @@ ActiveRecord::Schema.define(version: 20170718162351) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sudo_commands", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -149,4 +164,6 @@ ActiveRecord::Schema.define(version: 20170718162351) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "command_list_sudo_commands", "command_lists"
+  add_foreign_key "command_list_sudo_commands", "sudo_commands"
 end

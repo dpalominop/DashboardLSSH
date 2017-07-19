@@ -5,6 +5,9 @@ class CommandList < ApplicationRecord
     has_many :command_command_lists, :dependent => :destroy
     has_many :commands, through: :command_command_lists
 
+    has_many :command_list_sudo_commands, :dependent => :destroy
+    has_many :sudo_commands, through: :command_list_sudo_commands
+
     has_many :command_list_employees, :dependent => :destroy
     has_many :employees, through: :command_list_employees
 
