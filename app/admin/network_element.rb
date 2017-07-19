@@ -1,5 +1,5 @@
 ActiveAdmin.register NetworkElement do
-    menu :parent => "Security Management"
+    menu :parent => "Security Management", :priority => 4
     #menu :priority => 3
     permit_params :name, :description, :ip, :port, area_ids: []
 
