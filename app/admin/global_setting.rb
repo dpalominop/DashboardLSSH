@@ -11,9 +11,18 @@ ActiveAdmin.register GlobalSetting, as: "Global Settings" do
         column :logpath
         column :loglevel
         column :logfilename
-        column :syslogname
+        #column :syslogname
         column :created_at
         actions
+    end
+
+    form do |f|
+        f.inputs "Default Permissions" do
+            f.input :logpath
+            f.input :loglevel
+            f.input :logfilename
+        end
+        f.actions
     end
 
 end
