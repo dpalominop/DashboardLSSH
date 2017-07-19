@@ -20,13 +20,25 @@ ActiveAdmin.register Employee do
     filter :username
     filter :document
 
+
+    # collection_action :change_command_list, method: :get do
+    #     network_elements = AreaNetworkElement.where(area_id: params[:area_id]).pluck(:network_element_id)
+    #     logger.debug network_elements
+    #     command_lists = CommandList.where(id: network_elements)
+    #     logger.debug command_lists.ids
+    #     tmp = command_lists.ids
+    #     logger.debug "tmp: "
+    #     logger.debug tmp
+    #     render json: command_lists.map { |cl| cl.as_json(only: [:id, :name]) }
+    # end
+
     form do |f|
         f.inputs "Employee Details" do
             f.input :name
             f.input :username
             f.input :document
-            f.input :area_id, as: :select, collection: Area.all, :label => 'Area'
-            f.input :command_list_ids, as: :tags, collection: CommandList.all, :label => 'Command Lists'
+            #f.input :area_id, as: :select, collection: Area.all, :label => 'Area'
+            f.input :command_list_ids, as: :tags, collection: CommandList.where(network_element_id: AreaNetworkElement.where(area_id: resource.area_id).pluck(:network_element_id)), :label => 'Command Lists'
         end
         f.actions
     end
