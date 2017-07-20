@@ -21,6 +21,10 @@ ActiveAdmin.register User do
   filter :created_at
   filter :role
 
+  collection_action :new_list, method: :get do
+      render json: User.group_by_day(:created_at).count
+  end
+
   form do |f|
     f.inputs "Admin Details" do
       f.input :name

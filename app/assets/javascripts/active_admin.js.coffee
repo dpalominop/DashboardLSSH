@@ -2,6 +2,9 @@
 #= require activeadmin_addons/all
 #= require active_material
 
+#= require Chart.bundle
+#= require chartkick
+
 #$(document).ready () -> alert "Javascript y Jquery estan cargados."
 # $(document).ready(function(){
 #           #capturamos el vento onchange dentro del selecctor ID

@@ -3,34 +3,21 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
   content title: proc{ I18n.t("active_admin.dashboard") } do
-    div class: "blank_slate_container", id: "dashboard_default_message" do
-      #span class: "blank_slate" do
-        #span I18n.t("active_admin.dashboard_welcome.welcome")
-        #small I18n.t("active_admin.dashboard_welcome.call_to_action")
-      #end
-      columns do
-        # column do
-        #   panel "Recent Users" do
-        #     ul do
-        #       User.all.map do |user|
-        #         li link_to(user.username, admin_user_path(user))
-        #       end
-        #     end
-        #     ul do
-        #       User.all.map do |user|
-        #         li link_to(user.username, admin_user_path(user))
-        #       end
-        #     end
-        #   end
-        # end
 
-        column do
-          panel "Info" do
-            para "Welcome."
-          end
-        end
+  columns do
+    column do
+      panel "User Creation" do
+        line_chart new_list_admin_users_path, download: true
       end
-
     end
+  end
+  columns do
+    column do
+      panel "Network Element Creation" do
+        line_chart NetworkElement.group_by_day_of_week(:created_at, format: "%a").count, download: true
+      end
+    end
+  end
+
   end # content
 end
