@@ -52,6 +52,12 @@ ActiveAdmin.register CommandList do
                 column :name
             end
         end
+
+        panel "Sudo Commands" do
+            table_for command_list.sudo_commands do
+                column :name
+            end
+        end
     end
 
     sidebar "Commands Lists Details", only: :show do
