@@ -73,7 +73,7 @@ gem 'activeadmin_addons', github: 'platanus/activeadmin_addons'
 gem 'cancancan', '~> 2.0'
 
 #Graph
-gem 'chartkick', github: 'ankane/chartkick'
+gem 'chartkick'
 
 #Agroupar por fecha
 gem 'groupdate'

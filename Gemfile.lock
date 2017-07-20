@@ -17,12 +17,6 @@ GIT
       sprockets (< 4.1)
 
 GIT
-  remote: https://github.com/ankane/chartkick.git
-  revision: 125472aa56ae41193072105da63c52f488343c4e
-  specs:
-    chartkick (2.2.4)
-
-GIT
   remote: https://github.com/platanus/activeadmin_addons.git
   revision: 05b6f86653ff08831f6134d7e046cd8867e790b2
   specs:
@@ -94,6 +88,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    chartkick (2.2.4)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     coffee-rails (4.2.2)
@@ -275,7 +270,7 @@ DEPENDENCIES
   byebug
   cancancan (~> 2.0)
   capybara (~> 2.13)
-  chartkick!
+  chartkick
   coffee-rails (~> 4.2)
   devise
   groupdate
