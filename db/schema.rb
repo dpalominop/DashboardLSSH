@@ -129,8 +129,16 @@ ActiveRecord::Schema.define(version: 20170801145921) do
     t.integer "port"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "protocol"
+    t.bigint "protocol_id"
     t.index ["ip"], name: "index_network_elements_on_ip", unique: true
+    t.index ["protocol_id"], name: "index_network_elements_on_protocol_id"
+  end
+
+  create_table "protocols", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_protocols_on_name", unique: true
   end
 
   create_table "roles", force: :cascade do |t|
@@ -169,4 +177,5 @@ ActiveRecord::Schema.define(version: 20170801145921) do
 
   add_foreign_key "command_list_sudo_commands", "command_lists"
   add_foreign_key "command_list_sudo_commands", "sudo_commands"
+  add_foreign_key "network_elements", "protocols"
 end

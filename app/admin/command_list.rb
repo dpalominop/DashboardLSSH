@@ -1,5 +1,5 @@
 ActiveAdmin.register CommandList do
-    menu :parent => "Security Management", :priority => 3
+    menu :parent => "Security Management", :priority => 2
 
     permit_params :name, :description, :network_element_id, :role_id, command_ids: [], sudo_command_ids: []
 
