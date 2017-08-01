@@ -17,6 +17,6 @@
     <%= f.actions do %>
         <%= f.action :submit, label: t("active_admin_import.import_btn"), button_html: {disable_with: t("active_admin_import.import_btn_disabled")} %>
         <!-- <%= f.action :cancel, label: t("Cancels")%> -->
-        <%= link_to 'Cancel', admin_areas_path()%>
+        <%= f.action(:cancel, label: t("Cancel"))%>
     <% end %>
 <% end %>

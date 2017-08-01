@@ -5,7 +5,7 @@ ActiveAdmin.register CommandList do
                           template_object: ActiveAdminImport::Model.new(
                               hint: "Configure CSV options",
                               force_encoding: :auto,
-                              csv_options: { col_sep: ";", row_sep: nil, quote_char: nil }
+                              csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           )
     permit_params :name, :description, :network_element_id, :role_id, command_ids: [], sudo_command_ids: []
 

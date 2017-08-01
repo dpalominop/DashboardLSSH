@@ -6,14 +6,14 @@ ActiveAdmin.register Area do
                           template_object: ActiveAdminImport::Model.new(
                               hint: "Configure CSV options",
                               force_encoding: :auto,
-                              csv_options: { col_sep: ";", row_sep: nil, quote_char: nil }
+                              csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           )
 
     permit_params :name, :description, network_element_ids: [], employee_ids: []
 
     index :title => "Areas" do
         selectable_column
-        #id_column
+        id_column
         column :name
         column :description
         actions
