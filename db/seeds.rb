@@ -8,3 +8,5 @@
 User.create!(name: 'Administador', username: 'admin', email: 'admin@example.com', role: 'admin',password: 'password', password_confirmation: 'password')
 GlobalSetting.create!()
 DefaultPermission.create!()
+Protocol.create!(name: 'ssh')
+Protocol.create!(name: 'telnet')

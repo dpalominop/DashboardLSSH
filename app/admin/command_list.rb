@@ -38,8 +38,8 @@ ActiveAdmin.register CommandList do
         f.inputs "Commands Lists Details" do
             f.input :name
             f.input :description
-            f.input :network_element_id, as: :select, collection: NetworkElement.all, :label => 'Network Elements'
-            f.input :role_id, as: :select, collection: Role.all, :label => 'Roles'
+            f.input :network_element_id, as: :select, collection: NetworkElement.all, :label => 'Network Element'
+            f.input :role_id, as: :select, collection: Role.all, :label => 'Role'
             f.input :command_ids, as: :tags, collection: Command.all, :label => 'Commands'
             f.input :sudo_command_ids, as: :tags, collection: SudoCommand.all, :label => 'Sudo Commands'
         end
