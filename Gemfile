@@ -69,6 +69,9 @@ gem "active_material", github: "vigetlabs/active_material"
 # ActiveAdmin Addons
 gem 'activeadmin_addons', github: 'platanus/activeadmin_addons'
 
+# ActiveAdmin Upload Data
+gem "active_admin_import" , github: "activeadmin-plugins/active_admin_import"
+
 # Cancancan
 gem 'cancancan', '~> 2.0'
 

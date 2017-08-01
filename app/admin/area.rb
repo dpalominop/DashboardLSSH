@@ -1,6 +1,14 @@
 ActiveAdmin.register Area do
     menu :parent => "Employee Management"
     #menu :priority => 2
+    active_admin_import validate: true,
+                          template: 'import' ,
+                          template_object: ActiveAdminImport::Model.new(
+                              hint: "Configure CSV options",
+                              force_encoding: :auto,
+                              csv_options: { col_sep: ";", row_sep: nil, quote_char: nil }
+                          )
+
     permit_params :name, :description, network_element_ids: [], employee_ids: []
 
     index :title => "Areas" do

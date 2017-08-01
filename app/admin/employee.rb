@@ -3,6 +3,22 @@ ActiveAdmin.register Employee do
     #menu :priority => 5
     permit_params :name, :username, :document, :area_id, command_list_ids: []
 
+    member_action :update, method: [:put, :patch] do
+      #SudoCommand.find(params[:id]).update(name: params[:command][:name])
+      update!
+    end
+
+    member_action :create, method: [:post] do
+      #SudoCommand.create(name: params[:command][:name])
+      create!
+    end
+
+    member_action :destroy, method: [:delete] do
+      #SudoCommand.find(params[:id]).destroy
+      destroy!
+    end
+
+
     index :title => "Employees" do
         selectable_column
         #id_column
