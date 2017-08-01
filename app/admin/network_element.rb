@@ -1,7 +1,7 @@
 ActiveAdmin.register NetworkElement do
     menu :parent => "Security Management", :priority => 4
     #menu :priority => 3
-    permit_params :name, :description, :ip, :port, area_ids: []
+    permit_params :name, :description, :ip, :port, :protocol, area_ids: []
 
     index :title => "Network Elements" do
         selectable_column
@@ -10,6 +10,7 @@ ActiveAdmin.register NetworkElement do
         column :description
         column :ip
         column :port
+        column :protocol
         actions
     end
 
@@ -17,6 +18,7 @@ ActiveAdmin.register NetworkElement do
     filter :description
     filter :ip
     filter :port
+    filter :protocol
 
     form do |f|
         f.inputs "Network Element Details" do
@@ -24,6 +26,7 @@ ActiveAdmin.register NetworkElement do
             f.input :description
             f.input :ip
             f.input :port
+            f.input :protocol
             f.input :area_ids, as: :check_boxes, collection: Area.all, :label => 'Areas'
         end
         f.actions
@@ -51,6 +54,7 @@ ActiveAdmin.register NetworkElement do
             row :description
             row :ip
             row :port
+            row :protocol
         end
     end
 end
