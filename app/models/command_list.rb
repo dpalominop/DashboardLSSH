@@ -11,6 +11,8 @@ class CommandList < ApplicationRecord
     has_many :command_list_employees, :dependent => :destroy
     has_many :employees, through: :command_list_employees
 
+    validates :name,    :presence => true,  :uniqueness => true, :case_sensitive => false
+
     validates :network_element_id, :presence => true
     validates :role_id, :presence => true
 
