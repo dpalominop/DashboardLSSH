@@ -1,6 +1,12 @@
 ActiveAdmin.register CommandList do
     menu :parent => "Security Management", :priority => 2
-
+    active_admin_import validate: true,
+                          template: 'import' ,
+                          template_object: ActiveAdminImport::Model.new(
+                              hint: "Configure CSV options",
+                              force_encoding: :auto,
+                              csv_options: { col_sep: ";", row_sep: nil, quote_char: nil }
+                          )
     permit_params :name, :description, :network_element_id, :role_id, command_ids: [], sudo_command_ids: []
 
     index :title => "Commands Lists" do
