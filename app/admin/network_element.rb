@@ -6,11 +6,19 @@ ActiveAdmin.register NetworkElement do
     index :title => "Network Elements" do
         selectable_column
         #id_column
-        column :name
+        column 'Name' do |ne|
+            if ne.name then
+                link_to ne.name, admin_network_element_path(ne.id)
+            end
+        end
         column :description
         column :ip
         column :port
-        column :protocol_id
+        column 'Protocol' do |ne|
+            if ne.protocol_id then
+                link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)
+            end
+        end
         actions
     end
 
