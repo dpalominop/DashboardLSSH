@@ -7,7 +7,7 @@ ActiveAdmin.register CommandList do
                               force_encoding: :auto,
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
-                          back: -> {  config.namespace.resource_for(CommandList).route_collection_path }
+                          back: -> { config.namespace.resource_for(CommandList).route_collection_path }
     permit_params :name, :description, :network_element_id, :role_id, command_ids: [], sudo_command_ids: []
 
     index :title => "Commands Lists" do

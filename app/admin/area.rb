@@ -8,7 +8,7 @@ ActiveAdmin.register Area do
                               force_encoding: :auto,
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
-                          back: -> {  config.namespace.resource_for(Area).route_collection_path }
+                          back: -> { config.namespace.resource_for(Area).route_collection_path }
 
     permit_params :name, :description, network_element_ids: [], employee_ids: []
 

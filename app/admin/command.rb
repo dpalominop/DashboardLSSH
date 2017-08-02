@@ -10,7 +10,7 @@ ActiveAdmin.register Command do
                         after_batch_import: ->(importer) {
                            SudoCommand.create!(importer.values_at('name').map { |x| {name: x} })
                         },
-                        back: -> {  config.namespace.resource_for(Command).route_collection_path }
+                        back: -> { config.namespace.resource_for(Command).route_collection_path }
 
   permit_params :name, :active_admin_import_model
 
