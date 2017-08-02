@@ -6,16 +6,23 @@ ActiveAdmin.register Command do
                             hint: "Configure CSV options",
                             force_encoding: :auto,
                             csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
-                        )
-    permit_params :name
+                        ),
+                        after_batch_import: ->(importer) {
+                           SudoCommand.create!(importer.values_at('name').map { |x| {name: x} })
+                        },
+                        back: -> {  config.namespace.resource_for(Command).route_collection_path }
+
+  permit_params :name, :active_admin_import_model
 
   member_action :update, method: [:put, :patch] do
     SudoCommand.find(params[:id]).update(name: params[:command][:name])
     update!
   end
 
-  member_action :create, method: [:post] do
-    SudoCommand.create(name: params[:command][:name])
+  collection_action :create, method: [:post] do
+    if params[:command] then
+      SudoCommand.create(name: params[:command][:name])
+    end
     create!
   end
 
