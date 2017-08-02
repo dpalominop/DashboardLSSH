@@ -7,7 +7,8 @@ ActiveAdmin.register NetworkElement do
                               hint: "Configure CSV options",
                               force_encoding: :auto,
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
-                          )
+                          ),
+                          back: -> {  config.namespace.resource_for(NetworkElement).route_collection_path }
     permit_params :name, :description, :ip, :port, :protocol_id, area_ids: []
 
     index :title => "Network Elements" do
