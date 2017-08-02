@@ -13,8 +13,8 @@ ActiveAdmin.register_page "Dashboard" do
   end
   columns do
     column do
-      panel "Network Element Creation" do
-        line_chart NetworkElement.group_by_day_of_week(:created_at, format: "%a").count, download: true
+      panel "Employees Creation" do
+        line_chart Employee.group_by_day_of_week(:created_at, format: "%a").count, download: true
       end
     end
   end
