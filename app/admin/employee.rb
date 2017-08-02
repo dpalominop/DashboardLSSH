@@ -7,7 +7,8 @@ ActiveAdmin.register Employee do
                               hint: "Configure CSV options",
                               force_encoding: :auto,
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
-                          )
+                          ),
+                        back: -> {  config.namespace.resource_for(Employee).route_collection_path }
     permit_params :name, :username, :document, :area_id, command_list_ids: []
 
     index :title => "Employees" do
