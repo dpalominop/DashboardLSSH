@@ -8,7 +8,11 @@ ActiveAdmin.register Command do
                             csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                         ),
                         after_batch_import: ->(importer) {
-                           SudoCommand.create!(importer.values_at('name').map { |x| {name: x} })
+                           importer.values_at('name').map { |x| x }.each do |name|
+                             if Command.exists?(name: name) && not SudoCommand.exists?(name: name)
+                               SudoCommand.create!(name: name)
+                             end
+                           end
                         },
                         back: -> { config.namespace.resource_for(Command).route_collection_path }
 

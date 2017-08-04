@@ -8,7 +8,16 @@ ActiveAdmin.register Employee do
                               force_encoding: :auto,
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
-                        back: -> { config.namespace.resource_for(Employee).route_collection_path }
+                          after_batch_import: ->(importer) {
+                            Server.all.each do |server|
+                              importer.values_at('username').map { |x| x }.each do |username|
+                                if Employee.exists?(username: username)
+                                  server.addUser(username: username)
+                                end
+                              end
+                            end
+                          },
+                          back: -> { config.namespace.resource_for(Employee).route_collection_path }
     permit_params :name, :username, :document, :area_id, command_list_ids: []
 
     index :title => "Employees" do
@@ -28,6 +37,32 @@ ActiveAdmin.register Employee do
     filter :username
     filter :document
 
+    member_action :update, method: [:put, :patch] do
+      employee = Employee.find(params[:id])
+      if employee.username != params[:employee][:username]
+        Server.all.each do |server|
+          server.delUser(username: employee.username)
+          server.addUser(username: params[:employee][:username])
+        end
+      end
+      update!
+    end
+
+    collection_action :create, method: [:post] do
+      if params[:employee] then
+        Server.all.each do |server|
+          server.addUser(username: params[:employee][:username])
+        end
+      end
+      create!
+    end
+
+    member_action :destroy, method: [:delete] do
+      Server.all.each do |server|
+        server.delUser(username: Employee.find(params[:id]).username)
+      end
+      destroy!
+    end
 
     # collection_action :change_command_list, method: :get do
     #     network_elements = AreaNetworkElement.where(area_id: params[:area_id]).pluck(:network_element_id)

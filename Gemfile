@@ -75,8 +75,11 @@ gem "active_admin_import" , github: "activeadmin-plugins/active_admin_import"
 # Cancancan
 gem 'cancancan', '~> 2.0'
 
-#Graph
+# Graph
 gem 'chartkick'
 
-#Agroupar por fecha
+# Agroupar por fecha
 gem 'groupdate'
+
+# SSH
+gem 'net-ssh'
