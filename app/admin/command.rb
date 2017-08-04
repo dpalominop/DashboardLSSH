@@ -9,7 +9,7 @@ ActiveAdmin.register Command do
                         ),
                         after_batch_import: ->(importer) {
                            importer.values_at('name').map { |x| x }.each do |name|
-                             if Command.exists?(name: name) && not SudoCommand.exists?(name: name)
+                             if Command.exists?(name: name) && not(SudoCommand.exists?(name: name))
                                SudoCommand.create!(name: name)
                              end
                            end
