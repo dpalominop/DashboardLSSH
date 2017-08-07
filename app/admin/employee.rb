@@ -9,11 +9,15 @@ ActiveAdmin.register Employee do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           before_batch_import: ->(importer){
-                              area_names = importer.values_at('area_id')
-                              # replacing author name with author id
-                              areas   = Area.where(name: area_names).pluck(:name, :id)
-                              options = Hash[*areas.flatten] # #{"Jane" => 2, "John" => 1}
-                              importer.batch_replace('area_id', options) #replacing "Jane" with 1, etc
+                              begin
+                                area_names = importer.values_at('area_id')
+                                # replacing author name with author id
+                                areas   = Area.where(name: area_names).pluck(:name, :id)
+                                options = Hash[*areas.flatten] # #{"Jane" => 2, "John" => 1}
+                                importer.batch_replace('area_id', options) #replacing "Jane" with 1, etc
+                              rescue
+
+                              end
                           },
                           after_batch_import: ->(importer) {
                             Server.all.each do |server|
