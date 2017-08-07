@@ -5,6 +5,6 @@ class Employee < ApplicationRecord
     has_many :command_lists, through: :command_list_employees
 
     validates :name,    :presence => true
-    validates :username,    :presence => true, :uniqueness => true, :case_sensitive => false
-    validates :document,    :presence => true, :uniqueness => true
+    validates :username,    :presence => true, :uniqueness => {:case_sensitive => false}
+    validates :document,    :presence => true, :uniqueness => {:case_sensitive => false}
 end

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :username,    :presence => true,  :uniqueness => true, :case_sensitive => false
+  validates :username,    :presence => true,  :uniqueness => {:case_sensitive => false}
   validates :role,        :presence => true
 
   ROLES = %i[admin user banned]

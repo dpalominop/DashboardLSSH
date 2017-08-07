@@ -1,5 +1,5 @@
 class Server < ApplicationRecord
-  validates :hostname,    :presence => true,  :uniqueness => true, :case_sensitive => false
+  validates :hostname,    :presence => true,  :uniqueness => {:case_sensitive => false}
   validates :ip,          :presence => true
   validates :port,        :presence => true
   validates :username,    :presence => true
