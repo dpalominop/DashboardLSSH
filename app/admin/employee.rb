@@ -91,7 +91,7 @@ ActiveAdmin.register Employee do
             f.input :name
             f.input :username
             f.input :document
-            #f.input :area_id, as: :select, collection: Area.all, :label => 'Area'
+            f.input :area_id, as: :select, collection: Area.all, :label => 'Area'
             f.input :command_list_ids, as: :tags, collection: CommandList.where(network_element_id: AreaNetworkElement.where(area_id: resource.area_id).pluck(:network_element_id)), :label => 'Command Lists'
         end
         f.actions
