@@ -6,10 +6,13 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "10.123.120.195", user: "sa", roles: %w{db}
-server "10.123.120.196", user: "sa", roles: %w{web db}
-server "10.123.120.197", user: "sa", roles: %w{web}
-server "10.123.120.198", user: "sa", roles: %w{web}
-server "10.123.120.199", user: "sa", roles: %w{web}
+
+ask(:username, nil, echo: true)
+ask(:password, nil, echo: false)
+server "10.123.120.196", user: fetch(:username), password: fetch(:password), roles: %w{web db}
+server "10.123.120.197", user: fetch(:username), password: fetch(:password), roles: %w{web}
+server "10.123.120.198", user: fetch(:username), password: fetch(:password), roles: %w{web}
+server "10.123.120.199", user: fetch(:username), password: fetch(:password), roles: %w{web}
 
 
 
