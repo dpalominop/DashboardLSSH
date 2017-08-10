@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804160224) do
+ActiveRecord::Schema.define(version: 20170810164908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,6 +157,18 @@ ActiveRecord::Schema.define(version: 20170804160224) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "network_element_id"
+    t.bigint "server_id"
+    t.datetime "initiation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["network_element_id"], name: "index_sessions_on_network_element_id"
+    t.index ["server_id"], name: "index_sessions_on_server_id"
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "sudo_commands", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -188,4 +200,7 @@ ActiveRecord::Schema.define(version: 20170804160224) do
   add_foreign_key "command_list_sudo_commands", "command_lists"
   add_foreign_key "command_list_sudo_commands", "sudo_commands"
   add_foreign_key "network_elements", "protocols"
+  add_foreign_key "sessions", "network_elements"
+  add_foreign_key "sessions", "servers"
+  add_foreign_key "sessions", "users"
 end
