@@ -158,15 +158,19 @@ ActiveRecord::Schema.define(version: 20170810164908) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "employee_id"
     t.bigint "network_element_id"
     t.bigint "server_id"
     t.datetime "initiation"
+    t.string "document_file_name"
+    t.string "document_content_type"
+    t.integer "document_file_size"
+    t.datetime "document_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_sessions_on_employee_id"
     t.index ["network_element_id"], name: "index_sessions_on_network_element_id"
     t.index ["server_id"], name: "index_sessions_on_server_id"
-    t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "sudo_commands", force: :cascade do |t|
@@ -200,7 +204,7 @@ ActiveRecord::Schema.define(version: 20170810164908) do
   add_foreign_key "command_list_sudo_commands", "command_lists"
   add_foreign_key "command_list_sudo_commands", "sudo_commands"
   add_foreign_key "network_elements", "protocols"
+  add_foreign_key "sessions", "employees"
   add_foreign_key "sessions", "network_elements"
   add_foreign_key "sessions", "servers"
-  add_foreign_key "sessions", "users"
 end
