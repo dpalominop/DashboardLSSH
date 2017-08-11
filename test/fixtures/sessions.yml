@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  network_element: one
+  server: one
+  initiation: 2017-08-10 11:49:08
+
+two:
+  user: two
+  network_element: two
+  server: two
+  initiation: 2017-08-10 11:49:08
