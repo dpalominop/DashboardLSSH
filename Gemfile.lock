@@ -10,6 +10,14 @@ GIT
       mimemagic (~> 0.3.0)
 
 GIT
+  remote: git@github.com:spectator/paperclip-sftp.git
+  revision: 47c47812efc6b25bad101fa31ce348e05bf72e55
+  specs:
+    paperclip-sftp (1.0.5)
+      net-sftp (>= 2.0.5)
+      paperclip (>= 3.2.0)
+
+GIT
   remote: https://github.com/activeadmin-plugins/active_admin_import.git
   revision: d5922a75886b93721607dc1abe584803d4bf6256
   specs:
@@ -207,6 +215,8 @@ GEM
     multi_json (1.12.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
     nio4r (2.1.0)
     nokogiri (1.8.0)
@@ -336,6 +346,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   net-ssh
   paperclip!
+  paperclip-sftp!
   pg
   puma (~> 3.7)
   rails (~> 5.1.1)

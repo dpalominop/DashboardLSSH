@@ -97,3 +97,5 @@ group :development do
 end
 
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+# gem "paperclip-storage-ftp"
+gem 'paperclip-sftp', git: "git@github.com:spectator/paperclip-sftp.git"
