@@ -26,6 +26,11 @@ ActiveAdmin.register Session do
       actions
   end
 
+  filter :employee_id
+  filter :network_element_id
+  filter :server_id
+  filter :initiation
+
   form do |f|
     f.inputs "Session Details" do
       f.input :employee_id, as: :select, collection: Employee.all, :label => 'Employee'
