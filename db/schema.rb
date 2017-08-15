@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810164908) do
+ActiveRecord::Schema.define(version: 20170815214728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20170810164908) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "management_id"
+    t.index ["management_id"], name: "index_areas_on_management_id"
   end
 
   create_table "command_command_lists", force: :cascade do |t|
@@ -101,6 +103,15 @@ ActiveRecord::Schema.define(version: 20170810164908) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "directions", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "vice_presidency_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vice_presidency_id"], name: "index_directions_on_vice_presidency_id"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -120,6 +131,15 @@ ActiveRecord::Schema.define(version: 20170810164908) do
     t.string "syslogname", default: "syslog"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "managements", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "direction_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["direction_id"], name: "index_managements_on_direction_id"
   end
 
   create_table "network_elements", force: :cascade do |t|
@@ -180,6 +200,15 @@ ActiveRecord::Schema.define(version: 20170810164908) do
     t.index ["name"], name: "index_sudo_commands_on_name", unique: true
   end
 
+  create_table "surveillances", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "area_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["area_id"], name: "index_surveillances_on_area_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -201,6 +230,14 @@ ActiveRecord::Schema.define(version: 20170810164908) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "vice_presidencies", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "areas", "managements"
   add_foreign_key "command_list_sudo_commands", "command_lists"
   add_foreign_key "command_list_sudo_commands", "sudo_commands"
   add_foreign_key "network_elements", "protocols"

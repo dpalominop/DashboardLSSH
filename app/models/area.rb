@@ -1,4 +1,6 @@
 class Area < ApplicationRecord
+    belongs_to :management
+
     has_many :area_network_elements, :dependent => :destroy
     has_many :network_elements, through: :area_network_elements
 

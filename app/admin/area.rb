@@ -1,5 +1,5 @@
-ActiveAdmin.register Area do
-    menu :parent => "Employee Management"
+ActiveAdmin.register Area, :as => "Leadership" do
+    menu :parent => "Employee Management", :priority => 4
     #menu :priority => 2
     active_admin_import validate: true,
                           template: 'import' ,
@@ -12,7 +12,7 @@ ActiveAdmin.register Area do
 
     permit_params :name, :description, network_element_ids: [], employee_ids: []
 
-    index :title => "Areas" do
+    index :title => "Leadership" do
         selectable_column
         # id_column
         column :name
@@ -24,7 +24,7 @@ ActiveAdmin.register Area do
     filter :description
 
     form do |f|
-        f.inputs "Area Details" do
+        f.inputs "Leadership Details" do
             f.input :name
             f.input :description
             f.input :network_element_ids, as: :tags, collection: NetworkElement.all, :label => 'Network Elements'
@@ -33,7 +33,7 @@ ActiveAdmin.register Area do
         f.actions
     end
 
-    show do
+    show :title => 'Leadership' do
         panel "Network Elements" do
             table_for resource.network_elements do
                 column 'Name' do |ne|
@@ -55,7 +55,7 @@ ActiveAdmin.register Area do
         end
     end
 
-    sidebar "Area Details", only: :show do
+    sidebar "Leadership Details", only: :show do
         attributes_table_for resource do
             row :name
             row :description
