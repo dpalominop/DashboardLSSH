@@ -1,6 +1,7 @@
 ActiveAdmin.register Session do
   menu :parent => "Security Management", :priority => 4
   permit_params :employee_id, :network_element_id, :server_id, :initiation, :document
+  actions :index, :show
 
   index :title => "Sessions" do
       selectable_column
