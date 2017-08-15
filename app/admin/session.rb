@@ -6,9 +6,21 @@ ActiveAdmin.register Session do
   index :title => "Sessions" do
       selectable_column
       # id_column
-      column :employee_id
-      column :network_element_id
-      column :server_id
+      column 'Employee' do |se|
+          if se.employee_id then
+              link_to Employee.find(se.employee_id).name, admin_employee_path(se.employee_id)
+          end
+      end
+      column 'Network Element' do |se|
+          if se.network_element_id then
+              link_to NetworkElement.find(se.network_element_id).name, admin_network_element_path(se.network_element_id)
+          end
+      end
+      column 'Server' do |se|
+          if se.server_id then
+              link_to Server.find(se.server_id).hostname, admin_server_path(se.server_id)
+          end
+      end
       column :initiation
       attachment_column :document
       actions
@@ -26,17 +38,25 @@ ActiveAdmin.register Session do
     f.actions
   end
 
-  show do |ad|
+  show do |se|
     attributes_table do
-      row :employee_id
-      row :network_element_id
-      row :server_id
+      row 'Employee' do |se|
+          if se.employee_id then
+              link_to Employee.find(se.employee_id).name, admin_employee_path(se.employee_id)
+          end
+      end
+      row 'Networ Element' do |se|
+          if se.network_element_id then
+              link_to NetworkElement.find(se.network_element_id).name, admin_network_element_path(se.network_element_id)
+          end
+      end
+      row 'Server' do |se|
+          if se.server_id then
+              link_to Server.find(se.server_id).hostname, admin_server_path(se.server_id)
+          end
+      end
       row :initiation
       attachment_row :document
-        # row :document do
-        #   image_tag(ad.document.url(:thumb))
-        # end
-      # Will display the image on show object page
     end
   end
 end
