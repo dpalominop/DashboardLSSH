@@ -1,6 +1,5 @@
 ActiveAdmin.register Area, :as => "Leadership" do
     menu :parent => "Employee Management", :priority => 4
-    #menu :priority => 2
     active_admin_import validate: true,
                           template: 'import' ,
                           template_object: ActiveAdminImport::Model.new(
