@@ -11,6 +11,18 @@ ActiveAdmin.register NetworkElement do
                           back: -> { config.namespace.resource_for(NetworkElement).route_collection_path }
     permit_params :name, :description, :ip, :port, :protocol_id, area_ids: []
 
+    member_action :clone, method: :post do
+      @network_element = resource.dup
+      render :new, layout: false
+
+      # ne = resource.clone!
+      # redirect_to edit_admin_network_element_path( ne )
+    end
+
+    action_item :clone, :only => :show do
+      link_to("Make a Copy", clone_admin_network_element_path(id: network_element.id))
+    end
+
     index :title => "Network Elements" do
         selectable_column
         #id_column
@@ -27,7 +39,10 @@ ActiveAdmin.register NetworkElement do
                 link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)
             end
         end
-        actions
+        # actions
+        actions defaults: true do |ne|
+          link_to('Clone', clone_admin_network_element_path(id: ne.id), method: :post)
+        end
     end
 
     filter :name
