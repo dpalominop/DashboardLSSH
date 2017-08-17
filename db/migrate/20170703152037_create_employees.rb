@@ -5,7 +5,7 @@ class CreateEmployees < ActiveRecord::Migration[5.1]
       t.string :lastname
       t.string :username
       t.string :document
-      t.references :area, foreign_key: true
+      t.references :surveillance, foreign_key: true
 
       t.timestamps
     end

@@ -10,11 +10,11 @@ ActiveAdmin.register Employee do
                           ),
                           before_batch_import: ->(importer){
                               begin
-                                area_names = importer.values_at('area_id')
+                                surveillance_names = importer.values_at('survaillance_id')
                                 # replacing author name with author id
-                                areas   = Area.where(name: area_names).pluck(:name, :id)
-                                options = Hash[*areas.flatten] # #{"Jane" => 2, "John" => 1}
-                                importer.batch_replace('area_id', options) #replacing "Jane" with 1, etc
+                                surveillances   = Surveillance.where(name: surveillance_names).pluck(:name, :id)
+                                options = Hash[*surveillances.flatten] # #{"Jane" => 2, "John" => 1}
+                                importer.batch_replace('survaillance_id', options) #replacing "Jane" with 1, etc
                               rescue
 
                               end
@@ -96,9 +96,9 @@ ActiveAdmin.register Employee do
                   level_1: { attribute: :vice_presidency_id },
                   level_2: { attribute: :direction_id },
                   level_3: { attribute: :management_id },
-                  level_4: { attribute: :area_id },
+                  level_4: { attribute: :leadership_id },
                   level_5: { attribute: :surveillance_id }
-            f.input :command_list_ids, as: :tags, collection: CommandList.where(network_element_id: AreaNetworkElement.where(area_id: resource.surveillance_id).pluck(:network_element_id)), :label => 'Command Lists'
+            f.input :command_list_ids, as: :tags, collection: CommandList.where(network_element_id: SurveillanceNetworkElement.where(surveillance_id: resource.surveillance_id).pluck(:network_element_id)), :label => 'Command Lists'
         end
         f.actions
     end

@@ -9,7 +9,7 @@ ActiveAdmin.register NetworkElement do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           back: -> { config.namespace.resource_for(NetworkElement).route_collection_path }
-    permit_params :name, :description, :ip, :port, :protocol_id, area_ids: []
+    permit_params :name, :description, :ip, :port, :protocol_id, surveillance_ids: []
 
     member_action :clone, method: :post do
       @network_element = resource.dup
@@ -58,14 +58,14 @@ ActiveAdmin.register NetworkElement do
             f.input :ip
             f.input :port
             f.input :protocol_id, as: :select, collection: Protocol.all, :label => 'Protocol'
-            f.input :area_ids, as: :check_boxes, collection: Area.all, :label => 'Areas'
+            f.input :surveillance_ids, as: :check_boxes, collection: Surveillance.all, :label => 'Surveillances'
         end
         f.actions
     end
 
     show do
-        panel "Areas to which belongs " do
-            table_for network_element.areas do
+        panel "Surveillances to which belongs " do
+            table_for network_element.surveillances do
                 column :name
                 column :description
             end

@@ -7,7 +7,7 @@ class CreateDefaultPermissions < ActiveRecord::Migration[5.1]
       t.string :prompt, :default => "%u@%h"
       t.integer :timer, :default => 5
       t.integer :strict, :default => 0
-      t.string :history_file, :default => "/home/%u/.lssh_history"
+      t.string :history_file, :default => "/var/log/sa/"
 
       t.timestamps
     end

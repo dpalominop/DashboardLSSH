@@ -1,4 +1,4 @@
-ActiveAdmin.register Area, :as => "Leadership" do
+ActiveAdmin.register Leadership do
     menu :parent => "Employee Management", :priority => 4
     active_admin_import validate: true,
                           template: 'import' ,
@@ -7,7 +7,7 @@ ActiveAdmin.register Area, :as => "Leadership" do
                               force_encoding: :auto,
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
-                          back: -> { config.namespace.resource_for(Area).route_collection_path }
+                          back: -> { config.namespace.resource_for(Surveillance).route_collection_path }
 
     permit_params :name, :description, :management_id, network_element_ids: [], employee_ids: []
 

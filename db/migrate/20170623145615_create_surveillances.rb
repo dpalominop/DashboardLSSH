@@ -3,7 +3,7 @@ class CreateSurveillances < ActiveRecord::Migration[5.1]
     create_table :surveillances do |t|
       t.string :name
       t.string :description
-      t.references :area
+      t.references :leadership
 
       t.timestamps
     end

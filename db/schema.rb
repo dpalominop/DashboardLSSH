@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817163426) do
+ActiveRecord::Schema.define(version: 20170810164908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20170817163426) do
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.string "author_type"
-    t.integer "author_id"
+    t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -29,27 +29,9 @@ ActiveRecord::Schema.define(version: 20170817163426) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "area_network_elements", force: :cascade do |t|
-    t.integer "area_id"
-    t.integer "network_element_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["area_id"], name: "index_area_network_elements_on_area_id"
-    t.index ["network_element_id"], name: "index_area_network_elements_on_network_element_id"
-  end
-
-  create_table "areas", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "management_id"
-    t.index ["management_id"], name: "index_areas_on_management_id"
-  end
-
   create_table "command_command_lists", force: :cascade do |t|
-    t.integer "command_id"
-    t.integer "command_list_id"
+    t.bigint "command_id"
+    t.bigint "command_list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["command_id"], name: "index_command_command_lists_on_command_id"
@@ -57,8 +39,8 @@ ActiveRecord::Schema.define(version: 20170817163426) do
   end
 
   create_table "command_list_employees", force: :cascade do |t|
-    t.integer "command_list_id"
-    t.integer "employee_id"
+    t.bigint "command_list_id"
+    t.bigint "employee_id"
     t.index ["command_list_id"], name: "index_command_list_employees_on_command_list_id"
     t.index ["employee_id"], name: "index_command_list_employees_on_employee_id"
   end
@@ -75,8 +57,8 @@ ActiveRecord::Schema.define(version: 20170817163426) do
   create_table "command_lists", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "network_element_id"
-    t.integer "role_id"
+    t.bigint "network_element_id"
+    t.bigint "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["network_element_id", "role_id"], name: "index_command_lists_on_network_element_id_and_role_id", unique: true
@@ -98,7 +80,7 @@ ActiveRecord::Schema.define(version: 20170817163426) do
     t.string "prompt", default: "%u@%h"
     t.integer "timer", default: 5
     t.integer "strict", default: 0
-    t.string "history_file", default: "/home/%u/.lssh_history"
+    t.string "history_file", default: "/var/log/sa/"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -116,9 +98,9 @@ ActiveRecord::Schema.define(version: 20170817163426) do
     t.string "name"
     t.string "username"
     t.string "document"
+    t.bigint "surveillance_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "surveillance_id"
     t.index ["document"], name: "index_employees_on_document", unique: true
     t.index ["surveillance_id"], name: "index_employees_on_surveillance_id"
     t.index ["username"], name: "index_employees_on_username", unique: true
@@ -133,6 +115,15 @@ ActiveRecord::Schema.define(version: 20170817163426) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "leaderships", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "management_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["management_id"], name: "index_leaderships_on_management_id"
+  end
+
   create_table "managements", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -144,7 +135,7 @@ ActiveRecord::Schema.define(version: 20170817163426) do
 
   create_table "network_elements", force: :cascade do |t|
     t.string "name"
-    t.text "description"
+    t.string "description"
     t.string "ip"
     t.integer "port"
     t.datetime "created_at", null: false
@@ -200,13 +191,22 @@ ActiveRecord::Schema.define(version: 20170817163426) do
     t.index ["name"], name: "index_sudo_commands_on_name", unique: true
   end
 
+  create_table "surveillance_network_elements", force: :cascade do |t|
+    t.bigint "surveillance_id"
+    t.bigint "network_element_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["network_element_id"], name: "index_surveillance_network_elements_on_network_element_id"
+    t.index ["surveillance_id"], name: "index_surveillance_network_elements_on_surveillance_id"
+  end
+
   create_table "surveillances", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "area_id"
+    t.bigint "leadership_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["area_id"], name: "index_surveillances_on_area_id"
+    t.index ["leadership_id"], name: "index_surveillances_on_leadership_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -237,12 +237,19 @@ ActiveRecord::Schema.define(version: 20170817163426) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "areas", "managements"
+  add_foreign_key "command_command_lists", "command_lists"
+  add_foreign_key "command_command_lists", "commands"
+  add_foreign_key "command_list_employees", "command_lists"
+  add_foreign_key "command_list_employees", "employees"
   add_foreign_key "command_list_sudo_commands", "command_lists"
   add_foreign_key "command_list_sudo_commands", "sudo_commands"
+  add_foreign_key "command_lists", "network_elements"
+  add_foreign_key "command_lists", "roles"
   add_foreign_key "employees", "surveillances"
   add_foreign_key "network_elements", "protocols"
   add_foreign_key "sessions", "employees"
   add_foreign_key "sessions", "network_elements"
   add_foreign_key "sessions", "servers"
+  add_foreign_key "surveillance_network_elements", "network_elements"
+  add_foreign_key "surveillance_network_elements", "surveillances"
 end

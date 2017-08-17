@@ -5,11 +5,11 @@ one:
   last_name: MyString
   username: MyString
   document: MyString
-  area: one
+  surveillance: one
 
 two:
   name: MyString
   last_name: MyString
   username: MyString
   document: MyString
-  area: two
+  surveillance: two
