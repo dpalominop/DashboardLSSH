@@ -76,7 +76,10 @@ ActiveAdmin.register Employee do
     end
 
     # collection_action :change_command_list, method: :get do
-    #     network_elements = AreaNetworkElement.where(area_id: params[:area_id]).pluck(:network_element_id)
+    #     logger.debug "************"
+    #     logger.debug params
+    #     network_elements = SurveillanceNetworkElement.where(surveillance_id: params[:surveillance_id]).pluck(:network_element_id)
+    #     network_elements = [1]
     #     logger.debug network_elements
     #     command_lists = CommandList.where(id: network_elements)
     #     logger.debug command_lists.ids
@@ -91,14 +94,16 @@ ActiveAdmin.register Employee do
             f.input :name
             f.input :username
             f.input :document
-            # f.input :area_id, as: :select, collection: Area.all, :label => 'Area'
-            f.input :surveillance_id, as: :nested_select,
-                  level_1: { attribute: :vice_presidency_id },
-                  level_2: { attribute: :direction_id },
-                  level_3: { attribute: :management_id },
-                  level_4: { attribute: :leadership_id },
-                  level_5: { attribute: :surveillance_id }
+            f.input :surveillance_id, as: :nested_select, minimum_input_length: 0,
+                  level_1: { attribute: :vice_presidency_id, collection: VicePresidency.all },
+                  level_2: { attribute: :direction_id, collection: Direction.all },
+                  level_3: { attribute: :management_id, collection: Management.all },
+                  level_4: { attribute: :leadership_id, collection: Leadership.all },
+                  level_5: { attribute: :surveillance_id, collection: Surveillance.all }
             f.input :command_list_ids, as: :tags, collection: CommandList.where(network_element_id: SurveillanceNetworkElement.where(surveillance_id: resource.surveillance_id).pluck(:network_element_id)), :label => 'Command Lists'
+            # f.input :command_list_ids, as: :search_select, collection: CommandList.all,
+            #       url: change_command_list_admin_employees_path,
+            #       fields: [:surveillance_id], order_by: 'name_desc'
         end
         f.actions
     end

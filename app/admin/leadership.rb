@@ -9,7 +9,7 @@ ActiveAdmin.register Leadership do
                           ),
                           back: -> { config.namespace.resource_for(Surveillance).route_collection_path }
 
-    permit_params :name, :description, :management_id, network_element_ids: [], employee_ids: []
+    permit_params :name, :description, :management_id
 
     # index :title => "Leadership" do
     #     selectable_column
