@@ -9,7 +9,7 @@ ActiveAdmin.register Area, :as => "Leadership" do
                           ),
                           back: -> { config.namespace.resource_for(Area).route_collection_path }
 
-    permit_params :name, :description, network_element_ids: [], employee_ids: []
+    permit_params :name, :description, :management_id, network_element_ids: [], employee_ids: []
 
     index :title => "Leadership" do
         selectable_column

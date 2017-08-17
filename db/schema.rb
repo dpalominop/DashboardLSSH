@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815214728) do
+ActiveRecord::Schema.define(version: 20170817163426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,11 +116,11 @@ ActiveRecord::Schema.define(version: 20170815214728) do
     t.string "name"
     t.string "username"
     t.string "document"
-    t.integer "area_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["area_id"], name: "index_employees_on_area_id"
+    t.bigint "surveillance_id"
     t.index ["document"], name: "index_employees_on_document", unique: true
+    t.index ["surveillance_id"], name: "index_employees_on_surveillance_id"
     t.index ["username"], name: "index_employees_on_username", unique: true
   end
 
@@ -240,6 +240,7 @@ ActiveRecord::Schema.define(version: 20170815214728) do
   add_foreign_key "areas", "managements"
   add_foreign_key "command_list_sudo_commands", "command_lists"
   add_foreign_key "command_list_sudo_commands", "sudo_commands"
+  add_foreign_key "employees", "surveillances"
   add_foreign_key "network_elements", "protocols"
   add_foreign_key "sessions", "employees"
   add_foreign_key "sessions", "network_elements"

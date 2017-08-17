@@ -29,7 +29,7 @@ ActiveAdmin.register Employee do
                             end
                           },
                           back: -> { config.namespace.resource_for(Employee).route_collection_path }
-    permit_params :name, :username, :document, :area_id, command_list_ids: []
+    permit_params :name, :username, :document, :surveillance_id, command_list_ids: []
 
     index :title => "Employees" do
         selectable_column
@@ -37,9 +37,9 @@ ActiveAdmin.register Employee do
         column :name
         column :username
         column :document
-        column 'Area' do |emp|
-            if emp.area_id then
-                link_to Area.find(emp.area_id).name, admin_area_path(emp.area_id)
+        column 'Surveillance' do |emp|
+            if emp.surveillance_id then
+                link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
             end
         end
         actions
@@ -91,8 +91,14 @@ ActiveAdmin.register Employee do
             f.input :name
             f.input :username
             f.input :document
-            f.input :area_id, as: :select, collection: Area.all, :label => 'Area'
-            f.input :command_list_ids, as: :tags, collection: CommandList.where(network_element_id: AreaNetworkElement.where(area_id: resource.area_id).pluck(:network_element_id)), :label => 'Command Lists'
+            # f.input :area_id, as: :select, collection: Area.all, :label => 'Area'
+            f.input :surveillance_id, as: :nested_select,
+                  level_1: { attribute: :vice_presidency_id },
+                  level_2: { attribute: :direction_id },
+                  level_3: { attribute: :management_id },
+                  level_4: { attribute: :area_id },
+                  level_5: { attribute: :surveillance_id }
+            f.input :command_list_ids, as: :tags, collection: CommandList.where(network_element_id: AreaNetworkElement.where(area_id: resource.surveillance_id).pluck(:network_element_id)), :label => 'Command Lists'
         end
         f.actions
     end
@@ -118,9 +124,9 @@ ActiveAdmin.register Employee do
             row :name
             row :username
             row :document
-            row 'Area' do |emp|
-                if emp.area_id then
-                    link_to Area.find(emp.area_id).name, admin_area_path(emp.id)
+            row 'Surveillance' do |emp|
+                if emp.surveillance_id then
+                    link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.id)
                 end
             end
         end
