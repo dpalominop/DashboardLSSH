@@ -11,53 +11,55 @@ ActiveAdmin.register Leadership do
 
     permit_params :name, :description, :management_id, network_element_ids: [], employee_ids: []
 
-    index :title => "Leadership" do
-        selectable_column
-        # id_column
-        column :name
-        column :description
-        actions
-    end
+    # index :title => "Leadership" do
+    #     selectable_column
+    #     # id_column
+    #     column :name
+    #     column :description
+    #     column :management_id
+    #     actions
+    # end
 
     filter :name
     filter :description
 
-    form do |f|
-        f.inputs "Leadership Details" do
-            f.input :name
-            f.input :description
-            f.input :network_element_ids, as: :tags, collection: NetworkElement.all, :label => 'Network Elements'
-            f.input :employee_ids, as: :tags, collection: Employee.all, :label => 'Employee'
-        end
-        f.actions
-    end
+    # form do |f|
+    #     f.inputs "Leadership Details" do
+    #         f.input :management_id
+    #         f.input :name
+    #         f.input :description
+    #         # f.input :network_element_ids, as: :tags, collection: NetworkElement.all, :label => 'Network Elements'
+    #         # f.input :employee_ids, as: :tags, collection: Employee.all, :label => 'Employee'
+    #     end
+    #     f.actions
+    # end
 
-    show :title => 'Leadership' do
-        panel "Network Elements" do
-            table_for resource.network_elements do
-                column 'Name' do |ne|
-                    link_to ne.name, admin_network_element_path(ne.id)
-                end
-                column :ip
-                column :port
-            end
-        end
+    # show :title => 'Leadership' do
+    #     # panel "Network Elements" do
+    #     #     table_for resource.network_elements do
+    #     #         column 'Name' do |ne|
+    #     #             link_to ne.name, admin_network_element_path(ne.id)
+    #     #         end
+    #     #         column :ip
+    #     #         column :port
+    #     #     end
+    #     # end
+    #
+    #     # panel "Employees" do
+    #     #     table_for resource.employees do
+    #     #         column 'Username' do |emp|
+    #     #             link_to emp.username, admin_employee_path(emp.id)
+    #     #         end
+    #     #         column :name
+    #     #         column :document
+    #     #     end
+    #     # end
+    # end
 
-        panel "Employees" do
-            table_for resource.employees do
-                column 'Username' do |emp|
-                    link_to emp.username, admin_employee_path(emp.id)
-                end
-                column :name
-                column :document
-            end
-        end
-    end
-
-    sidebar "Leadership Details", only: :show do
-        attributes_table_for resource do
-            row :name
-            row :description
-        end
-    end
+    # sidebar "Leadership Details", only: :show do
+    #     attributes_table_for resource do
+    #         row :name
+    #         row :description
+    #     end
+    # end
 end
