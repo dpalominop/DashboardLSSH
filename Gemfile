@@ -94,6 +94,9 @@ group :development do
 
   # Remove the following if your server does not use RVM
   gem 'capistrano-rvm'
+
+  # Capistrano Rails DB
+  gem 'capistrano-rails-db'
 end
 
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
