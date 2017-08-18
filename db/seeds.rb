@@ -19,6 +19,9 @@ Role.create!(name: 'Soporte')
 #Default Commands
 Command.create!(name: 'ls')
 Command.create!(name: 'cd')
-#Default SudoCommands
+# Default SudoCommands
 SudoCommand.create!(name: 'ls')
 SudoCommand.create!(name: 'cd')
+# Default States
+State.create!(name: 'development')
+State.create!(name: 'production')
