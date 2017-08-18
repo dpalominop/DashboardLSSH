@@ -1,5 +1,5 @@
 ActiveAdmin.register NetworkElement do
-    menu :parent => "Security Management", :priority => 4
+    menu :parent => "Security Management", :priority => 7
     #menu :priority => 3
     active_admin_import validate: true,
                           template: 'import' ,

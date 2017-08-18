@@ -1,5 +1,5 @@
 ActiveAdmin.register Session do
-  menu :parent => "Security Management", :priority => 4
+  menu :parent => "System", :if => proc{ can? :manage, User}
   permit_params :employee_id, :network_element_id, :server_id, :initiation, :document
   actions :index, :show, :destroy
 
