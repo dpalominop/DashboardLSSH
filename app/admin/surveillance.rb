@@ -17,7 +17,7 @@ ActiveAdmin.register Surveillance do
 
   form do |f|
       f.inputs "Surveillance Details" do
-          f.input :leadership_id
+          f.input :leadership_id, as: :select, collection: Leadership.all, :label => 'Leadership'
           f.input :name
           f.input :description
           f.input :network_element_ids, as: :tags, collection: NetworkElement.all, :label => 'Network Elements'
