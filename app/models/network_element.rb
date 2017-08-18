@@ -4,6 +4,8 @@ class NetworkElement < ApplicationRecord
 
     has_many :command_lists
 
+    belongs_to :type
+
     validates :name,    :presence => true,  :uniqueness => {:case_sensitive => false}
     validates :ip,    :presence => true,  :uniqueness => {:case_sensitive => false}
     validates :port, :presence => true

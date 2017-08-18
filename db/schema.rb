@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810164908) do
+ActiveRecord::Schema.define(version: 20170818214048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,8 +141,20 @@ ActiveRecord::Schema.define(version: 20170810164908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "protocol_id"
+    t.bigint "type_id"
     t.index ["ip"], name: "index_network_elements_on_ip", unique: true
     t.index ["protocol_id"], name: "index_network_elements_on_protocol_id"
+    t.index ["type_id"], name: "index_network_elements_on_type_id"
+  end
+
+  create_table "platforms", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "location"
+    t.bigint "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_id"], name: "index_platforms_on_state_id"
   end
 
   create_table "protocols", force: :cascade do |t|
@@ -184,6 +196,12 @@ ActiveRecord::Schema.define(version: 20170810164908) do
     t.index ["server_id"], name: "index_sessions_on_server_id"
   end
 
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sudo_commands", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -207,6 +225,24 @@ ActiveRecord::Schema.define(version: 20170810164908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["leadership_id"], name: "index_surveillances_on_leadership_id"
+  end
+
+  create_table "systems", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "platform_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform_id"], name: "index_systems_on_platform_id"
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "system_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["system_id"], name: "index_types_on_system_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -247,9 +283,13 @@ ActiveRecord::Schema.define(version: 20170810164908) do
   add_foreign_key "command_lists", "roles"
   add_foreign_key "employees", "surveillances"
   add_foreign_key "network_elements", "protocols"
+  add_foreign_key "network_elements", "types"
+  add_foreign_key "platforms", "states"
   add_foreign_key "sessions", "employees"
   add_foreign_key "sessions", "network_elements"
   add_foreign_key "sessions", "servers"
   add_foreign_key "surveillance_network_elements", "network_elements"
   add_foreign_key "surveillance_network_elements", "surveillances"
+  add_foreign_key "systems", "platforms"
+  add_foreign_key "types", "systems"
 end
