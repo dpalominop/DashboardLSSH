@@ -59,6 +59,10 @@ ActiveAdmin.register NetworkElement do
             f.input :port
             f.input :protocol_id, as: :select, collection: Protocol.all, :label => 'Protocol'
             f.input :surveillance_ids, as: :check_boxes, collection: Surveillance.all, :label => 'Surveillances'
+            f.input :type_id, as: :nested_select, minimum_input_length: 0,
+                  level_1: { attribute: :platform_id, collection: Platform.all },
+                  level_2: { attribute: :system_id, collection: System.all },
+                  level_3: { attribute: :type_id, collection: Type.all }
         end
         f.actions
     end
