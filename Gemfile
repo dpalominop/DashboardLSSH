@@ -87,7 +87,7 @@ gem 'net-ssh'
 group :development do
   gem 'capistrano'
   gem 'capistrano-bundler'
-  gem 'capistrano-passenger', '>= 0.1.1'
+  gem 'capistrano-passenger'
 
   # Remove the following if your app does not use Rails
   gem 'capistrano-rails'
@@ -97,9 +97,6 @@ group :development do
 
   # Capistrano Rails DB
   gem 'capistrano-rails-db'
-
-  # Capistrano Restart
-  gem 'capistrano-passenger-restart'
 end
 
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"

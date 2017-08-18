@@ -35,3 +35,4 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 set :rvm_ruby_version, 'ruby-2.4.1@DashboardLssh'
+set :passenger_restart_command, 'passenger-config restart-app'
