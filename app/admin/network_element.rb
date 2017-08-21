@@ -9,7 +9,7 @@ ActiveAdmin.register NetworkElement do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           back: -> { config.namespace.resource_for(NetworkElement).route_collection_path }
-    permit_params :name, :description, :ip, :port, :protocol_id, surveillance_ids: []
+    permit_params :name, :description, :ip, :port, :protocol_id, :type_id, surveillance_ids: []
 
     member_action :clone, method: :post do
       @network_element = resource.dup
