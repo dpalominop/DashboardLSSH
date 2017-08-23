@@ -1,6 +1,6 @@
 ActiveAdmin.register Surveillance do
   menu :parent => "Employee Management", :priority => 5
-  permit_params :name, :description, :leadership_id, network_element_ids: [], employee_ids: []
+  permit_params :name, :description, :leadership_id, platform_ids: [], employee_ids: []
 
   # index :title => "Surveillance" do
   #     selectable_column
@@ -13,27 +13,24 @@ ActiveAdmin.register Surveillance do
 
   filter :name
   filter :description
-  filter :network_elements
 
   form do |f|
       f.inputs "Surveillance Details" do
           f.input :leadership_id, as: :select, collection: Leadership.all, :label => 'Leadership'
           f.input :name
           f.input :description
-          f.input :network_element_ids, as: :tags, collection: NetworkElement.all, :label => 'Network Elements'
+          f.input :platform_ids, as: :tags, collection: Platform.all, :label => 'Platforms'
           f.input :employee_ids, as: :tags, collection: Employee.all, :label => 'Employee'
       end
       f.actions
   end
 
   show :title => 'Surveillance' do
-      panel "Network Elements" do
-          table_for resource.network_elements do
-              column 'Name' do |ne|
-                  link_to ne.name, admin_network_element_path(ne.id)
+      panel "Platforms" do
+          table_for resource.platforms do
+              column 'Name' do |pl|
+                  link_to pl.name, admin_platform_path(pl.id)
               end
-              column :ip
-              column :port
           end
       end
 

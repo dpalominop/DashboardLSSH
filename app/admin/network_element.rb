@@ -9,7 +9,7 @@ ActiveAdmin.register NetworkElement do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           back: -> { config.namespace.resource_for(NetworkElement).route_collection_path }
-    permit_params :name, :description, :ip, :port, :protocol_id, :type_id, surveillance_ids: []
+    permit_params :name, :description, :ip, :port, :protocol_id, :type_id
 
     member_action :clone, method: :post do
       @network_element = resource.dup
@@ -58,7 +58,6 @@ ActiveAdmin.register NetworkElement do
             f.input :ip
             f.input :port
             f.input :protocol_id, as: :select, collection: Protocol.all, :label => 'Protocol'
-            f.input :surveillance_ids, as: :check_boxes, collection: Surveillance.all, :label => 'Surveillances'
             f.input :type_id, as: :nested_select, minimum_input_length: 0,
                   level_1: { attribute: :platform_id, collection: Platform.all },
                   level_2: { attribute: :system_id, collection: System.all },
@@ -68,13 +67,6 @@ ActiveAdmin.register NetworkElement do
     end
 
     show do
-        panel "Surveillances to which belongs " do
-            table_for network_element.surveillances do
-                column :name
-                column :description
-            end
-        end
-
         panel "Assigned Commands lists " do
             table_for network_element.command_lists do
                 column :name

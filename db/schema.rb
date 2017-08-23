@@ -154,6 +154,15 @@ ActiveRecord::Schema.define(version: 20170818234324) do
     t.index ["type_id"], name: "index_network_elements_on_type_id"
   end
 
+  create_table "platform_surveillances", force: :cascade do |t|
+    t.bigint "platform_id"
+    t.bigint "surveillance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform_id"], name: "index_platform_surveillances_on_platform_id"
+    t.index ["surveillance_id"], name: "index_platform_surveillances_on_surveillance_id"
+  end
+
   create_table "platforms", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -217,15 +226,6 @@ ActiveRecord::Schema.define(version: 20170818234324) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_sudo_commands_on_name", unique: true
-  end
-
-  create_table "surveillance_network_elements", force: :cascade do |t|
-    t.bigint "surveillance_id"
-    t.bigint "network_element_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["network_element_id"], name: "index_surveillance_network_elements_on_network_element_id"
-    t.index ["surveillance_id"], name: "index_surveillance_network_elements_on_surveillance_id"
   end
 
   create_table "surveillances", force: :cascade do |t|
@@ -301,14 +301,14 @@ ActiveRecord::Schema.define(version: 20170818234324) do
   add_foreign_key "employees", "surveillances"
   add_foreign_key "network_elements", "protocols"
   add_foreign_key "network_elements", "types"
+  add_foreign_key "platform_surveillances", "platforms"
+  add_foreign_key "platform_surveillances", "surveillances"
   add_foreign_key "platforms", "locations"
   add_foreign_key "platforms", "states"
   add_foreign_key "platforms", "vendors"
   add_foreign_key "sessions", "employees"
   add_foreign_key "sessions", "network_elements"
   add_foreign_key "sessions", "servers"
-  add_foreign_key "surveillance_network_elements", "network_elements"
-  add_foreign_key "surveillance_network_elements", "surveillances"
   add_foreign_key "systems", "platforms"
   add_foreign_key "types", "systems"
 end

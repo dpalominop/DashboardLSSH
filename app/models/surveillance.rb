@@ -1,8 +1,8 @@
 class Surveillance < ApplicationRecord
   belongs_to :leadership
 
-  has_many :surveillance_network_elements, :dependent => :destroy
-  has_many :network_elements, through: :surveillance_network_elements
+  has_many :platform_surveillances, :dependent => :destroy
+  has_many :platforms, through: :platform_surveillances
 
   has_many :employees
 

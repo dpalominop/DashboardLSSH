@@ -1,7 +1,4 @@
 class NetworkElement < ApplicationRecord
-    has_many :surveillance_network_elements, :dependent => :destroy
-    has_many :surveillances, through: :surveillance_network_elements
-
     has_many :command_lists
 
     belongs_to :type

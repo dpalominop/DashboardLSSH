@@ -100,7 +100,18 @@ ActiveAdmin.register Employee do
                   level_3: { attribute: :management_id, collection: Management.all },
                   level_4: { attribute: :leadership_id, collection: Leadership.all },
                   level_5: { attribute: :surveillance_id, collection: Surveillance.all }
-            f.input :command_list_ids, as: :tags, collection: CommandList.where(network_element_id: SurveillanceNetworkElement.where(surveillance_id: resource.surveillance_id).pluck(:network_element_id)), :label => 'Command Lists'
+            f.input :command_list_ids, as: :tags,
+                    collection: CommandList.where(network_element:
+                      NetworkElement.where(type:
+                        Type.where(system:
+                          System.where(platform_id:
+                            PlatformSurveillance.where(
+                              surveillance_id: resource.surveillance_id
+                            ).pluck(:platform_id)
+                          )
+                        )
+                      )
+                    ), :label => 'Command Lists'
             # f.input :command_list_ids, as: :search_select, collection: CommandList.all,
             #       url: change_command_list_admin_employees_path,
             #       fields: [:surveillance_id], order_by: 'name_desc'
