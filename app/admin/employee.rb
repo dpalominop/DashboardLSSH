@@ -101,16 +101,10 @@ ActiveAdmin.register Employee do
                   level_4: { attribute: :leadership_id, collection: Leadership.all },
                   level_5: { attribute: :surveillance_id, collection: Surveillance.all }
             f.input :command_list_ids, as: :tags,
-                    collection: CommandList.where(network_element:
-                      NetworkElement.where(type:
-                        Type.where(system:
-                          System.where(platform_id:
-                            PlatformSurveillance.where(
-                              surveillance_id: resource.surveillance_id
-                            ).pluck(:platform_id)
-                          )
-                        )
-                      )
+                    collection: CommandList.where(platform_id:
+                      PlatformSurveillance.where(surveillance_id:
+                        resource.surveillance_id
+                      ).pluck(:platform_id)
                     ), :label => 'Command Lists'
             # f.input :command_list_ids, as: :search_select, collection: CommandList.all,
             #       url: change_command_list_admin_employees_path,
@@ -122,15 +116,24 @@ ActiveAdmin.register Employee do
     show title: :username do
         panel "Command Lists" do
             table_for employee.command_lists do
+                column 'Platform' do |cl|
+                    link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
+                end
+                column 'System' do |cl|
+                    link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
+                end
+                column 'Type' do |cl|
+                    link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
+                end
                 column 'Name' do |cl|
                     link_to cl.name, admin_command_list_path(cl.id)
                 end
                 column :description
-                column 'Network Element' do |cl|
-                    if cl.network_element_id then
-                        link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
-                    end
-                end
+                # column 'Network Element' do |cl|
+                #     if cl.network_element_id then
+                #         link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
+                #     end
+                # end
             end
         end
     end

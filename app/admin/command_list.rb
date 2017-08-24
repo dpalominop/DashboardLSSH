@@ -8,18 +8,32 @@ ActiveAdmin.register CommandList do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           back: -> { config.namespace.resource_for(CommandList).route_collection_path }
-    permit_params :name, :description, :network_element_id, :role_id, command_ids: [], sudo_command_ids: []
+    permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, command_ids: [], sudo_command_ids: []
 
     index :title => "Commands Lists" do
         selectable_column
         #id_column
-        column :name
-        column :description
-        column 'Network Element' do |cl|
-            if cl.network_element_id then
-                link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
+        column 'Platform' do |cl|
+            if cl.platform_id then
+                link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
             end
         end
+        column 'System' do |cl|
+            if cl.system_id then
+                link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
+            end
+        end
+        column 'Type' do |cl|
+            if cl.type_id then
+                link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
+            end
+        end
+        column 'Name' do |cl|
+            if cl.name then
+                link_to cl.name, admin_network_element_path(cl.id)
+            end
+        end
+        column :description
         column 'Role' do |cl|
             if cl.role_id then
                 link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
@@ -30,7 +44,6 @@ ActiveAdmin.register CommandList do
 
     filter :name
     filter :description
-    filter :network_element_id
     filter :role_id
 
     # member_action :update, method: [:put, :patch] do
@@ -43,9 +56,11 @@ ActiveAdmin.register CommandList do
 
     form do |f|
         f.inputs "Commands Lists Details" do
+            f.input :platform_id, as: :select, collection: Platform.all, :label => 'Platform'
+            f.input :system_id, as: :select, collection: System.all, :label => 'System'
+            f.input :type_id, as: :select, collection: Type.all, :label => 'Type'
             f.input :name
             f.input :description
-            f.input :network_element_id, as: :select, collection: NetworkElement.all, :label => 'Network Element'
             f.input :role_id, as: :select, collection: Role.all, :label => 'Role'
             f.input :command_ids, as: :tags, collection: Command.all, :label => 'Commands'
             f.input :sudo_command_ids, as: :tags, collection: SudoCommand.all, :label => 'Sudo Commands'
@@ -65,17 +80,32 @@ ActiveAdmin.register CommandList do
                 column :name
             end
         end
+
+        panel "Assigned Network Elements " do
+            table_for NetworkElement.where(platform: command_list.platform_id,
+                                        system:command_list.system_id,
+                                        type: command_list.type_id) do |ne|
+                column 'Name' do |ne|
+                    link_to ne.name, admin_network_element_path(ne.id)
+                end
+                column :description
+            end
+        end
     end
 
     sidebar "Commands Lists Details", only: :show do
         attributes_table_for command_list do
+            row 'Platform' do |cl|
+                link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
+            end
+            row 'System' do |cl|
+                link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
+            end
+            row 'Type' do |cl|
+                link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
+            end
             row :name
             row :description
-            row 'Network Element' do |cl|
-                if cl.network_element_id then
-                    link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
-                end
-            end
             row 'Role' do |cl|
                 if cl.role_id then
                     link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)

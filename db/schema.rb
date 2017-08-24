@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824211946) do
+ActiveRecord::Schema.define(version: 20170824224035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,13 +57,16 @@ ActiveRecord::Schema.define(version: 20170824211946) do
   create_table "command_lists", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "network_element_id"
     t.bigint "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["network_element_id", "role_id"], name: "index_command_lists_on_network_element_id_and_role_id", unique: true
-    t.index ["network_element_id"], name: "index_command_lists_on_network_element_id"
+    t.bigint "platform_id"
+    t.bigint "system_id"
+    t.bigint "type_id"
+    t.index ["platform_id"], name: "index_command_lists_on_platform_id"
     t.index ["role_id"], name: "index_command_lists_on_role_id"
+    t.index ["system_id"], name: "index_command_lists_on_system_id"
+    t.index ["type_id"], name: "index_command_lists_on_type_id"
   end
 
   create_table "commands", force: :cascade do |t|
@@ -296,8 +299,10 @@ ActiveRecord::Schema.define(version: 20170824211946) do
   add_foreign_key "command_list_employees", "employees"
   add_foreign_key "command_list_sudo_commands", "command_lists"
   add_foreign_key "command_list_sudo_commands", "sudo_commands"
-  add_foreign_key "command_lists", "network_elements"
+  add_foreign_key "command_lists", "platforms"
   add_foreign_key "command_lists", "roles"
+  add_foreign_key "command_lists", "systems"
+  add_foreign_key "command_lists", "types"
   add_foreign_key "employees", "surveillances"
   add_foreign_key "network_elements", "platforms"
   add_foreign_key "network_elements", "protocols"

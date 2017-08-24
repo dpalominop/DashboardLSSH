@@ -82,7 +82,9 @@ ActiveAdmin.register NetworkElement do
 
     show do
         panel "Assigned Commands lists " do
-            table_for network_element.command_lists do
+            table_for CommandList.where(platform: network_element.platform_id,
+                                        system:network_element.system_id,
+                                        type: network_element.type_id) do
                 column 'Name' do |cl|
                     link_to cl.name, admin_command_list_path(cl.id)
                 end

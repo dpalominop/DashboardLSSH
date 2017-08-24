@@ -1,6 +1,4 @@
 class NetworkElement < ApplicationRecord
-    has_many :command_lists
-
     belongs_to :type
     belongs_to :system
     belongs_to :platform

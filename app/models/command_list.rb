@@ -1,5 +1,7 @@
 class CommandList < ApplicationRecord
-    belongs_to :network_element
+    belongs_to :platform
+    belongs_to :system
+    belongs_to :type
     belongs_to :role
 
     has_many :command_command_lists, :dependent => :destroy
@@ -13,9 +15,11 @@ class CommandList < ApplicationRecord
 
     validates :name,    :presence => true,  :uniqueness => true, :case_sensitive => false
 
-    validates :network_element_id, :presence => true
+    validates :platform_id, :presence => true
+    validates :system_id, :presence => true
+    validates :type_id, :presence => true
     validates :role_id, :presence => true
 
-    validates :network_element_id, uniqueness: { :case_sensitive => false, scope: :role_id, message: "This combination with Role has been taken" }
-    validates :role_id, uniqueness: { :case_sensitive => false, scope: :network_element_id, message: "This combination with Network Element has been taken" }
+    validates :type_id, uniqueness: { :case_sensitive => false, scope: :role_id, message: "This combination with Role has been taken" }
+    validates :role_id, uniqueness: { :case_sensitive => false, scope: :type, message: "This combination with Type has been taken" }
 end
