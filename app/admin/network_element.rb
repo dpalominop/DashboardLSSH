@@ -83,7 +83,9 @@ ActiveAdmin.register NetworkElement do
     show do
         panel "Assigned Commands lists " do
             table_for network_element.command_lists do
-                column :name
+                column 'Name' do |cl|
+                    link_to cl.name, admin_command_list_path(cl.id)
+                end
                 column :description
             end
         end
@@ -91,11 +93,22 @@ ActiveAdmin.register NetworkElement do
 
     sidebar "Network Element Details", only: :show do
         attributes_table_for network_element do
+            row 'Platform' do |ne|
+                link_to Platform.find(ne.platform_id).name, admin_platform_path(ne.platform_id)
+            end
+            row 'System' do |ne|
+                link_to System.find(ne.system_id).name, admin_system_path(ne.system_id)
+            end
+            row 'Type' do |ne|
+                link_to Type.find(ne.type_id).name, admin_type_path(ne.type_id)
+            end
             row :name
             row :description
             row :ip
             row :port
-            row :protocol_id
+            row 'Protocol' do |ne|
+                link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)
+            end
         end
     end
 end
