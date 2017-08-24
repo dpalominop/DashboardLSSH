@@ -26,12 +26,27 @@ ActiveAdmin.register NetworkElement do
     index :title => "Network Elements" do
         selectable_column
         #id_column
+        column 'Platform' do |ne|
+            if ne.platform_id then
+                link_to Platform.find(ne.platform_id).name, admin_platform_path(ne.platform_id)
+            end
+        end
+        column 'System' do |ne|
+            if ne.system_id then
+                link_to System.find(ne.system_id).name, admin_system_path(ne.system_id)
+            end
+        end
+        column 'Type' do |ne|
+            if ne.type_id then
+                link_to Type.find(ne.type_id).name, admin_type_path(ne.type_id)
+            end
+        end
         column 'Name' do |ne|
             if ne.name then
                 link_to ne.name, admin_network_element_path(ne.id)
             end
         end
-        column :description
+        # column :description
         column :ip
         column :port
         column 'Protocol' do |ne|
@@ -53,14 +68,14 @@ ActiveAdmin.register NetworkElement do
 
     form do |f|
         f.inputs "Network Element Details" do
+            f.input :platform_id, as: :select, collection: Platform.all, :label => 'Platform'
+            f.input :system_id, as: :select, collection: System.all, :label => 'System'
+            f.input :type_id, as: :select, collection: Type.all, :label => 'Type'
             f.input :name
             f.input :description
             f.input :ip
             f.input :port
             f.input :protocol_id, as: :select, collection: Protocol.all, :label => 'Protocol'
-            f.input :platform_id, as: :select, collection: Platform.all, :label => 'Platform'
-            f.input :system_id, as: :select, collection: System.all, :label => 'System'
-            f.input :type_id, as: :select, collection: Type.all, :label => 'Type'
         end
         f.actions
     end
