@@ -10,11 +10,11 @@ ActiveAdmin.register Employee do
                           ),
                           before_batch_import: ->(importer){
                               begin
-                                surveillance_names = importer.values_at('survaillance_id')
+                                surveillance_names = importer.values_at('surveillance_id')
                                 # replacing author name with author id
                                 surveillances   = Surveillance.where(name: surveillance_names).pluck(:name, :id)
                                 options = Hash[*surveillances.flatten] # #{"Jane" => 2, "John" => 1}
-                                importer.batch_replace('survaillance_id', options) #replacing "Jane" with 1, etc
+                                importer.batch_replace('surveillance_id', options) #replacing "Jane" with 1, etc
                               rescue
 
                               end
