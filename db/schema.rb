@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818234324) do
+ActiveRecord::Schema.define(version: 20170824211946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,8 +149,12 @@ ActiveRecord::Schema.define(version: 20170818234324) do
     t.datetime "updated_at", null: false
     t.bigint "protocol_id"
     t.bigint "type_id"
+    t.bigint "platform_id"
+    t.bigint "system_id"
     t.index ["ip"], name: "index_network_elements_on_ip", unique: true
+    t.index ["platform_id"], name: "index_network_elements_on_platform_id"
     t.index ["protocol_id"], name: "index_network_elements_on_protocol_id"
+    t.index ["system_id"], name: "index_network_elements_on_system_id"
     t.index ["type_id"], name: "index_network_elements_on_type_id"
   end
 
@@ -240,19 +244,15 @@ ActiveRecord::Schema.define(version: 20170818234324) do
   create_table "systems", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "platform_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["platform_id"], name: "index_systems_on_platform_id"
   end
 
   create_table "types", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "system_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["system_id"], name: "index_types_on_system_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -299,7 +299,9 @@ ActiveRecord::Schema.define(version: 20170818234324) do
   add_foreign_key "command_lists", "network_elements"
   add_foreign_key "command_lists", "roles"
   add_foreign_key "employees", "surveillances"
+  add_foreign_key "network_elements", "platforms"
   add_foreign_key "network_elements", "protocols"
+  add_foreign_key "network_elements", "systems"
   add_foreign_key "network_elements", "types"
   add_foreign_key "platform_surveillances", "platforms"
   add_foreign_key "platform_surveillances", "surveillances"
@@ -309,6 +311,4 @@ ActiveRecord::Schema.define(version: 20170818234324) do
   add_foreign_key "sessions", "employees"
   add_foreign_key "sessions", "network_elements"
   add_foreign_key "sessions", "servers"
-  add_foreign_key "systems", "platforms"
-  add_foreign_key "types", "systems"
 end
