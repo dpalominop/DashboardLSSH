@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829170203) do
+ActiveRecord::Schema.define(version: 20170829232721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 20170829170203) do
     t.bigint "employee_id"
     t.index ["command_list_id"], name: "index_command_list_employees_on_command_list_id"
     t.index ["employee_id"], name: "index_command_list_employees_on_employee_id"
+  end
+
+  create_table "command_list_exclude_commands", force: :cascade do |t|
+    t.bigint "command_list_id"
+    t.bigint "exclude_command_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["command_list_id"], name: "index_command_list_exclude_commands_on_command_list_id"
+    t.index ["exclude_command_id"], name: "index_command_list_exclude_commands_on_exclude_command_id"
   end
 
   create_table "command_list_sudo_commands", force: :cascade do |t|
@@ -108,6 +117,12 @@ ActiveRecord::Schema.define(version: 20170829170203) do
     t.index ["document"], name: "index_employees_on_document", unique: true
     t.index ["surveillance_id"], name: "index_employees_on_surveillance_id"
     t.index ["username"], name: "index_employees_on_username", unique: true
+  end
+
+  create_table "exclude_commands", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "global_settings", force: :cascade do |t|
@@ -298,6 +313,8 @@ ActiveRecord::Schema.define(version: 20170829170203) do
   add_foreign_key "command_command_lists", "commands"
   add_foreign_key "command_list_employees", "command_lists"
   add_foreign_key "command_list_employees", "employees"
+  add_foreign_key "command_list_exclude_commands", "command_lists"
+  add_foreign_key "command_list_exclude_commands", "exclude_commands"
   add_foreign_key "command_list_sudo_commands", "command_lists"
   add_foreign_key "command_list_sudo_commands", "sudo_commands"
   add_foreign_key "command_lists", "platforms"

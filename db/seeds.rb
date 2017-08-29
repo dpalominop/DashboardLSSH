@@ -16,7 +16,10 @@ Protocol.create!(name: 'telnet')
 # Default Roles
 Role.create!(name: 'Ingeniería')
 Role.create!(name: 'Soporte')
-#Default Commands
+#Default Permit Commands
+Command.create!(name: 'ls')
+Command.create!(name: 'cd')
+#Default Exclude Commands
 Command.create!(name: 'ls')
 Command.create!(name: 'cd')
 # Default SudoCommands

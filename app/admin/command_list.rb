@@ -63,7 +63,8 @@ ActiveAdmin.register CommandList do
             f.input :description
             f.input :role_id, as: :select, collection: Role.all, :label => 'Role'
             f.input :all_commands
-            f.input :command_ids, as: :tags, collection: Command.all, :label => 'Commands'
+            f.input :command_ids, as: :tags, collection: Command.all, :label => 'Permit Commands'
+            f.input :exclude_command_ids, as: :tags, collection: ExcludeCommand.all, :label => 'Exclude Commands'
             f.input :sudo_command_ids, as: :tags, collection: SudoCommand.all, :label => 'Sudo Commands'
         end
         f.actions

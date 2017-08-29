@@ -9,7 +9,8 @@ ActiveAdmin.register Command do
                         ),
                         after_batch_import: ->(importer) {
                            importer.values_at('name').map { |x| x }.each do |name|
-                             if Command.exists?(name: name) && not(SudoCommand.exists?(name: name))
+                             if Command.exists?(name: name) && not(ExcludeCommand.exists?(name: name)) && not(SudoCommand.exists?(name: name))
+                               ExcludeCommand.create!(name: name)
                                SudoCommand.create!(name: name)
                              end
                            end
@@ -19,19 +20,23 @@ ActiveAdmin.register Command do
   permit_params :name, :active_admin_import_model
 
   member_action :update, method: [:put, :patch] do
+    ExcludeCommand.find(params[:id]).update(name: params[:command][:name])
     SudoCommand.find(params[:id]).update(name: params[:command][:name])
     update!
   end
 
   collection_action :create, method: [:post] do
     if params[:command] then
+      ExcludeCommand.create(name: params[:command][:name])
       SudoCommand.create(name: params[:command][:name])
     end
     create!
   end
 
   member_action :destroy, method: [:delete] do
-    SudoCommand.find(params[:id]).destroy
+    cname = Command.find(params[:id]).pluck(:name)
+    ExcludeCommand.find(name: cname).destroy
+    SudoCommand.find(name: cname).destroy
     destroy!
   end
 
