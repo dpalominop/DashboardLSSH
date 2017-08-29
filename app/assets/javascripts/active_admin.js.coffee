@@ -66,3 +66,14 @@
 #         return
 #     return
 #   return
+$(document).on 'ready page:load', ->
+  if $('#command_list_all_commands').prop('checked')
+    $('#command_list_command_ids_input').hide()
+
+  $('input#command_list_all_commands').change ->
+    if @checked
+      $('#command_list_command_ids_input').hide()
+    else
+      $('#command_list_command_ids_input').show()
+  return
+return

@@ -8,7 +8,7 @@ ActiveAdmin.register CommandList do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           back: -> { config.namespace.resource_for(CommandList).route_collection_path }
-    permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, command_ids: [], sudo_command_ids: []
+    permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, :all_commands, command_ids: [], sudo_command_ids: []
 
     index :title => "Commands Lists" do
         selectable_column
@@ -62,6 +62,7 @@ ActiveAdmin.register CommandList do
             f.input :name
             f.input :description
             f.input :role_id, as: :select, collection: Role.all, :label => 'Role'
+            f.input :all_commands
             f.input :command_ids, as: :tags, collection: Command.all, :label => 'Commands'
             f.input :sudo_command_ids, as: :tags, collection: SudoCommand.all, :label => 'Sudo Commands'
         end
