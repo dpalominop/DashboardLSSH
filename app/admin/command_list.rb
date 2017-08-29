@@ -71,8 +71,16 @@ ActiveAdmin.register CommandList do
 
     show do
         panel "Commands" do
-            table_for command_list.commands do
-                column :name
+            if command_list.all_commands then
+              columns do
+                column  do
+                  span "All commands"
+                end
+              end
+            else
+                table_for command_list.commands do
+                    column :name
+                end
             end
         end
 
