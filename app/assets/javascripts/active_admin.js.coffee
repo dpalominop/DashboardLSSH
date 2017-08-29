@@ -69,11 +69,17 @@
 $(document).on 'ready page:load', ->
   if $('#command_list_all_commands').prop('checked')
     $('#command_list_command_ids_input').hide()
+    $('#command_list_exclude_command_ids_input').show()
+  else
+    $('#command_list_command_ids_input').show()
+    $('#command_list_exclude_command_ids_input').hide()
 
   $('input#command_list_all_commands').change ->
     if @checked
       $('#command_list_command_ids_input').hide()
+      $('#command_list_exclude_command_ids_input').show()
     else
       $('#command_list_command_ids_input').show()
+      $('#command_list_exclude_command_ids_input').hide()
   return
 return
