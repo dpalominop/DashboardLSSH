@@ -30,7 +30,7 @@ ActiveAdmin.register CommandList do
         end
         column 'Name' do |cl|
             if cl.name then
-                link_to cl.name, admin_network_element_path(cl.id)
+                link_to cl.name, admin_command_list_path(cl.id)
             end
         end
         column :description
