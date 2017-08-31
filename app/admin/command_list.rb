@@ -74,7 +74,11 @@ ActiveAdmin.register CommandList do
         if command_list.all_commands then
             panel "Commands" do
                 columns do
-                  column  do
+                  column id: "all_commands_column_name" do
+                    span "Name"
+                  end
+                  hr
+                  column id: "all_commands_column" do
                     span "All commands"
                   end
                 end

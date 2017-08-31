@@ -24,6 +24,15 @@ $theme-accent-fallback: #ff7547;
 
 //$primary-color: #2dbb43;
 
-.column {
-  margin-left: 2%;
+#all_commands_column_name {
+  padding: 2%;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.8125rem;
+}
+
+#all_commands_column {
+  padding: 2%;
+  font-weight: 400;
+  font-size: 0.8125rem;
 }
