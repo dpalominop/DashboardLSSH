@@ -8,7 +8,7 @@ ActiveAdmin.register CommandList do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           back: -> { config.namespace.resource_for(CommandList).route_collection_path }
-    permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, :all_commands, command_ids: [], sudo_command_ids: []
+    permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, :all_commands, command_ids: [], exclude_command_ids: [], sudo_command_ids: []
 
     index :title => "Commands Lists" do
         selectable_column
@@ -71,23 +71,34 @@ ActiveAdmin.register CommandList do
     end
 
     show do
-        panel "Commands" do
-            if command_list.all_commands then
-              columns do
-                column  do
-                  span "All commands"
+        if command_list.all_commands then
+            panel "Commands" do
+                columns do
+                  column  do
+                    span "All commands"
+                  end
                 end
-              end
-            else
+            end
+
+            if command_list.exclude_commands.count != 0 then
+                panel "Exclude Commands" do
+                    table_for command_list.exclude_commands do
+                        column :name
+                    end
+                end
+            end
+        else
+            panel "Commands" do
                 table_for command_list.commands do
                     column :name
                 end
             end
         end
-
-        panel "Sudo Commands" do
-            table_for command_list.sudo_commands do
-                column :name
+        if command_list.sudo_commands.count != 0 then
+            panel "Sudo Commands" do
+                table_for command_list.sudo_commands do
+                    column :name
+                end
             end
         end
 
