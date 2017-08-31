@@ -40,4 +40,10 @@ ActiveAdmin.register Command do
     destroy!
   end
 
+  index :title => "Commands Lists" do
+      selectable_column
+      column :name
+      column :created_at
+      column :updated_at
+  end
 end
