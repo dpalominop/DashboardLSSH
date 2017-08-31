@@ -20,8 +20,8 @@ Role.create!(name: 'Soporte')
 Command.create!(name: 'ls')
 Command.create!(name: 'cd')
 #Default Exclude Commands
-Command.create!(name: 'ls')
-Command.create!(name: 'cd')
+ExcludeCommand.create!(name: 'ls')
+ExcludeCommand.create!(name: 'cd')
 # Default SudoCommands
 SudoCommand.create!(name: 'ls')
 SudoCommand.create!(name: 'cd')

@@ -34,9 +34,9 @@ ActiveAdmin.register Command do
   end
 
   member_action :destroy, method: [:delete] do
-    cname = Command.find(params[:id]).pluck(:name)
-    ExcludeCommand.find(name: cname).destroy
-    SudoCommand.find(name: cname).destroy
+    cname = Command.where(id: params[:id]).pluck(:name)[0]
+    ExcludeCommand.where(name: cname).destroy_all
+    SudoCommand.where(name: cname).destroy_all
     destroy!
   end
 
