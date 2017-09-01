@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829232721) do
+ActiveRecord::Schema.define(version: 20170901203114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20170829232721) do
     t.bigint "platform_id"
     t.bigint "system_id"
     t.bigint "type_id"
-    t.boolean "all_commands"
+    t.boolean "all_commands", default: true
     t.index ["platform_id"], name: "index_command_lists_on_platform_id"
     t.index ["role_id"], name: "index_command_lists_on_role_id"
     t.index ["system_id"], name: "index_command_lists_on_system_id"
