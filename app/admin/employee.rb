@@ -20,9 +20,9 @@ ActiveAdmin.register Employee do
                               end
                           },
                           after_batch_import: ->(importer) {
-                            Server.all.each do |server|
-                              importer.values_at('username').map { |x| x }.each do |username|
-                                if Employee.exists?(username: username)
+                            importer.values_at('username').map { |x| x }.each do |username|
+                              if Employee.exists?(username: username)
+                                Server.all.each do |server|
                                   server.addUser(username: username)
                                 end
                               end
