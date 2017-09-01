@@ -7,14 +7,65 @@ class Server < ApplicationRecord
 
   require 'net/ssh'
   def addUser username: nil
+    result = ''
     Net::SSH.start( self.ip, self.username, :password => self.password) do |ssh|
-      ssh.exec! "useradd #{username}"
+      # ssh.exec! "sudo -p 'sudo password: ' useradd #{username}"
+
+      # Open a channel
+      channel = ssh.open_channel do |channel, success|
+        # Callback to receive data. It will read the
+        # data and store it in result var or
+        # send the password if it's required.
+        channel.on_data do |channel, data|
+          if data =~ /^\[sudo\] password for /
+            # Send the password
+            channel.send_data self.password+"\n"
+          else
+            # Store the data
+            result += data.to_s
+          end
+        end
+        # Request a pseudo TTY
+        channel.request_pty
+        # Execute the command
+        channel.exec("sudo useradd #{username}")
+        # Wait for response
+        channel.wait
+      end
+      # Wait for opened channel
+      channel.wait
+
     end
   end
 
   def delUser username: nil
+    result = ''
     Net::SSH.start( self.ip, self.username, :password => self.password) do |ssh|
-      ssh.exec! "userdel -r -f #{username}"
+      # ssh.exec! "sudo -p 'sudo password: ' userdel -r -f #{username}"
+
+      # Open a channel
+      channel = ssh.open_channel do |channel, success|
+        # Callback to receive data. It will read the
+        # data and store it in result var or
+        # send the password if it's required.
+        channel.on_data do |channel, data|
+          if data =~ /^\[sudo\] password for /
+            # Send the password
+            channel.send_data self.password+"\n"
+          else
+            # Store the data
+            result += data.to_s
+          end
+        end
+        # Request a pseudo TTY
+        channel.request_pty
+        # Execute the command
+        channel.exec("sudo userdel -r -f #{username}")
+        # Wait for response
+        channel.wait
+      end
+      # Wait for opened channel
+      channel.wait
     end
   end
 end
