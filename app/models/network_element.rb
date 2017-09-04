@@ -2,6 +2,7 @@ class NetworkElement < ApplicationRecord
     belongs_to :type
     belongs_to :system
     belongs_to :platform
+    belongs_to :location
 
     validates :name,    :presence => true,  :uniqueness => {:case_sensitive => false}
     validates :ip,    :presence => true,  :uniqueness => {:case_sensitive => false}
