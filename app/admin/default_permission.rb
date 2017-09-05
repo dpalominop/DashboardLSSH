@@ -1,7 +1,7 @@
 ActiveAdmin.register DefaultPermission do
   menu :parent => "System", :if => proc{ can? :manage, User}
   #permit_params :forbidden, :warning_counter, :intro, :prompt, :timer, :strict, :history_file
-  permit_params :history_file
+  permit_params :history_file, :intro
   actions :index, :update, :edit
 
   config.filters = false
@@ -11,7 +11,7 @@ ActiveAdmin.register DefaultPermission do
       #id_column
       #column :forbidden
       #column :warning_counter
-      #column :intro
+      column :intro
       #column :prompt
       #column :timer
       #column :strict
@@ -23,6 +23,7 @@ ActiveAdmin.register DefaultPermission do
   form do |f|
       f.inputs "Default Permissions" do
           f.input :history_file
+          f.input :intro
       end
       f.actions
   end
