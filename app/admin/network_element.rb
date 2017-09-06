@@ -9,7 +9,7 @@ ActiveAdmin.register NetworkElement do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           back: -> { config.namespace.resource_for(NetworkElement).route_collection_path }
-    permit_params :name, :description, :ip, :port, :protocol_id, :type_id, :system_id, :platform_id, :location_id
+    permit_params :name, :description, :ip, :port, :protocol_id, :type_id, :system_id, :platform_id, :location_id, :vendor_id
 
     member_action :clone, method: :post do
       @network_element = resource.dup
@@ -46,6 +46,11 @@ ActiveAdmin.register NetworkElement do
                 link_to Location.find(ne.location_id).name, admin_location_path(ne.location_id)
             end
         end
+        column 'Vendor' do |ne|
+            if ne.vendor_id then
+                link_to Vendor.find(ne.vendor_id).name, admin_vendor_path(ne.vendor_id)
+            end
+        end
         column 'Name' do |ne|
             if ne.name then
                 link_to ne.name, admin_network_element_path(ne.id)
@@ -77,6 +82,7 @@ ActiveAdmin.register NetworkElement do
             f.input :system_id, as: :select, collection: System.all, :label => 'System'
             f.input :type_id, as: :select, collection: Type.all, :label => 'Type'
             f.input :location_id, as: :select, collection: Location.all, :label => 'Location'
+            f.input :vendor_id, as: :select, collection: Vendor.all, :label => 'Vendor'
             f.input :name
             f.input :description
             f.input :ip
@@ -110,6 +116,17 @@ ActiveAdmin.register NetworkElement do
             row 'Type' do |ne|
                 link_to Type.find(ne.type_id).name, admin_type_path(ne.type_id)
             end
+            row 'Location' do |ne|
+                if ne.location_id then
+                    link_to Location.find(ne.location_id).name, admin_location_path(ne.location_id)
+                end
+            end
+            row 'Vendor' do |ne|
+                if ne.vendor_id then
+                    link_to Vendor.find(ne.vendor_id).name, admin_vendor_path(ne.vendor_id)
+                end
+            end
+
             row :name
             row :description
             row :ip

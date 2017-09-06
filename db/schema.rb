@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170904185900) do
+ActiveRecord::Schema.define(version: 20170906211819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,12 +171,14 @@ ActiveRecord::Schema.define(version: 20170904185900) do
     t.bigint "platform_id"
     t.bigint "system_id"
     t.bigint "location_id"
+    t.bigint "vendor_id"
     t.index ["ip"], name: "index_network_elements_on_ip", unique: true
     t.index ["location_id"], name: "index_network_elements_on_location_id"
     t.index ["platform_id"], name: "index_network_elements_on_platform_id"
     t.index ["protocol_id"], name: "index_network_elements_on_protocol_id"
     t.index ["system_id"], name: "index_network_elements_on_system_id"
     t.index ["type_id"], name: "index_network_elements_on_type_id"
+    t.index ["vendor_id"], name: "index_network_elements_on_vendor_id"
   end
 
   create_table "platform_surveillances", force: :cascade do |t|
@@ -329,6 +331,7 @@ ActiveRecord::Schema.define(version: 20170904185900) do
   add_foreign_key "network_elements", "protocols"
   add_foreign_key "network_elements", "systems"
   add_foreign_key "network_elements", "types"
+  add_foreign_key "network_elements", "vendors"
   add_foreign_key "platform_surveillances", "platforms"
   add_foreign_key "platform_surveillances", "surveillances"
   add_foreign_key "platforms", "locations"
