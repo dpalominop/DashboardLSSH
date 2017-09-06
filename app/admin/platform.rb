@@ -3,10 +3,27 @@ ActiveAdmin.register Platform do
 
   permit_params :name, :description, :state_id, surveillance_ids:[]
 
+  index :title => "Platforms" do
+    selectable_column
+    column :name
+    column :description
+    column 'State' do |pl|
+        if pl.state_id then
+            State.find(pl.state_id).name
+        end
+    end
+    actions
+  end
+
+  filter :name
+  filter :state_id
+
   form do |f|
       f.inputs "Platform Details" do
           f.input :name
           f.input :description
+          # f.input :vendor_id, as: :select, collection: Vendor.all, :label => 'Vendor'
+          # f.input :location_id, as: :select, collection: Location.all, :label => 'Location'
           f.input :state_id, as: :select, collection: State.all, :label => 'State'
           f.input :surveillance_ids, as: :tags, collection: Surveillance.all, :label => 'Surveillances'
       end
@@ -26,6 +43,11 @@ ActiveAdmin.register Platform do
       attributes_table_for platform do
           row :name
           row :description
+          row 'State' do |pl|
+              if pl.state_id then
+                  State.find(pl.state_id).name
+              end
+          end
       end
   end
 end
