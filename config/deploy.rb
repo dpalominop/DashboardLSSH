@@ -2,7 +2,7 @@
 # lock "3.9.0"
 
 set :application, "lssh"
-set :repo_url, "git@github.com:dpalominop/DashboardLSSH.git"
+set :repo_url, "https://github.com/dpalominop/DashboardLSSH.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
