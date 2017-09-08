@@ -145,7 +145,7 @@ ActiveAdmin.register Employee do
             row :document
             row 'Surveillance' do |emp|
                 if emp.surveillance_id then
-                    link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.id)
+                    link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
                 end
             end
         end
