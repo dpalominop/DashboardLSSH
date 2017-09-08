@@ -5,7 +5,11 @@ ActiveAdmin.register Platform do
 
   index :title => "Platforms" do
     selectable_column
-    column :name
+    column 'Name' do |pl|
+      if pl.name then
+        link_to pl.name, admin_platform_path(pl.id)
+      end
+    end
     column :description
     column 'State' do |pl|
         if pl.state_id then

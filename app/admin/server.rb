@@ -8,7 +8,11 @@ ActiveAdmin.register Server do
   index :title => "Servers" do
       selectable_column
       # id_column
-      column :hostname
+      column 'Hostname' do |ser|
+        if ser.hostname then
+          link_to ser.hostname, admin_server_path(ser.id)
+        end
+      end
       column :ip
       column :port
       column :username

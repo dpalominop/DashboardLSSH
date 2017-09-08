@@ -5,7 +5,11 @@ ActiveAdmin.register User do
   index :download_links => false do
     selectable_column
     #id_column
-    column :name
+    column 'Name' do |us|
+      if us.name then
+        link_to us.name, admin_user_path(us.id)
+      end
+    end
     column :username
     column :email
     column :role

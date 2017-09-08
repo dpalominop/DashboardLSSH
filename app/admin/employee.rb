@@ -34,7 +34,11 @@ ActiveAdmin.register Employee do
     index :title => "Employees" do
         selectable_column
         #id_column
-        column :name
+        column 'Name' do |emp|
+          if emp.name then
+            link_to emp.name, admin_employee_path(emp.id)
+          end
+        end
         column :username
         column :document
         column 'Surveillance' do |emp|
@@ -113,7 +117,7 @@ ActiveAdmin.register Employee do
         f.actions
     end
 
-    show title: :username do
+    show title: :name do
         panel "Command Lists" do
             table_for employee.command_lists do
                 column 'Platform' do |cl|
