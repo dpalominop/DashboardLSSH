@@ -25,7 +25,7 @@ ActiveAdmin.register Surveillance do
       f.actions
   end
 
-  show :title => 'Surveillance' do
+  show :title => :name do
       panel "Platforms" do
           table_for resource.platforms do
               column 'Name' do |pl|
