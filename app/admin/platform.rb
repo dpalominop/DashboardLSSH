@@ -33,7 +33,11 @@ ActiveAdmin.register Platform do
   show do
       panel "Surveillances to which belongs " do
           table_for resource.surveillances do
-              column :name
+              column 'Name' do |sv|
+                if sv.name then
+                  link_to sv.name, admin_surveillance_path(sv.id)
+                end
+              end
               column :description
           end
       end
