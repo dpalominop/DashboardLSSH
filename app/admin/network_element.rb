@@ -9,7 +9,12 @@ ActiveAdmin.register NetworkElement do
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
                           back: -> { config.namespace.resource_for(NetworkElement).route_collection_path }
-    permit_params :name, :description, :ip, :port, :protocol_id, :type_id, :system_id, :platform_id, :location_id, :vendor_id
+    permit_params :name, :description,
+                  :ip, :port,
+                  :protocol_id, :type_id,
+                  :system_id, :platform_id,
+                  :location_id, :vendor_id,
+                  :ping, :traceroute
 
     member_action :clone, method: :post do
       @network_element = resource.dup
@@ -19,8 +24,33 @@ ActiveAdmin.register NetworkElement do
       # redirect_to edit_admin_network_element_path( ne )
     end
 
+    member_action :connectivity do
+      ping_msg = ''
+      traceroute_msg = ''
+      resource.update(ping: "Cargando", traceroute: "Cargando")
+      Server.all.each do |server|
+        ping = server.ping(hostname: resource.ip)
+        ping_msg += server.ip + ': \n'
+        ping_msg += ping + '\n'
+
+        traceroute = server.traceroute(hostname: resource.ip)
+        traceroute_msg += server.ip + ': \n'
+        traceroute_msg += traceroute + '\n'
+      end
+      resource.update(ping: ping_msg, traceroute: traceroute_msg)
+
+      respond_to do |format|
+        msg = { :status => "ok", :message => "Success!" }
+        format.json  { render :json => msg }
+      end
+    end
+
     action_item :clone, :only => :show do
       link_to("Make a Copy", clone_admin_network_element_path(id: network_element.id))
+    end
+
+    action_item :connectivity, :only => :show do
+      a "Connectivity", :id => 'connectivity'
     end
 
     index :title => "Network Elements" do
@@ -93,6 +123,27 @@ ActiveAdmin.register NetworkElement do
     end
 
     show do
+        # columns do
+        #   column do
+        #     panel "Networking" do
+        #       button 'Ping', as: :button
+        #       button 'Traceroute'
+        #     end
+        #   end
+        #
+        #   # column do
+        #   #   panel "Networking" do
+        #   #     button 'Traceroute'
+        #   #   end
+        #   # end
+        # end
+        panel "Networking" do
+          table_for network_element, id: "network_element_table" do
+            column :ping
+            column :traceroute
+          end
+        end
+
         panel "Assigned Commands lists " do
             table_for CommandList.where(platform: network_element.platform_id,
                                         system:network_element.system_id,

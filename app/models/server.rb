@@ -68,4 +68,18 @@ class Server < ApplicationRecord
       channel.wait
     end
   end
+
+  def ping hostname: nil
+    Net::SSH.start( self.ip, self.username, :password => self.password) do |ssh|
+      @ping = ssh.exec! "ping -w 1 #{hostname}"
+    end
+    @ping
+  end
+
+  def traceroute hostname: nil
+    Net::SSH.start( self.ip, self.username, :password => self.password) do |ssh|
+      @traceroute = ssh.exec! "traceroute #{hostname}"
+    end
+    @traceroute
+  end
 end

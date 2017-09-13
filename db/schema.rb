@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170906211819) do
+ActiveRecord::Schema.define(version: 20170912165404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,8 @@ ActiveRecord::Schema.define(version: 20170906211819) do
     t.bigint "system_id"
     t.bigint "location_id"
     t.bigint "vendor_id"
+    t.text "ping"
+    t.text "traceroute"
     t.index ["ip"], name: "index_network_elements_on_ip", unique: true
     t.index ["location_id"], name: "index_network_elements_on_location_id"
     t.index ["platform_id"], name: "index_network_elements_on_platform_id"

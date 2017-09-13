@@ -81,5 +81,12 @@ $(document).on 'ready page:load', ->
     else
       $('#command_list_command_ids_input').show()
       $('#command_list_exclude_command_ids_input').hide()
-  return
+    return
+
+  $('#connectivity').click ->
+    $('#network_element_table tbody tr').each ->
+      $(this).find("td:first").html('Cargando')
+      $(this).find("td:last").html('Cargando')
+      $.get(window.location.href+'/connectivity')
+      return
 return
