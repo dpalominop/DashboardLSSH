@@ -123,24 +123,10 @@ ActiveAdmin.register NetworkElement do
     end
 
     show do
-        # columns do
-        #   column do
-        #     panel "Networking" do
-        #       button 'Ping', as: :button
-        #       button 'Traceroute'
-        #     end
-        #   end
-        #
-        #   # column do
-        #   #   panel "Networking" do
-        #   #     button 'Traceroute'
-        #   #   end
-        #   # end
-        # end
         panel "Networking" do
           table_for network_element, id: "network_element_table" do
-            column :ping
-            column :traceroute
+            column (:ping) { |network_element| simple_format(network_element.ping) }
+            column (:traceroute) { |network_element| simple_format(network_element.traceroute) }
           end
         end
 
