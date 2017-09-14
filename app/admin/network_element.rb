@@ -30,12 +30,12 @@ ActiveAdmin.register NetworkElement do
       resource.update(ping: "Cargando", traceroute: "Cargando")
       Server.all.each do |server|
         ping = server.ping(hostname: resource.ip)
-        ping_msg += server.ip + ': \n'
-        ping_msg += ping + '\n'
+        ping_msg += server.ip + ': <br>'
+        ping_msg += ping + '<br>'
 
         traceroute = server.traceroute(hostname: resource.ip)
-        traceroute_msg += server.ip + ': \n'
-        traceroute_msg += traceroute + '\n'
+        traceroute_msg += server.ip + ': <br>'
+        traceroute_msg += traceroute + '<br>'
       end
       resource.update(ping: ping_msg, traceroute: traceroute_msg)
 
