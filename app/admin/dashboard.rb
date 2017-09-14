@@ -13,7 +13,7 @@ ActiveAdmin.register_page "Dashboard" do
   # end
   columns do
     column do
-      panel "Sessions" do
+      panel I18n.t("active_admin.sessions") do
         line_chart Session.group_by_day_of_week(:created_at, format: "%a").count, download: true
       end
     end

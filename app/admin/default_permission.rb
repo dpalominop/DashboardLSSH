@@ -1,12 +1,12 @@
 ActiveAdmin.register DefaultPermission do
-  menu :parent => "System", :if => proc{ can? :manage, User}
+  menu :parent => I18n.t("active_admin.system"), :if => proc{ can? :manage, User}
   #permit_params :forbidden, :warning_counter, :intro, :prompt, :timer, :strict, :history_file
   permit_params :history_file, :intro
   actions :index, :update, :edit
 
   config.filters = false
 
-  index :title => "Default Permissions", :download_links => false do
+  index :title => I18n.t("active_admin.default_permissions"), :download_links => false do
       selectable_column
       #id_column
       #column :forbidden
@@ -21,7 +21,7 @@ ActiveAdmin.register DefaultPermission do
   end
 
   form do |f|
-      f.inputs "Default Permissions" do
+      f.inputs I18n.t("active_admin.default_permissions") do
           f.input :history_file
           f.input :intro
       end

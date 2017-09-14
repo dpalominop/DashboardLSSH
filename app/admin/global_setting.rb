@@ -1,11 +1,11 @@
 ActiveAdmin.register GlobalSetting, as: "Global Settings" do
-    menu priority: 1, :parent => "System", :if => proc{ can? :manage, User}
+    menu priority: 1, :parent => I18n.t("active_admin.system"), :if => proc{ can? :manage, User}
     permit_params :logpath, :loglevel, :logfilename, :syslogname
     actions :index, :update, :edit
 
     config.filters = false
 
-    index :title => "Global Settings", :download_links => false do
+    index :title => I18n.t("active_admin.global_settings"), :download_links => false do
         selectable_column
         #id_column
         column :logpath
@@ -17,7 +17,7 @@ ActiveAdmin.register GlobalSetting, as: "Global Settings" do
     end
 
     form do |f|
-        f.inputs "Default Permissions" do
+        f.inputs I18n.t("active_admin.global_settings") do
             f.input :logpath
             f.input :loglevel
             f.input :logfilename

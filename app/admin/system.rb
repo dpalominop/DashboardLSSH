@@ -1,5 +1,5 @@
 ActiveAdmin.register System do
-  menu :parent => "Security Management", :priority => 5
+  menu :parent => I18n.t("active_admin.security_management"), :priority => 5
 
   permit_params :name, :description
 end

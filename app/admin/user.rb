@@ -1,11 +1,11 @@
 ActiveAdmin.register User do
-  menu :parent => "System", :if => proc{ can? :manage, User}
+  menu :parent => I18n.t("active_admin.system"), :if => proc{ can? :manage, User}
   permit_params :email, :password, :password_confirmation, :username, :name, :role
 
   index :download_links => false do
     selectable_column
     #id_column
-    column 'Name' do |us|
+    column I18n.t("active_admin.name") do |us|
       if us.name then
         link_to us.name, admin_user_path(us.id)
       end
@@ -30,11 +30,11 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs I18n.t("active_admin.user_details") do
       f.input :name
       f.input :username
       f.input :email
-      f.input :role, as: :select, collection: User::ROLES, :label => 'Role'
+      f.input :role, as: :select, collection: User::ROLES, :label => I18n.t("active_admin.role")
       f.input :password
 #      f.input :password, :label => "New Password"
       f.input :password_confirmation

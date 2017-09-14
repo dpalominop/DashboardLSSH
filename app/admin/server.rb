@@ -1,14 +1,14 @@
 ActiveAdmin.register Server do
-  menu :parent => "System", :if => proc{ can? :manage, User}
+  menu :parent => I18n.t("active_admin.system"), :if => proc{ can? :manage, User}
   permit_params :hostname, :ip, :port, :username, :password
 
   filter :hostname
   filter :ip
 
-  index :title => "Servers" do
+  index :title => I18n.t("active_admin.servers") do
       selectable_column
       # id_column
-      column 'Hostname' do |ser|
+      column I18n.t("active_admin.hostname") do |ser|
         if ser.hostname then
           link_to ser.hostname, admin_server_path(ser.id)
         end
@@ -20,7 +20,7 @@ ActiveAdmin.register Server do
   end
 
   form do |f|
-      f.inputs "Server Details" do
+      f.inputs I18n.t("active_admin.server_details") do
           f.input :hostname
           f.input :ip
           f.input :port

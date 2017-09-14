@@ -1,5 +1,5 @@
 ActiveAdmin.register Employee do
-    menu :parent => "Employee Management"
+    menu :parent => I18n.t("active_admin.employee_management")
     #menu :priority => 5
     active_admin_import validate: true,
                           template: 'import' ,
@@ -31,17 +31,17 @@ ActiveAdmin.register Employee do
                           back: -> { config.namespace.resource_for(Employee).route_collection_path }
     permit_params :name, :username, :document, :surveillance_id, command_list_ids: []
 
-    index :title => "Employees" do
+    index :title => I18n.t("active_admin.employees") do
         selectable_column
         #id_column
-        column 'Name' do |emp|
+        column I18n.t("active_admin.name") do |emp|
           if emp.name then
             link_to emp.name, admin_employee_path(emp.id)
           end
         end
         column :username
         column :document
-        column 'Surveillance' do |emp|
+        column I18n.t("active_admin.surveillance") do |emp|
             if emp.surveillance_id then
                 link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
             end
@@ -94,7 +94,7 @@ ActiveAdmin.register Employee do
     # end
 
     form do |f|
-        f.inputs "Employee Details" do
+        f.inputs I18n.t("active_admin.employee_details") do
             f.input :name
             f.input :username
             f.input :document
@@ -109,7 +109,7 @@ ActiveAdmin.register Employee do
                       PlatformSurveillance.where(surveillance_id:
                         resource.surveillance_id
                       ).pluck(:platform_id)
-                    ), :label => 'Command Lists'
+                    ), :label => I18n.t("active_admin.commands_lists")
             # f.input :command_list_ids, as: :search_select, collection: CommandList.all,
             #       url: change_command_list_admin_employees_path,
             #       fields: [:surveillance_id], order_by: 'name_desc'
@@ -118,18 +118,18 @@ ActiveAdmin.register Employee do
     end
 
     show title: :name do
-        panel "Command Lists" do
+        panel I18n.t("active_admin.commands_lists") do
             table_for employee.command_lists do
-                column 'Platform' do |cl|
+                column I18n.t("active_admin.platform") do |cl|
                     link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
                 end
-                column 'System' do |cl|
+                column I18n.t("active_admin.system") do |cl|
                     link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
                 end
-                column 'Type' do |cl|
+                column I18n.t("active_admin.type") do |cl|
                     link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
                 end
-                column 'Name' do |cl|
+                column I18n.t("active_admin.name") do |cl|
                     link_to cl.name, admin_command_list_path(cl.id)
                 end
                 column :description
@@ -142,12 +142,12 @@ ActiveAdmin.register Employee do
         end
     end
 
-    sidebar "Employee Details", only: :show do
+    sidebar I18n.t("active_admin.employee_details"), only: :show do
         attributes_table_for employee do
             row :name
             row :username
             row :document
-            row 'Surveillance' do |emp|
+            row I18n.t("active_admin.surveillance") do |emp|
                 if emp.surveillance_id then
                     link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
                 end

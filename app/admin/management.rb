@@ -1,4 +1,4 @@
 ActiveAdmin.register Management do
-  menu :parent => "Employee Management", :priority => 3
+  menu :parent => I18n.t("active_admin.employee_management"), :priority => 3
   permit_params :name, :description, :direction_id
 end

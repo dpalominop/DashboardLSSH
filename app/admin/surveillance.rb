@@ -1,42 +1,46 @@
 ActiveAdmin.register Surveillance do
-  menu :parent => "Employee Management", :priority => 5
+  menu :parent => I18n.t("active_admin.employee_management"), :priority => 5
   permit_params :name, :description, :leadership_id, platform_ids: [], employee_ids: []
 
-  # index :title => "Surveillance" do
-  #     selectable_column
-  #     # id_column
-  #     column :name
-  #     column :description
-  #     column :leadership_id
-  #     actions
-  # end
+  index :title => I18n.t("active_admin.surveillances") do
+      selectable_column
+      # id_column
+      column :name
+      column :description
+      column I18n.t("active_admin.leadership") do |su|
+        if su.leadership_id then
+          link_to Leadership.find(su.leadership_id).name, admin_leadership_path(su.leadership_id)
+        end
+      end
+      actions
+  end
 
   filter :name
   filter :description
 
   form do |f|
-      f.inputs "Surveillance Details" do
-          f.input :leadership_id, as: :select, collection: Leadership.all, :label => 'Leadership'
+      f.inputs I18n.t("active_admin.surveillance_details") do
+          f.input :leadership_id, as: :select, collection: Leadership.all, :label => I18n.t("active_admin.leadership")
           f.input :name
           f.input :description
-          f.input :platform_ids, as: :tags, collection: Platform.all, :label => 'Platforms'
-          f.input :employee_ids, as: :tags, collection: Employee.all, :label => 'Employee'
+          f.input :platform_ids, as: :tags, collection: Platform.all, :label => I18n.t("active_admin.platforms")
+          f.input :employee_ids, as: :tags, collection: Employee.all, :label => I18n.t("active_admin.employee")
       end
       f.actions
   end
 
   show :title => :name do
-      panel "Platforms" do
+      panel I18n.t("active_admin.platforms") do
           table_for resource.platforms do
-              column 'Name' do |pl|
+              column I18n.t("active_admin.name") do |pl|
                   link_to pl.name, admin_platform_path(pl.id)
               end
           end
       end
 
-      panel "Employees" do
+      panel I18n.t("active_admin.employees") do
           table_for resource.employees do
-              column 'Username' do |emp|
+              column I18n.t("active_admin.username") do |emp|
                   link_to emp.username, admin_employee_path(emp.id)
               end
               column :name
@@ -45,7 +49,7 @@ ActiveAdmin.register Surveillance do
       end
   end
 
-  sidebar "Surveillance Details", only: :show do
+  sidebar I18n.t("active_admin.surveillance_details"), only: :show do
       attributes_table_for resource do
           row :name
           row :description

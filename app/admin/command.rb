@@ -1,5 +1,5 @@
 ActiveAdmin.register Command do
-  menu :parent => "Security Management", :priority => 1
+  menu :parent => I18n.t("active_admin.security_management"), :priority => 1
   active_admin_import validate: true,
                         template: 'import' ,
                         template_object: ActiveAdminImport::Model.new(
@@ -40,10 +40,11 @@ ActiveAdmin.register Command do
     destroy!
   end
 
-  index :title => "Commands" do
+  index :title => I18n.t("active_admin.commands") do
       selectable_column
       column :name
       column :created_at
       column :updated_at
+      actions
   end
 end

@@ -1,5 +1,5 @@
 ActiveAdmin.register CommandList do
-    menu :parent => "Security Management", :priority => 2
+    menu :parent => I18n.t("active_admin.security_management"), :priority => 2
     active_admin_import validate: true,
                           template: 'import' ,
                           template_object: ActiveAdminImport::Model.new(
@@ -10,7 +10,7 @@ ActiveAdmin.register CommandList do
                           back: -> { config.namespace.resource_for(CommandList).route_collection_path }
     permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, :all_commands, command_ids: [], exclude_command_ids: [], sudo_command_ids: []
 
-    index :title => "Commands Lists" do
+    index :title => I18n.t("active_admin.commands_lists") do
         selectable_column
         #id_column
         column 'Platform' do |cl|
@@ -55,16 +55,16 @@ ActiveAdmin.register CommandList do
     # end
 
     form do |f|
-        f.inputs "Commands Lists Details" do
-            f.input :platform_id, as: :select, collection: Platform.all, :label => 'Platform'
-            f.input :system_id, as: :select, collection: System.all, :label => 'System'
-            f.input :type_id, as: :select, collection: Type.all, :label => 'Type'
+        f.inputs I18n.t("active_admin.commands_lists_details") do
+            f.input :platform_id, as: :select, collection: Platform.all, :label => I18n.t("active_admin.platform")
+            f.input :system_id, as: :select, collection: System.all, :label => I18n.t("active_admin.system")
+            f.input :type_id, as: :select, collection: Type.all, :label => I18n.t("active_admin.type")
             f.input :name
             f.input :description
-            f.input :role_id, as: :select, collection: Role.all, :label => 'Role'
+            f.input :role_id, as: :select, collection: Role.all, :label => I18n.t("active_admin.role")
             f.input :all_commands
-            f.input :command_ids, as: :tags, collection: Command.all, :label => 'Permit Commands'
-            f.input :exclude_command_ids, as: :tags, collection: ExcludeCommand.all, :label => 'Exclude Commands'
+            f.input :command_ids, as: :tags, collection: Command.all, :label => I18n.t("active_admin.permit_commands")
+            f.input :exclude_command_ids, as: :tags, collection: ExcludeCommand.all, :label => I18n.t("active_admin.exclude_commands")
             # f.input :sudo_command_ids, as: :tags, collection: SudoCommand.all, :label => 'Sudo Commands'
         end
         f.actions
@@ -72,45 +72,45 @@ ActiveAdmin.register CommandList do
 
     show do
         if command_list.all_commands then
-            panel "Commands" do
+            panel I18n.t("active_admin.permited_commands") do
                 columns do
                   column id: "all_commands_column_name" do
-                    span "Name"
+                    span I18n.t("active_admin.name")
                   end
                   hr
                   column id: "all_commands_column" do
-                    span "All commands"
+                    span I18n.t("active_admin.all_commands")
                   end
                 end
             end
 
             if command_list.exclude_commands.count != 0 then
-                panel "Exclude Commands" do
+                panel I18n.t("active_admin.exclude_commands") do
                     table_for command_list.exclude_commands do
                         column :name
                     end
                 end
             end
         else
-            panel "Commands" do
+            panel I18n.t("active_admin.permited_commands") do
                 table_for command_list.commands do
                     column :name
                 end
             end
         end
         if command_list.sudo_commands.count != 0 then
-            panel "Sudo Commands" do
+            panel I18n.t("active_admin.sudo_commands") do
                 table_for command_list.sudo_commands do
                     column :name
                 end
             end
         end
 
-        panel "Assigned Network Elements " do
+        panel I18n.t("active_admin.assigned_network_elements") do
             table_for NetworkElement.where(platform: command_list.platform_id,
                                         system:command_list.system_id,
                                         type: command_list.type_id) do |ne|
-                column 'Name' do |ne|
+                column I18n.t("active_admin.name") do |ne|
                     link_to ne.name, admin_network_element_path(ne.id)
                 end
                 column :description
@@ -118,20 +118,20 @@ ActiveAdmin.register CommandList do
         end
     end
 
-    sidebar "Commands Lists Details", only: :show do
+    sidebar I18n.t("active_admin.commands_lists_details"), only: :show do
         attributes_table_for command_list do
-            row 'Platform' do |cl|
+            row I18n.t("active_admin.platform") do |cl|
                 link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
             end
-            row 'System' do |cl|
+            row I18n.t("active_admin.system") do |cl|
                 link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
             end
-            row 'Type' do |cl|
+            row I18n.t("active_admin.type") do |cl|
                 link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
             end
             row :name
             row :description
-            row 'Role' do |cl|
+            row I18n.t("active_admin.role") do |cl|
                 if cl.role_id then
                     link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
                 end
