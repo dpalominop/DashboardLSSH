@@ -1,6 +1,4 @@
 es:
-  hello: "Hello world"
-
   active_admin:
     dashboard:  Inicio
     powered_by: ""

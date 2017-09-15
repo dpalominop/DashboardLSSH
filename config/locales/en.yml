@@ -30,7 +30,61 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-
   active_admin:
+    dashboard:  Dashboard
     powered_by: ""
+
+    name: "Name"
+    platform: "Platform"
+    system: "System"
+    type: "Type"
+    role: "Role"
+    employee_management: "Employee Management"
+    security_management: "Security Management"
+    commands: "Commands"
+    sessions: "Sessions"
+    location: "Location"
+    vendor: "Vendor"
+    protocol: "Protocol"
+    state: "State"
+
+    clone: "Clone"
+    connectivity: "Connectivity"
+    network_elements: "Network Elements"
+    network_element_details: "Network Element Details"
+    assigned_commands_lists: "Commands Lists Assgined"
+
+    commands_lists: "Command Lists"
+    commands_lists_details: "Commands Lists Details"
+    assigned_network_elements: "Elementos de Red Asignados"
+    sudo_commands: "Sudo Commands"
+    permited_commands: "Permited Commands"
+    exclude_commands: "Excluded Comandos"
+    all_commands: "All Commands"
+
+    default_permissions: "Permissions"
+
+    employees: "Empployees"
+    surveillance: "Surveillance"
+    employee_details: "Employee Details"
+
+    global_settings: "Global Settings"
+
+    platforms: "Platforms"
+    surveillances_to_which_belongs: "Surveillances To Which Belongs"
+    platform_details: "Platform Details"
+    surveillances: "Surveillances"
+
+    servers: "Servers"
+    hostname: "Hostname"
+    server_details: "Server Details"
+
+    employee: "Employee"
+    network_element: "Network Element"
+    server: "Server"
+
+    surveillance_details: "Surveillance Details"
+    username: "Username"
+    leadership: "Leadership"
+
+    user_details: "User Details"
