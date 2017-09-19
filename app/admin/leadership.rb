@@ -1,6 +1,5 @@
 ActiveAdmin.register Leadership do
-    menu :label => I18n.t("active_admin.leaderships"),
-         :parent => I18n.t("active_admin.employee_management"),
+    menu :parent => I18n.t("active_admin.employee_management"),
          :priority => 4
 
     active_admin_import validate: true,

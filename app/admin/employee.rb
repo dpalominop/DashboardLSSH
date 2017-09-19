@@ -1,6 +1,5 @@
 ActiveAdmin.register Employee do
-    menu  :label => I18n.t("active_admin.employees"),
-          :parent => I18n.t("active_admin.employee_management")
+    menu  :parent => I18n.t("active_admin.employee_management")
     #menu :priority => 5
     active_admin_import validate: true,
                           template: 'import' ,

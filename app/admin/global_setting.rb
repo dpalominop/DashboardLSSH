@@ -1,6 +1,5 @@
 ActiveAdmin.register GlobalSetting, as: "Global Settings" do
-    menu :label => I18n.t("active_admin.global_settings"),
-         priority: 1,
+    menu priority: 1,
          :parent => I18n.t("active_admin.system"),
          :if => proc{ can? :manage, User}
 

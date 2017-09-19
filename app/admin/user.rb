@@ -1,6 +1,5 @@
 ActiveAdmin.register User do
-  menu :label => I18n.t("active_admin.users"),
-       :parent => I18n.t("active_admin.system"),
+  menu :parent => I18n.t("active_admin.system"),
        :if => proc{ can? :manage, User}
   permit_params :email, :password, :password_confirmation, :username, :name, :role
 

@@ -1,6 +1,5 @@
 ActiveAdmin.register CommandList do
-    menu :label => I18n.t("active_admin.commands_lists"),
-         :parent => I18n.t("active_admin.security_management"),
+    menu :parent => I18n.t("active_admin.security_management"),
          :priority => 2
     active_admin_import validate: true,
                           template: 'import' ,
@@ -15,28 +14,27 @@ ActiveAdmin.register CommandList do
     index :title => I18n.t("active_admin.commands_lists") do
         selectable_column
         #id_column
-        column 'Platform' do |cl|
+        column I18n.t("active_admin.platform") do |cl|
             if cl.platform_id then
                 link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
             end
         end
-        column 'System' do |cl|
+        column I18n.t("active_admin.system") do |cl|
             if cl.system_id then
                 link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
             end
         end
-        column 'Type' do |cl|
+        column I18n.t("active_admin.type") do |cl|
             if cl.type_id then
                 link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
             end
         end
-        column 'Name' do |cl|
+        column I18n.t("active_admin.name") do |cl|
             if cl.name then
                 link_to cl.name, admin_command_list_path(cl.id)
             end
         end
-        column :description
-        column 'Role' do |cl|
+        column I18n.t("active_admin.role") do |cl|
             if cl.role_id then
                 link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
             end
@@ -44,9 +42,8 @@ ActiveAdmin.register CommandList do
         actions
     end
 
-    filter :name
-    filter :description
-    filter :role_id
+    filter :name, :label => I18n.t("active_admin.name")
+    filter :role_id, :label => I18n.t("active_admin.role")
 
     # member_action :update, method: [:put, :patch] do
     #   logger.debug "command_list_command_sudo_ids"
@@ -61,11 +58,11 @@ ActiveAdmin.register CommandList do
             f.input :platform_id, as: :select, collection: Platform.all, :label => I18n.t("active_admin.platform")
             f.input :system_id, as: :select, collection: System.all, :label => I18n.t("active_admin.system")
             f.input :type_id, as: :select, collection: Type.all, :label => I18n.t("active_admin.type")
-            f.input :name
-            f.input :description
+            f.input :name, :label => I18n.t("active_admin.name")
+            f.input :description, :label => I18n.t("active_admin.description")
             f.input :role_id, as: :select, collection: Role.all, :label => I18n.t("active_admin.role")
-            f.input :all_commands
-            f.input :command_ids, as: :tags, collection: Command.all, :label => I18n.t("active_admin.permit_commands")
+            f.input :all_commands, :label => I18n.t("active_admin.all_commands")
+            f.input :command_ids, as: :tags, collection: Command.all, :label => I18n.t("active_admin.permited_commands")
             f.input :exclude_command_ids, as: :tags, collection: ExcludeCommand.all, :label => I18n.t("active_admin.exclude_commands")
             # f.input :sudo_command_ids, as: :tags, collection: SudoCommand.all, :label => 'Sudo Commands'
         end

@@ -9,6 +9,7 @@ es:
     submit: "Guardar"
 
     name: "Nombre"
+    description: "Descripción"
     platform: "Plataforma"
     system: "Sistema"
     systems: "Sistemas"
@@ -18,6 +19,7 @@ es:
     roles: "Roles"
     employee_management: "Gestión de Empleados"
     security_management: "Gestión de Seguridad"
+    command: "Comando"
     commands: "Comandos"
     sessions: "Sesiones"
     location: "Ubicación"
@@ -27,6 +29,8 @@ es:
     protocol: "Protocolo"
     protocols: "Protocolos"
     state: "Estado"
+    created_at: "Creado"
+    updated_at: "Actulizado"
 
     clone: "Clonar"
     connectivity: "Conectividad"
@@ -102,6 +106,31 @@ es:
     :required: "requerido"
 
   activerecord:
+    models:
+      vice_presidency: "Vice Presidencias"
+      direction: "Direcciones"
+      management: "Gerencias"
+      leadership: "Jefaturas"
+      surveillance: "Supervisiones"
+      employee: "Empleados"
+      role: "Roles"
+
+      command: "Comandos"
+      command_list: "Listas de Comandos"
+      protocol: "Protocolos"
+      platform: "Plataformas"
+      system: "Sistemas"
+      type: "Tipos"
+      network_element: "Elementos de Red"
+      location: "Ubicaciones"
+      vendor: "Fabricantes"
+
+      global_settings: "Configuración General"
+      default_permission: "Permisos"
+      server: "Servidores"
+      session: "Sesiones"
+      user: "Usuarios"
+
     errors:
       messages:
         record_invalid: "Falla de validación: %{errors}"

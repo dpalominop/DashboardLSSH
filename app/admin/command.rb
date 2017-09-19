@@ -1,6 +1,5 @@
 ActiveAdmin.register Command do
-  menu :label => I18n.t("active_admin.commands"),
-       :parent => I18n.t("active_admin.security_management"),
+  menu :parent => I18n.t("active_admin.security_management"),
        :priority => 1
 
   active_admin_import validate: true,
@@ -43,11 +42,23 @@ ActiveAdmin.register Command do
     destroy!
   end
 
+  filter :name, :label => I18n.t("active_admin.name")
+  filter :command_lists, :label => I18n.t("active_admin.commands_lists")
+  filter :created_at, :label => I18n.t("active_admin.created_at")
+  filter :updated_at, :label => I18n.t("active_admin.updated_at")
+
   index :title => I18n.t("active_admin.commands") do
       selectable_column
-      column :name
-      column :created_at
-      column :updated_at
+      column :name, :label => I18n.t("active_admin.name")
+      column :created_at, :label => I18n.t("active_admin.created_at")
+      column :updated_at, :label => I18n.t("active_admin.updated_at ")
       actions
+  end
+
+  form do |f|
+      f.inputs do
+          f.input :name, :label => I18n.t("active_admin.command")
+      end
+      f.actions
   end
 end

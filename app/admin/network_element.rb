@@ -1,6 +1,5 @@
 ActiveAdmin.register NetworkElement do
-    menu :label => I18n.t("active_admin.network_elements"),
-         :parent => I18n.t("active_admin.security_management"),
+    menu :parent => I18n.t("active_admin.security_management"),
          :priority => 7
     #menu :priority => 3
     active_admin_import validate: true,

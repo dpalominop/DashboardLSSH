@@ -1,6 +1,5 @@
 ActiveAdmin.register Platform do
-  menu :label => I18n.t("active_admin.platforms"),
-       :parent => I18n.t("active_admin.security_management"),
+  menu :parent => I18n.t("active_admin.security_management"),
        :priority => 4
 
   permit_params :name, :description, :state_id, surveillance_ids:[]
