@@ -22,8 +22,9 @@ ActiveAdmin.register Command do
   permit_params :name, :active_admin_import_model
 
   member_action :update, method: [:put, :patch] do
-    ExcludeCommand.find(params[:id]).update(name: params[:command][:name])
-    SudoCommand.find(params[:id]).update(name: params[:command][:name])
+    cname = Command.where(id: params[:id]).pluck(:name)[0]
+    ExcludeCommand.where(name: cname).update(name: params[:command][:name])
+    SudoCommand.where(name: cname).update(name: params[:command][:name])
     update!
   end
 
