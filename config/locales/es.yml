@@ -1,6 +1,4 @@
 es:
-  hello: "Hello world"
-
   active_admin:
     dashboard:  Inicio
     powered_by: ""
@@ -322,3 +320,5 @@ es:
   views:
       pagination:
         truncate: "..."
+        next: "Siguiente"
+        last: "Último"
