@@ -1,5 +1,7 @@
 ActiveAdmin.register Server do
-  menu :parent => I18n.t("active_admin.system"), :if => proc{ can? :manage, User}
+  menu :label => I18n.t("active_admin.servers"),
+       :parent => I18n.t("active_admin.system"),
+       :if => proc{ can? :manage, User}
   permit_params :hostname, :ip, :port, :username, :password
 
   filter :hostname

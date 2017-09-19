@@ -1,4 +1,6 @@
 es:
+  hello: "Hello world"
+
   active_admin:
     dashboard:  Inicio
     powered_by: ""
@@ -11,15 +13,21 @@ es:
     name: "Nombre"
     platform: "Plataforma"
     system: "Sistema"
+    systems: "Sistemas"
     type: "Tipo"
+    types: "Tipos"
     role: "Role"
+    roles: "Roles"
     employee_management: "Gestión de Empleados"
     security_management: "Gestión de Seguridad"
     commands: "Comandos"
     sessions: "Sesiones"
     location: "Ubicación"
+    locations: "Ubicaciones"
     vendor: "Fabricante"
+    vendors: "Fabricantes"
     protocol: "Protocolo"
+    protocols: "Protocolos"
     state: "Estado"
 
     clone: "Clonar"
@@ -62,6 +70,12 @@ es:
     leadership: "Jefatura"
 
     user_details: "Detalles del Usuario"
+    users: "Usuarios"
+
+    leaderships: "Jefaturas"
+    managements: "Gerencias"
+    directions: "Direcciones"
+    vice_presidencies: "Vice Presidencias"
 
   active_admin_import:
     file_error: "Error: %{message}"

@@ -1,5 +1,7 @@
 ActiveAdmin.register CommandList do
-    menu :parent => I18n.t("active_admin.security_management"), :priority => 2
+    menu :label => I18n.t("active_admin.commands_lists"),
+         :parent => I18n.t("active_admin.security_management"),
+         :priority => 2
     active_admin_import validate: true,
                           template: 'import' ,
                           template_object: ActiveAdminImport::Model.new(

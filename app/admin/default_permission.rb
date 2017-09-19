@@ -1,5 +1,7 @@
 ActiveAdmin.register DefaultPermission do
-  menu :parent => I18n.t("active_admin.system"), :if => proc{ can? :manage, User}
+  menu :label => I18n.t("active_admin.default_permissions"),
+       :parent => I18n.t("active_admin.system"),
+       :if => proc{ can? :manage, User}
   #permit_params :forbidden, :warning_counter, :intro, :prompt, :timer, :strict, :history_file
   permit_params :history_file, :intro
   actions :index, :update, :edit

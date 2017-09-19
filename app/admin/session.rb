@@ -1,5 +1,7 @@
 ActiveAdmin.register Session do
-  menu :parent => I18n.t("active_admin.system"), :if => proc{ can? :manage, User}
+  menu :label => I18n.t("active_admin.sessions"),
+       :parent => I18n.t("active_admin.system"),
+       :if => proc{ can? :manage, User}
   permit_params :employee_id, :network_element_id, :server_id, :initiation, :document
   actions :index, :show, :destroy
 

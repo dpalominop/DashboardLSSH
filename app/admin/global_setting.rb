@@ -1,5 +1,9 @@
 ActiveAdmin.register GlobalSetting, as: "Global Settings" do
-    menu priority: 1, :parent => I18n.t("active_admin.system"), :if => proc{ can? :manage, User}
+    menu :label => I18n.t("active_admin.global_settings"),
+         priority: 1,
+         :parent => I18n.t("active_admin.system"),
+         :if => proc{ can? :manage, User}
+
     permit_params :logpath, :loglevel, :logfilename, :syslogname
     actions :index, :update, :edit
 

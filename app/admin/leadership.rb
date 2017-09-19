@@ -1,5 +1,8 @@
 ActiveAdmin.register Leadership do
-    menu :parent => I18n.t("active_admin.employee_management"), :priority => 4
+    menu :label => I18n.t("active_admin.leaderships"),
+         :parent => I18n.t("active_admin.employee_management"),
+         :priority => 4
+
     active_admin_import validate: true,
                           template: 'import' ,
                           template_object: ActiveAdminImport::Model.new(

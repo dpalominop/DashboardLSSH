@@ -1,5 +1,7 @@
 ActiveAdmin.register Surveillance do
-  menu :parent => I18n.t("active_admin.employee_management"), :priority => 5
+  menu :label => I18n.t("active_admin.surveillances"),
+       :parent => I18n.t("active_admin.employee_management"),
+       :priority => 5
   permit_params :name, :description, :leadership_id, platform_ids: [], employee_ids: []
 
   index :title => I18n.t("active_admin.surveillances") do
