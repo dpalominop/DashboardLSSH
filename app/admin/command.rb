@@ -49,9 +49,21 @@ ActiveAdmin.register Command do
 
   index :title => I18n.t("active_admin.commands") do
       selectable_column
-      column :name, :label => I18n.t("active_admin.name")
-      column :created_at, :label => I18n.t("active_admin.created_at")
-      column :updated_at, :label => I18n.t("active_admin.updated_at ")
+      column I18n.t("active_admin.name"), :sortable => :name do |cm|
+          if cm.name then
+              link_to cm.name, admin_command_path(cm.id)
+          end
+      end
+      column I18n.t("active_admin.created_at"), :sortable => :created_at do |cm|
+          if cm.created_at then
+              a cm.created_at
+          end
+      end
+      column I18n.t("active_admin.updated_at"), :sortable => :updated_at do |cm|
+          if cm.updated_at then
+              a cm.updated_at
+          end
+      end
       actions
   end
 
