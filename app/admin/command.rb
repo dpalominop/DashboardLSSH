@@ -56,12 +56,12 @@ ActiveAdmin.register Command do
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |cm|
           if cm.created_at then
-              a cm.created_at
+              cm.created_at
           end
       end
       column I18n.t("active_admin.updated_at"), :sortable => :updated_at do |cm|
           if cm.updated_at then
-              a cm.updated_at
+              cm.updated_at
           end
       end
       actions

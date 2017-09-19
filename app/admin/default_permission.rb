@@ -16,14 +16,22 @@ ActiveAdmin.register DefaultPermission do
       #column :prompt
       #column :timer
       #column :strict
-      column :history_file
-      column :updated_at
+      column I18n.t("active_admin.logs_directory"), :sortable => :history_file do |dp|
+          if dp.history_file then
+              dp.history_file
+          end
+      end
+      column I18n.t("active_admin.updated_at"), :sortable => :updated_at do |dp|
+          if dp.updated_at then
+              dp.updated_at
+          end
+      end
       actions
   end
 
   form do |f|
       f.inputs I18n.t("active_admin.default_permissions") do
-          f.input :history_file
+          f.input :history_file, :label => I18n.t("active_admin.logs_directory")
           f.input :intro
       end
       f.actions

@@ -2,5 +2,36 @@ ActiveAdmin.register Vendor do
   menu :parent => I18n.t("active_admin.security_management"),
        :priority => 9
 
-  permit_params :name, :description
+  permit_params :name
+
+  filter :name, :label => I18n.t("active_admin.name")
+  filter :created_at, :label => I18n.t("active_admin.created_at")
+  filter :updated_at, :label => I18n.t("active_admin.updated_at")
+
+  index :title => I18n.t("active_admin.vendors") do
+      selectable_column
+      column I18n.t("active_admin.name"), :sortable => :name do |vn|
+          if vn.name then
+              link_to vn.name, admin_vendor_path(vn.id)
+          end
+      end
+      column I18n.t("active_admin.created_at"), :sortable => :created_at do |vn|
+          if vn.created_at then
+              vn.created_at
+          end
+      end
+      column I18n.t("active_admin.updated_at"), :sortable => :updated_at do |vn|
+          if vn.updated_at then
+              vn.updated_at
+          end
+      end
+      actions
+  end
+
+  form do |f|
+      f.inputs do
+          f.input :name, :label => I18n.t("active_admin.vendor")
+      end
+      f.actions
+  end
 end

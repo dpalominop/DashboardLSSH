@@ -47,6 +47,7 @@ es:
     all_commands: "Todos los Comandos"
 
     default_permissions: "Permisos"
+    logs_directory: "Directorio de logs"
 
     employees: "Empleados"
     surveillance: "Supervisión"
@@ -66,6 +67,7 @@ es:
     employee: "Empleado"
     network_element: "Elemento de Red"
     server: "Servidor"
+    document: "Documento"
 
     surveillance_details: "Detalles de Supervisión"
     username: "Username"
@@ -76,8 +78,11 @@ es:
 
     leaderships: "Jefaturas"
     managements: "Gerencias"
+    management: "Gerencia"
     directions: "Direcciones"
+    direction: "Dirección"
     vice_presidencies: "Vice Presidencias"
+    vice_presidency: "Vice Presidencia"
 
   active_admin_import:
     file_error: "Error: %{message}"

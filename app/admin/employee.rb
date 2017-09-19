@@ -34,13 +34,17 @@ ActiveAdmin.register Employee do
     index :title => I18n.t("active_admin.employees") do
         selectable_column
         #id_column
-        column I18n.t("active_admin.name") do |emp|
+        column I18n.t("active_admin.name"), :sortable => :name do |emp|
           if emp.name then
             link_to emp.name, admin_employee_path(emp.id)
           end
         end
         column :username
-        column :document
+        column I18n.t("active_admin.document"), :sortable => :document do |emp|
+          if emp.document then
+            a emp.document
+          end
+        end
         column I18n.t("active_admin.surveillance") do |emp|
             if emp.surveillance_id then
                 link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
@@ -95,9 +99,9 @@ ActiveAdmin.register Employee do
 
     form do |f|
         f.inputs I18n.t("active_admin.employee_details") do
-            f.input :name
+            f.input :name, :label => I18n.t("active_admin.name")
             f.input :username
-            f.input :document
+            f.input :document, :label => I18n.t("active_admin.document")
             f.input :surveillance_id, as: :nested_select, minimum_input_length: 0,
                   level_1: { attribute: :vice_presidency_id, collection: VicePresidency.all },
                   level_2: { attribute: :direction_id, collection: Direction.all },
@@ -132,7 +136,6 @@ ActiveAdmin.register Employee do
                 column I18n.t("active_admin.name") do |cl|
                     link_to cl.name, admin_command_list_path(cl.id)
                 end
-                column :description
                 # column 'Network Element' do |cl|
                 #     if cl.network_element_id then
                 #         link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)

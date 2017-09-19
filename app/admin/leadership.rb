@@ -13,55 +13,41 @@ ActiveAdmin.register Leadership do
 
     permit_params :name, :description, :management_id
 
-    # index :title => "Leadership" do
-    #     selectable_column
-    #     # id_column
-    #     column :name
-    #     column :description
-    #     column :management_id
-    #     actions
-    # end
+    filter :name, :label => I18n.t("active_admin.name")
+    filter :created_at, :label => I18n.t("active_admin.created_at")
+    filter :updated_at, :label => I18n.t("active_admin.updated_at")
 
-    filter :name
-    filter :description
+    index :title => I18n.t("active_admin.leaderships") do
+        selectable_column
+        column I18n.t("active_admin.management") do |lds|
+            if lds.management_id then
+                link_to Management.find(lds.management_id).name, admin_management_path(lds.management_id)
+            end
+        end
+        column I18n.t("active_admin.name"), :sortable => :name do |lds|
+            if lds.name then
+                link_to lds.name, admin_leadership_path(lds.id)
+            end
+        end
+        column I18n.t("active_admin.created_at"), :sortable => :created_at do |lds|
+            if lds.created_at then
+                lds.created_at
+            end
+        end
+        column I18n.t("active_admin.updated_at"), :sortable => :updated_at do |lds|
+            if lds.updated_at then
+                lds.updated_at
+            end
+        end
+        actions
+    end
 
-    # form do |f|
-    #     f.inputs "Leadership Details" do
-    #         f.input :management_id
-    #         f.input :name
-    #         f.input :description
-    #         # f.input :network_element_ids, as: :tags, collection: NetworkElement.all, :label => 'Network Elements'
-    #         # f.input :employee_ids, as: :tags, collection: Employee.all, :label => 'Employee'
-    #     end
-    #     f.actions
-    # end
-
-    # show :title => 'Leadership' do
-    #     # panel "Network Elements" do
-    #     #     table_for resource.network_elements do
-    #     #         column 'Name' do |ne|
-    #     #             link_to ne.name, admin_network_element_path(ne.id)
-    #     #         end
-    #     #         column :ip
-    #     #         column :port
-    #     #     end
-    #     # end
-    #
-    #     # panel "Employees" do
-    #     #     table_for resource.employees do
-    #     #         column 'Username' do |emp|
-    #     #             link_to emp.username, admin_employee_path(emp.id)
-    #     #         end
-    #     #         column :name
-    #     #         column :document
-    #     #     end
-    #     # end
-    # end
-
-    # sidebar "Leadership Details", only: :show do
-    #     attributes_table_for resource do
-    #         row :name
-    #         row :description
-    #     end
-    # end
+    form do |f|
+        f.inputs do
+            f.input :management_id, as: :select, collection: Management.all, :label => I18n.t("active_admin.management")
+            f.input :name, :label => I18n.t("active_admin.name")
+            f.input :description, :label => I18n.t("active_admin.description")
+        end
+        f.actions
+    end
 end

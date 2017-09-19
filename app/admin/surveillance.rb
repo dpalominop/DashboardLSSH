@@ -6,24 +6,28 @@ ActiveAdmin.register Surveillance do
   index :title => I18n.t("active_admin.surveillances") do
       selectable_column
       # id_column
-      column :name
-      column :description
       column I18n.t("active_admin.leadership") do |su|
         if su.leadership_id then
           link_to Leadership.find(su.leadership_id).name, admin_leadership_path(su.leadership_id)
         end
       end
+      column I18n.t("active_admin.name"), :sortable => :name do |su|
+          if su.name then
+              link_to su.name, admin_surveillance_path(su.id)
+          end
+      end
       actions
   end
 
-  filter :name
-  filter :description
+  filter :name, :label => I18n.t("active_admin.name")
+  filter :created_at, :label => I18n.t("active_admin.created_at")
+  filter :updated_at, :label => I18n.t("active_admin.updated_at")
 
   form do |f|
       f.inputs I18n.t("active_admin.surveillance_details") do
           f.input :leadership_id, as: :select, collection: Leadership.all, :label => I18n.t("active_admin.leadership")
-          f.input :name
-          f.input :description
+          f.input :name, :label => I18n.t("active_admin.name")
+          f.input :description, :label => I18n.t("active_admin.description")
           f.input :platform_ids, as: :tags, collection: Platform.all, :label => I18n.t("active_admin.platforms")
           f.input :employee_ids, as: :tags, collection: Employee.all, :label => I18n.t("active_admin.employee")
       end
@@ -44,16 +48,16 @@ ActiveAdmin.register Surveillance do
               column I18n.t("active_admin.username") do |emp|
                   link_to emp.username, admin_employee_path(emp.id)
               end
-              column :name
-              column :document
+              column :name, :label => I18n.t("active_admin.name")
+              column :description, :label => I18n.t("active_admin.description")
           end
       end
   end
 
   sidebar I18n.t("active_admin.surveillance_details"), only: :show do
       attributes_table_for resource do
-          row :name
-          row :description
+          row :name, :label => I18n.t("active_admin.name")
+          row :description, :label => I18n.t("active_admin.description")
       end
   end
 end
