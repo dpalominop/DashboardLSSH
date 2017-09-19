@@ -82,7 +82,7 @@ ActiveAdmin.register NetworkElement do
                 link_to Vendor.find(ne.vendor_id).name, admin_vendor_path(ne.vendor_id)
             end
         end
-        column I18n.t("active_admin.name") do |ne|
+        column I18n.t("active_admin.name"), :sortable => :name do |ne|
             if ne.name then
                 link_to ne.name, admin_network_element_path(ne.id)
             end
