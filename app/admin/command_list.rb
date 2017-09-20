@@ -86,21 +86,27 @@ ActiveAdmin.register CommandList do
             if command_list.exclude_commands.count != 0 then
                 panel I18n.t("active_admin.exclude_commands") do
                     table_for command_list.exclude_commands do
-                        column :name
+                        column I18n.t("active_admin.name") do |ec|
+                          ec.name
+                        end
                     end
                 end
             end
         else
             panel I18n.t("active_admin.permited_commands") do
                 table_for command_list.commands do
-                    column :name
+                  column I18n.t("active_admin.name") do |pc|
+                    pc.name
+                  end
                 end
             end
         end
         if command_list.sudo_commands.count != 0 then
             panel I18n.t("active_admin.sudo_commands") do
                 table_for command_list.sudo_commands do
-                    column :name
+                  column I18n.t("active_admin.name") do |sc|
+                    sc.name
+                  end
                 end
             end
         end
@@ -112,7 +118,9 @@ ActiveAdmin.register CommandList do
                 column I18n.t("active_admin.name") do |ne|
                     link_to ne.name, admin_network_element_path(ne.id)
                 end
-                column :description
+                column I18n.t("active_admin.description") do |ne|
+                  ne.description
+                end
             end
         end
     end
@@ -128,8 +136,12 @@ ActiveAdmin.register CommandList do
             row I18n.t("active_admin.type") do |cl|
                 link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
             end
-            row :name
-            row :description
+            row I18n.t("active_admin.name") do |cl|
+                cl.name
+            end
+            row I18n.t("active_admin.description") do |cl|
+                cl.description
+            end
             row I18n.t("active_admin.role") do |cl|
                 if cl.role_id then
                     link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)

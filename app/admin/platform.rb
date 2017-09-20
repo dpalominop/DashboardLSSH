@@ -6,13 +6,12 @@ ActiveAdmin.register Platform do
 
   index :title => I18n.t("active_admin.platforms") do
     selectable_column
-    column I18n.t("active_admin.name") do |pl|
+    column I18n.t("active_admin.name"), :sortable => :name do |pl|
       if pl.name then
         link_to pl.name, admin_platform_path(pl.id)
       end
     end
-    column :description
-    column I18n.t("active_admin.state") do |pl|
+    column I18n.t("active_admin.state"), :sortable => :state_id do |pl|
         if pl.state_id then
             State.find(pl.state_id).name
         end
@@ -20,13 +19,13 @@ ActiveAdmin.register Platform do
     actions
   end
 
-  filter :name
-  filter :state_id
+  filter :name, :label => I18n.t("active_admin.name")
+  filter :state_id, :label => I18n.t("active_admin.state")
 
   form do |f|
       f.inputs I18n.t("active_admin.platform_details") do
-          f.input :name
-          f.input :description
+          f.input :name, :label => I18n.t("active_admin.name")
+          f.input :description, :label => I18n.t("active_admin.description")
           # f.input :vendor_id, as: :select, collection: Vendor.all, :label => 'Vendor'
           # f.input :location_id, as: :select, collection: Location.all, :label => 'Location'
           f.input :state_id, as: :select, collection: State.all, :label => I18n.t("active_admin.state")
@@ -43,15 +42,21 @@ ActiveAdmin.register Platform do
                   link_to sv.name, admin_surveillance_path(sv.id)
                 end
               end
-              column :description
+              column I18n.t("active_admin.description") do |sv|
+                  sv.description
+              end
           end
       end
   end
 
   sidebar I18n.t("active_admin.platform_details"), only: :show do
       attributes_table_for platform do
-          row :name
-          row :description
+          row I18n.t("active_admin.name") do |pl|
+              pl.name
+          end
+          row I18n.t("active_admin.description") do |pl|
+              pl.description
+          end
           row I18n.t("active_admin.state") do |pl|
               if pl.state_id then
                   State.find(pl.state_id).name

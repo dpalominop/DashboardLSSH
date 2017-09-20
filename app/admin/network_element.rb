@@ -89,7 +89,9 @@ ActiveAdmin.register NetworkElement do
         end
         # column :description
         column :ip
-        column :port
+        column I18n.t("active_admin.port"), :sortable => :port do |ne|
+            a ne.port
+        end
         column I18n.t("active_admin.protocol") do |ne|
             if ne.protocol_id then
                 link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)
@@ -167,14 +169,14 @@ ActiveAdmin.register NetworkElement do
                 end
             end
             row I18n.t("active_admin.name") do |ne|
-                a ne.name
+                ne.name
             end
             row I18n.t("active_admin.description") do |ne|
-                a ne.description
+                ne.description
             end
             row :ip
             row I18n.t("active_admin.port") do |ne|
-                a ne.port
+                ne.port
             end
             row I18n.t("active_admin.protocol") do |ne|
                 link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)

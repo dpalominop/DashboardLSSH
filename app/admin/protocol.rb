@@ -28,6 +28,22 @@ ActiveAdmin.register Protocol do
       actions
   end
 
+  show do
+    panel I18n.t("active_admin.protocol_details") do
+      attributes_table_for resource do
+        row I18n.t("active_admin.protocol") do |res|
+            res.name
+        end
+        row I18n.t("active_admin.created_at") do |res|
+            res.created_at
+        end
+        row I18n.t("active_admin.updated_at") do |res|
+            res.created_at
+        end
+      end
+    end
+  end
+
   form do |f|
       f.inputs do
           f.input :name, :label => I18n.t("active_admin.protocol")

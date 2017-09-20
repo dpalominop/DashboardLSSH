@@ -29,7 +29,7 @@ ActiveAdmin.register Surveillance do
           f.input :name, :label => I18n.t("active_admin.name")
           f.input :description, :label => I18n.t("active_admin.description")
           f.input :platform_ids, as: :tags, collection: Platform.all, :label => I18n.t("active_admin.platforms")
-          f.input :employee_ids, as: :tags, collection: Employee.all, :label => I18n.t("active_admin.employee")
+          f.input :employee_ids, as: :tags, collection: Employee.all, :label => I18n.t("active_admin.employees")
       end
       f.actions
   end
@@ -48,16 +48,24 @@ ActiveAdmin.register Surveillance do
               column I18n.t("active_admin.username") do |emp|
                   link_to emp.username, admin_employee_path(emp.id)
               end
-              column :name, :label => I18n.t("active_admin.name")
-              column :description, :label => I18n.t("active_admin.description")
+              column I18n.t("active_admin.name") do |emp|
+                  emp.name
+              end
+              column I18n.t("active_admin.document") do |emp|
+                  emp.document
+              end
           end
       end
   end
 
   sidebar I18n.t("active_admin.surveillance_details"), only: :show do
       attributes_table_for resource do
-          row :name, :label => I18n.t("active_admin.name")
-          row :description, :label => I18n.t("active_admin.description")
+          row I18n.t("active_admin.name") do |res|
+              res.name
+          end
+          row I18n.t("active_admin.description") do |res|
+              res.description
+          end
       end
   end
 end

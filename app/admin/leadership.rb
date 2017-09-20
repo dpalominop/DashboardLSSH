@@ -42,6 +42,25 @@ ActiveAdmin.register Leadership do
         actions
     end
 
+    show do
+      panel I18n.t("active_admin.leadership_details") do
+        attributes_table_for resource do
+          row I18n.t("active_admin.leadership") do |res|
+              res.name
+          end
+          row I18n.t("active_admin.management") do |res|
+              link_to Management.find(res.management_id).name, admin_management_path(res.management_id)
+          end
+          row I18n.t("active_admin.created_at") do |res|
+              res.created_at
+          end
+          row I18n.t("active_admin.updated_at") do |res|
+              res.created_at
+          end
+        end
+      end
+    end
+
     form do |f|
         f.inputs do
             f.input :management_id, as: :select, collection: Management.all, :label => I18n.t("active_admin.management")
