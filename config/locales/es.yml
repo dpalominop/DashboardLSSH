@@ -364,7 +364,16 @@ es:
     pm: pm
 
   views:
-      pagination:
-        truncate: "..."
-        next: "Siguiente"
-        last: "Último"
+    pagination:
+      truncate: "..."
+      next: "Siguiente"
+      last: "Último"
+
+  devise:
+    failure:
+      user:
+        unauthenticated: "Sesión Cerrada"
+      already_authenticated: "Sesión actualmente activa"
+    sessions:
+      user:
+        signed_in: "Sesión Iniciada"
