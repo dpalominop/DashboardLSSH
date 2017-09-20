@@ -10,7 +10,7 @@ ActiveAdmin.register Employee do
                           ),
                           before_batch_import: ->(importer){
                               begin
-                                surveillance_names = importer.values_at('surveillance_id')
+                                surveillance_names = importer.values_at('surveillance')
                                 # replacing author name with author id
                                 surveillances   = Surveillance.where(name: surveillance_names).pluck(:name, :id)
                                 options = Hash[*surveillances.flatten] # #{"Jane" => 2, "John" => 1}
@@ -54,7 +54,7 @@ ActiveAdmin.register Employee do
     end
 
     filter :username
-    filter :document
+    filter :document, :label => I18n.t("active_admin.document")
 
     member_action :update, method: [:put, :patch] do
       employee = Employee.find(params[:id])
