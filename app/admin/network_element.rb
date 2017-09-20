@@ -101,10 +101,10 @@ ActiveAdmin.register NetworkElement do
         end
     end
 
-    filter :name
-    filter :description
+    filter :name, :label => I18n.t("active_admin.name")
+    filter :description, :label => I18n.t("active_admin.description")
     filter :ip
-    filter :port
+    filter :port, :label => I18n.t("active_admin.port")
     # filter :protocol_id
 
     form do |f|
@@ -114,10 +114,10 @@ ActiveAdmin.register NetworkElement do
             f.input :type_id, as: :select, collection: Type.all, :label => I18n.t("active_admin.type")
             f.input :location_id, as: :select, collection: Location.all, :label => I18n.t("active_admin.location")
             f.input :vendor_id, as: :select, collection: Vendor.all, :label => I18n.t("active_admin.vendor")
-            f.input :name
-            f.input :description
+            f.input :name, :label => I18n.t("active_admin.name")
+            f.input :description, :label => I18n.t("active_admin.description")
             f.input :ip
-            f.input :port
+            f.input :port, :label => I18n.t("active_admin.port")
             f.input :protocol_id, as: :select, collection: Protocol.all, :label => I18n.t("active_admin.protocol")
         end
         f.actions
@@ -138,7 +138,9 @@ ActiveAdmin.register NetworkElement do
                 column I18n.t("active_admin.name") do |cl|
                     link_to cl.name, admin_command_list_path(cl.id)
                 end
-                column :description
+                column I18n.t("active_admin.description") do |cl|
+                    a cl.description
+                end
             end
         end
     end
@@ -164,11 +166,16 @@ ActiveAdmin.register NetworkElement do
                     link_to Vendor.find(ne.vendor_id).name, admin_vendor_path(ne.vendor_id)
                 end
             end
-
-            row :name
-            row :description
+            row I18n.t("active_admin.name") do |ne|
+                a ne.name
+            end
+            row I18n.t("active_admin.description") do |ne|
+                a ne.description
+            end
             row :ip
-            row :port
+            row I18n.t("active_admin.port") do |ne|
+                a ne.port
+            end
             row I18n.t("active_admin.protocol") do |ne|
                 link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)
             end

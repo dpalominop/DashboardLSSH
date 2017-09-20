@@ -28,6 +28,7 @@ es:
     vendors: "Fabricantes"
     protocol: "Protocolo"
     protocols: "Protocolos"
+    port: "Puerto"
     state: "Estado"
     created_at: "Creado"
     updated_at: "Actulizado"
@@ -35,7 +36,7 @@ es:
     clone: "Clonar"
     connectivity: "Conectividad"
     network_elements: "Elementos de Red"
-    network_element_details: "Detalles del Elemento"
+    network_element_details: "Detalles del Elemento de Red"
     assigned_commands_lists: "Listas de Comandos Asignadas"
 
     commands_lists: "Listas de Commandos"
