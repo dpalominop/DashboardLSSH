@@ -26,7 +26,8 @@ ActiveAdmin.register Session do
       # attachment_column :document
       column I18n.t("active_admin.document") do |se|
           if se.server_id && se.network_element_id && se.employee_id then
-              link_to se.document_file_name, "https://10.123.120.195/#{se.document_file_name}"
+              config = YAML.load_file('config/fileserver.yml')
+              link_to se.document_file_name, "https://#{config['hostname']}/#{se.document_file_name}"
           end
       end
       actions
