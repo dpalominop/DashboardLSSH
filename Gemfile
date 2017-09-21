@@ -97,6 +97,9 @@ group :development do
 
   # Capistrano Rails DB
   gem 'capistrano-rails-db'
+
+  # Entity-Relationship Diagrams
+  gem 'rails-erd', require: false
 end
 
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
