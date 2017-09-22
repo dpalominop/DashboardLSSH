@@ -22,9 +22,11 @@ ActiveAdmin.register Session do
               link_to Server.find(se.server_id).hostname, admin_server_path(se.server_id)
           end
       end
-      column :initiation
+      column I18n.t("active_admin.initiation"), :sortable => :initiation  do |se|
+          se.initiation
+      end
       # attachment_column :document
-      column I18n.t("active_admin.document") do |se|
+      column I18n.t("active_admin.document"), :sortable => :document_file_name do |se|
           if se.server_id && se.network_element_id && se.employee_id then
               config = YAML.load_file('config/fileserver.yml')
               link_to se.document_file_name, "https://#{config['hostname']}/#{se.document_file_name}"
@@ -33,10 +35,10 @@ ActiveAdmin.register Session do
       actions
   end
 
-  filter :employee_id
-  filter :network_element_id
-  filter :server_id
-  filter :initiation
+  filter :employee_id, :label => I18n.t("active_admin.employee")
+  filter :network_element_id, :label => I18n.t("active_admin.network_element")
+  filter :server_id, :label => I18n.t("active_admin.server")
+  filter :initiation, :label => I18n.t("active_admin.initiation")
 
   form do |f|
     f.inputs I18n.t("active_admin.session_details") do
@@ -50,7 +52,7 @@ ActiveAdmin.register Session do
     f.actions
   end
 
-  show do |se|
+  show :title => :document_file_name do |se|
     attributes_table do
       row I18n.t("active_admin.employee") do |se|
           if se.employee_id then
@@ -67,7 +69,9 @@ ActiveAdmin.register Session do
               link_to Server.find(se.server_id).hostname, admin_server_path(se.server_id)
           end
       end
-      row :initiation
+      row I18n.t("active_admin.initiation") do |se|
+          se.initiation
+      end
       # attachment_row :document
       row I18n.t("active_admin.document") do |se|
           if se.server_id && se.network_element_id && se.employee_id then
