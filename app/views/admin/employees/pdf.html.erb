@@ -159,6 +159,10 @@ background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f
 background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
 }
 
+table, tr, td, th, tbody, thead, tfoot {
+    page-break-inside: avoid !important;
+}
+
 </style>
 </head>
 <body>
@@ -182,7 +186,7 @@ background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
           <tbody>
           <% for cl in resource.command_lists.joins(:platform).merge(Platform.order(name: :asc)).joins(:system).merge(System.order(name: :asc)).joins(:type).merge(Type.order(name: :asc)) %>
             <% for ne in NetworkElement.where(platform_id: cl.platform_id, system_id: cl.system_id, type_id: cl.type_id).order(ip: :asc) %>
-              <tr>
+              <tr style="page-break-inside: avoid;">
                 <td><%=h cl.platform.name %></td>
                 <td><%=h cl.system.name %></td>
                 <td><%=h cl.type.name %></td>
