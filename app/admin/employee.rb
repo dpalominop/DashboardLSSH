@@ -31,31 +31,6 @@ ActiveAdmin.register Employee do
                           back: -> { config.namespace.resource_for(Employee).route_collection_path }
     permit_params :name, :username, :document, :surveillance_id, command_list_ids: []
 
-    index :title => I18n.t("active_admin.employees") do
-        selectable_column
-        #id_column
-        column I18n.t("active_admin.name"), :sortable => :name do |emp|
-          if emp.name then
-            link_to emp.name, admin_employee_path(emp.id)
-          end
-        end
-        column :username
-        column I18n.t("active_admin.document"), :sortable => :document do |emp|
-          if emp.document then
-            a emp.document
-          end
-        end
-        column I18n.t("active_admin.surveillance") do |emp|
-            if emp.surveillance_id then
-                link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
-            end
-        end
-        actions
-    end
-
-    filter :username
-    filter :document, :label => I18n.t("active_admin.document")
-
     member_action :update, method: [:put, :patch] do
       employee = Employee.find(params[:id])
       if employee.username != params[:employee][:username]
@@ -83,6 +58,14 @@ ActiveAdmin.register Employee do
       destroy!
     end
 
+    member_action :pdf, method: :get do
+      render(pdf: "reporte-#{resource.username}")
+    end
+
+    action_item :pdf, :only => :show do
+      link_to(I18n.t("active_admin.report"), pdf_admin_employee_path(id: resource.id))
+    end
+
     # collection_action :change_command_list, method: :get do
     #     logger.debug "************"
     #     logger.debug params
@@ -96,6 +79,31 @@ ActiveAdmin.register Employee do
     #     logger.debug tmp
     #     render json: command_lists.map { |cl| cl.as_json(only: [:id, :name]) }
     # end
+
+    filter :username
+    filter :document, :label => I18n.t("active_admin.document")
+
+    index :title => I18n.t("active_admin.employees") do
+        selectable_column
+        #id_column
+        column I18n.t("active_admin.name"), :sortable => :name do |emp|
+          if emp.name then
+            link_to emp.name, admin_employee_path(emp.id)
+          end
+        end
+        column :username
+        column I18n.t("active_admin.document"), :sortable => :document do |emp|
+          if emp.document then
+            a emp.document
+          end
+        end
+        column I18n.t("active_admin.surveillance") do |emp|
+            if emp.surveillance_id then
+                link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
+            end
+        end
+        actions
+    end
 
     form do |f|
         f.inputs I18n.t("active_admin.employee_details") do

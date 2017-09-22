@@ -1,0 +1,19 @@
+<h1><%= resource.username %></h1>
+<p>ID: <%= resource.id %></p>
+
+<table>
+  <tr>
+    <th>Plataforma</th>
+    <th>Sistema</th>
+    <th>Tipo</th>
+    <th>Nombre</th>
+  </tr>
+  <% for cl in resource.command_lists %>
+    <tr>
+      <td><%=h cl.platform.name %></td>
+      <td><%=h cl.system.name %></td>
+      <td><%=h cl.type.name %></td>
+      <td><%=h cl.name %></td>
+    </tr>
+  <% end %>
+</table>

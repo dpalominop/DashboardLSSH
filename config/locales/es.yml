@@ -39,6 +39,7 @@ es:
     state: "Estado"
     created_at: "Creado"
     updated_at: "Actualizado"
+    report: "Reporte"
 
     clone: "Clonar"
     connectivity: "Conectividad"
