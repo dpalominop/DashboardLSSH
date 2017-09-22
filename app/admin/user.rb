@@ -26,7 +26,7 @@ ActiveAdmin.register User do
     column I18n.t("active_admin.sign_in_count"), :sortable => :sign_in_count  do |us|
         us.sign_in_count
     end
-    column I18n.t("active_admin.username"), :sortable => :created_at  do |us|
+    column I18n.t("active_admin.created_at"), :sortable => :created_at  do |us|
         us.created_at
     end
     actions
