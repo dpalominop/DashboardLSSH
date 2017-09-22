@@ -89,4 +89,10 @@ $(document).on 'ready page:load', ->
       $(this).find("td:last").html('Cargando')
       $.get(window.location.href+'/connectivity')
       return
+
+  $("#employee_surveillance_id_input label[for='employee_vice_presidency_id']").text("Vice Presidencia");
+  $("#employee_surveillance_id_input label[for='employee_direction_id']").text("Dirección");
+  $("#employee_surveillance_id_input label[for='employee_management_id']").text("Gerencia");
+  $("#employee_surveillance_id_input label[for='employee_leadership_id']").text("Jefatura");
+  $("#employee_surveillance_id_input label[for='employee_surveillance_id']").text("Supervisión");
 return
