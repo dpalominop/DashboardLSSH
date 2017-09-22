@@ -11,30 +11,36 @@ ActiveAdmin.register CommandList do
                           back: -> { config.namespace.resource_for(CommandList).route_collection_path }
     permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, :all_commands, command_ids: [], exclude_command_ids: [], sudo_command_ids: []
 
+    controller do
+      def scoped_collection
+        end_of_association_chain.includes(:platform, :system, :type, :role)
+      end
+    end
+
     index :title => I18n.t("active_admin.commands_lists") do
         selectable_column
         #id_column
-        column I18n.t("active_admin.platform") do |cl|
+        column I18n.t("active_admin.platform"), :sortable => 'platforms.name' do |cl|
             if cl.platform_id then
                 link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
             end
         end
-        column I18n.t("active_admin.system") do |cl|
+        column I18n.t("active_admin.system"), :sortable => 'systems.name' do |cl|
             if cl.system_id then
                 link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
             end
         end
-        column I18n.t("active_admin.type") do |cl|
+        column I18n.t("active_admin.type"), :sortable => 'types.name' do |cl|
             if cl.type_id then
                 link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
             end
         end
-        column I18n.t("active_admin.name") do |cl|
+        column I18n.t("active_admin.name"), :sortable => :name do |cl|
             if cl.name then
                 link_to cl.name, admin_command_list_path(cl.id)
             end
         end
-        column I18n.t("active_admin.role") do |cl|
+        column I18n.t("active_admin.role"), :sortable => 'roles.name' do |cl|
             if cl.role_id then
                 link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
             end

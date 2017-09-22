@@ -66,6 +66,12 @@ ActiveAdmin.register Employee do
       link_to(I18n.t("active_admin.report"), pdf_admin_employee_path(id: resource.id))
     end
 
+    controller do
+      def scoped_collection
+        end_of_association_chain.includes(:surveillance)
+      end
+    end
+
     # collection_action :change_command_list, method: :get do
     #     logger.debug "************"
     #     logger.debug params
@@ -97,7 +103,7 @@ ActiveAdmin.register Employee do
             a emp.document
           end
         end
-        column I18n.t("active_admin.surveillance") do |emp|
+        column I18n.t("active_admin.surveillance"), :sortable => 'surveillances.name' do |emp|
             if emp.surveillance_id then
                 link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
             end

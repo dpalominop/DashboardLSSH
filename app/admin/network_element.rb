@@ -54,30 +54,36 @@ ActiveAdmin.register NetworkElement do
       a I18n.t("active_admin.connectivity"), :id => 'connectivity'
     end
 
+    controller do
+      def scoped_collection
+        end_of_association_chain.includes(:platform, :system, :type, :location, :vendor)
+      end
+    end
+
     index :title => I18n.t("active_admin.network_elements") do
         selectable_column
         #id_column
-        column I18n.t("active_admin.platform") do |ne|
+        column I18n.t("active_admin.platform"), :sortable => 'platforms.name' do |ne|
             if ne.platform_id then
                 link_to Platform.find(ne.platform_id).name, admin_platform_path(ne.platform_id)
             end
         end
-        column I18n.t("active_admin.system") do |ne|
+        column I18n.t("active_admin.system"), :sortable => 'systems.name' do |ne|
             if ne.system_id then
                 link_to System.find(ne.system_id).name, admin_system_path(ne.system_id)
             end
         end
-        column I18n.t("active_admin.type") do |ne|
+        column I18n.t("active_admin.type"), :sortable => 'types.name' do |ne|
             if ne.type_id then
                 link_to Type.find(ne.type_id).name, admin_type_path(ne.type_id)
             end
         end
-        column I18n.t("active_admin.location") do |ne|
+        column I18n.t("active_admin.location"), :sortable => 'locations.name' do |ne|
             if ne.location_id then
                 link_to Location.find(ne.location_id).name, admin_location_path(ne.location_id)
             end
         end
-        column I18n.t("active_admin.vendor") do |ne|
+        column I18n.t("active_admin.vendor"), :sortable => 'vendors.name' do |ne|
             if ne.vendor_id then
                 link_to Vendor.find(ne.vendor_id).name, admin_vendor_path(ne.vendor_id)
             end
@@ -89,14 +95,14 @@ ActiveAdmin.register NetworkElement do
         end
         # column :description
         column :ip
-        column I18n.t("active_admin.port"), :sortable => :port do |ne|
-            a ne.port
-        end
-        column I18n.t("active_admin.protocol") do |ne|
-            if ne.protocol_id then
-                link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)
-            end
-        end
+        # column I18n.t("active_admin.port"), :sortable => :port do |ne|
+        #     a ne.port
+        # end
+        # column I18n.t("active_admin.protocol"), :sortable => 'protocols.name' do |ne|
+        #     if ne.protocol_id then
+        #         link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)
+        #     end
+        # end
         # actions
         actions defaults: true do |ne|
           link_to(I18n.t("active_admin.clone"), clone_admin_network_element_path(id: ne.id), method: :post)
