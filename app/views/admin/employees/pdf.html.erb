@@ -167,7 +167,7 @@ background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
     <br>
     <a><b>Username:&emsp;&emsp;&emsp;&emsp;&emsp;</b><%= resource.username %></a>
 
-    <h3> Listas de Comandos </h3>
+    <h3> Lista de Acceso a Plataformas </h3>
     <div>
         <table data-toggle="table">
           <thead>
@@ -175,17 +175,21 @@ background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
               <th>Plataforma</th>
               <th>Sistema</th>
               <th>Tipo</th>
-              <th>Nombre</th>
+              <th>Role</th>
+              <th>Elemento de Red</th>
             </tr>
           </thead>
           <tbody>
           <% for cl in resource.command_lists %>
-            <tr>
-              <td><%=h cl.platform.name %></td>
-              <td><%=h cl.system.name %></td>
-              <td><%=h cl.type.name %></td>
-              <td><%=h cl.name %></td>
-            </tr>
+            <% for ne in NetworkElement.where(platform_id: cl.platform_id, system_id: cl.system_id, type_id: cl.type_id) %>
+              <tr>
+                <td><%=h cl.platform.name %></td>
+                <td><%=h cl.system.name %></td>
+                <td><%=h cl.type.name %></td>
+                <td><%=h cl.role.name %></td>
+                <td><%=h ne.ip %></td>
+              </tr>
+            <% end %>
           <% end %>
           </tbody>
         </table>
