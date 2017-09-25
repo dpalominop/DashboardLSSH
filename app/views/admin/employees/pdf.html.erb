@@ -170,6 +170,17 @@ table, tr, td, th, tbody, thead, tfoot {
     <a><b>Nombre Completo:&emsp;</b><%= resource.name %></a>
     <br>
     <a><b>Username:&emsp;&emsp;&emsp;&emsp;&emsp;</b><%= resource.username %></a>
+    <br>
+    <br>
+    <a><b>VicePresidencia:&emsp;&emsp;</b><%= resource.surveillance.leadership.management.direction.vice_presidency.name  %></a>
+    <br>
+    <a><b>Dirección:&emsp;&emsp;&emsp;&emsp;&emsp;</b><%= resource.surveillance.leadership.management.direction.name  %></a>
+    <br>
+    <a><b>Gerencia:&emsp;&emsp;&emsp;&emsp;&emsp; </b><%= resource.surveillance.leadership.management.name %></a>
+    <br>
+    <a><b>Jefatura:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b><%= resource.surveillance.leadership.name %></a>
+    <br>
+    <a><b>Supervisión:&emsp;&emsp;&emsp;&emsp;</b><%= resource.surveillance.name %></a>
 
     <h3> Lista de Acceso a Plataformas </h3>
     <div>
