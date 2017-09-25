@@ -19,6 +19,14 @@ ActiveAdmin.register Platform do
     actions
   end
 
+  member_action :pdf, method: :get do
+    render(pdf: "reporte-#{resource.name}")
+  end
+
+  action_item :pdf, :only => :show do
+    link_to(I18n.t("active_admin.report"), pdf_admin_platform_path(id: resource.id))
+  end
+
   filter :name, :label => I18n.t("active_admin.name")
   filter :state_id, :label => I18n.t("active_admin.state")
 
