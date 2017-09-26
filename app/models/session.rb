@@ -1,8 +1,9 @@
 class Session < ApplicationRecord
   # require "paperclip/storage/sftp"
-  # belongs_to :employee
-  # belongs_to :network_element
-  # belongs_to :server
+  belongs_to :employee
+  belongs_to :network_element
+  belongs_to :server
+
   config = YAML.load_file('config/fileserver.yml')
   has_attached_file :document, #, styles: {thumbnail: "60x60#"}
                     :path => "/var/log/sa/:filename",

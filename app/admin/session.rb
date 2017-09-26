@@ -4,20 +4,26 @@ ActiveAdmin.register Session do
   permit_params :employee_id, :network_element_id, :server_id, :initiation, :document
   actions :index, :show, :destroy
 
+  controller do
+    def scoped_collection
+      end_of_association_chain.includes(:employee, :network_element, :server)
+    end
+  end
+
   index :title => I18n.t("active_admin.sessions") do
       selectable_column
       # id_column
-      column I18n.t("active_admin.employee") do |se|
+      column I18n.t("active_admin.employee"), :sortable => 'employees.name' do |se|
           if se.employee_id then
               link_to Employee.find(se.employee_id).name, admin_employee_path(se.employee_id)
           end
       end
-      column I18n.t("active_admin.network_element") do |se|
+      column I18n.t("active_admin.network_element"), :sortable => 'network_elements.name' do |se|
           if se.network_element_id then
               link_to NetworkElement.find(se.network_element_id).name, admin_network_element_path(se.network_element_id)
           end
       end
-      column I18n.t("active_admin.server") do |se|
+      column I18n.t("active_admin.server"), :sortable => 'servers.hostname' do |se|
           if se.server_id then
               link_to Server.find(se.server_id).hostname, admin_server_path(se.server_id)
           end
