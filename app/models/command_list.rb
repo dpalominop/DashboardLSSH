@@ -23,6 +23,8 @@ class CommandList < ApplicationRecord
     validates :type_id, :presence => true
     validates :role_id, :presence => true
 
-    validates :type_id, uniqueness: { :case_sensitive => false, scope: :role_id, message: "This combination with Role has been taken" }
-    validates :role_id, uniqueness: { :case_sensitive => false, scope: :type, message: "This combination with Type has been taken" }
+    validates :platform_id, uniqueness: { :case_sensitive => false, scope: [:system, :type, :role], message: "This combination has been taken" }
+    validates :system_id, uniqueness: { :case_sensitive => false, scope: [:platform, :type, :role], message: "This combination has been taken" }
+    validates :type_id, uniqueness: { :case_sensitive => false, scope: [:platform, :system, :role], message: "This combination has been taken" }
+    validates :role_id, uniqueness: { :case_sensitive => false, scope: [:platform, :system, :type], message: "This combination has been taken" }
 end
