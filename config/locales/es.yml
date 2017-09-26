@@ -2,6 +2,7 @@ es:
   active_admin:
     dashboard:  Inicio
     powered_by: ""
+    combination_taken: "Esta combinación ha sido tomada!"
 
     new_model: "Nuevo"
     edit_model: "Editar"
