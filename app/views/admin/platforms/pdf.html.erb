@@ -222,6 +222,7 @@ a, h1, h3 {
                         .joins(:system).merge(System.order(name: :asc))
                         .joins(:type).merge(Type.order(name: :asc))
                         .joins(:role).merge(Role.order(name: :asc)) %>
+              <% if cl.employees %>
               <tr style="page-break-inside: avoid;">
                 <td><%=h cl.system.name %></td>
                 <td><%=h cl.type.name %></td>
@@ -232,6 +233,7 @@ a, h1, h3 {
                   <% end %>
                 </td>
               </tr>
+              <% end %>
           <% end %>
           </tbody>
         </table>
