@@ -218,14 +218,13 @@ a, h1, h3 {
             </tr>
           </thead>
           <tbody>
-          <% for ne in resource.network_elements
+          <% for cl in CommandList.where(platform: resource.id)
                         .joins(:system).merge(System.order(name: :asc))
-                        .joins(:type).merge(Type.order(name: :asc)) %>
-            <% for cl in CommandList.where(platform: resource.id, system: ne.system_id, type: ne.type_id)
-                        .joins(:role).merge(Role.order(name: :asc))%>
+                        .joins(:type).merge(Type.order(name: :asc))
+                        .joins(:role).merge(Role.order(name: :asc)) %>
               <tr style="page-break-inside: avoid;">
-                <td><%=h ne.system.name %></td>
-                <td><%=h ne.type.name %></td>
+                <td><%=h cl.system.name %></td>
+                <td><%=h cl.type.name %></td>
                 <td><%=h cl.role.name %></td>
                 <td>
                   <% for emp in cl.employees.order(username: :asc) %>
@@ -233,7 +232,6 @@ a, h1, h3 {
                   <% end %>
                 </td>
               </tr>
-            <% end %>
           <% end %>
           </tbody>
         </table>
