@@ -110,9 +110,9 @@ ActiveAdmin.register NetworkElement do
     end
 
     filter :name, :label => I18n.t("active_admin.name")
-    filter :description, :label => I18n.t("active_admin.description")
+    # filter :description, :label => I18n.t("active_admin.description")
     filter :ip
-    filter :port, :label => I18n.t("active_admin.port")
+    # filter :port, :label => I18n.t("active_admin.port")
     # filter :protocol_id
 
     form do |f|
