@@ -177,7 +177,7 @@ a, h1, h3 {
     <br>
     <br>
 
-    <h3> Elementos de Red </h3>
+    <h3> Elementos de Red y Ubicaciones </h3>
     <div>
         <table data-toggle="table">
           <thead>
@@ -199,6 +199,37 @@ a, h1, h3 {
               <td><%=h ne.type.name %></td>
               <td><%=h ne.location.name %></td>
               <td><%=h ne.name %><br><%=h ne.ip %></td>
+
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+    </div>
+
+    <h3> Elementos de Red y Usuarios </h3>
+    <div>
+        <table data-toggle="table">
+          <thead>
+            <tr style="page-break-inside: avoid;">
+              <th>Sistema</th>
+              <th>Tipo</th>
+              <th>Usuarios</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% for ne in resource.network_elements
+                        .joins(:system).merge(System.order(name: :asc))
+                        .joins(:type).merge(Type.order(name: :asc)) %>
+            <tr style="page-break-inside: avoid;">
+              <td><%=h ne.system.name %></td>
+              <td><%=h ne.type.name %></td>
+              <td>
+              <% for cl in CommandList.where(platform: resource.id, system: ne.system_id, type: ne.type_id) %>
+                <% for emp in cl.employees.order(username: :asc) %>
+                  <%=h emp.username %> : <%=h emp.name %><br>
+                <% end %>
+              <% end %>
+              </td>
             </tr>
           <% end %>
           </tbody>
