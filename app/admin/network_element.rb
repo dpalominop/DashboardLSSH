@@ -9,6 +9,49 @@ ActiveAdmin.register NetworkElement do
                               force_encoding: :auto,
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
+                          headers_rewrites: { 'platform' => 'platform_id',
+                                              'system' => 'system_id',
+                                              'type' => 'type_id',
+                                              'location' => 'location_id',
+                                              'vendor' => 'vendor_id',
+                                              'protocol' => 'protocol_id'
+                                            },
+                          before_batch_import: ->(importer){
+                              begin
+                                platform_names = importer.values_at('platform_id')
+                                # replacing author name with author id
+                                platforms = Platform.where(name: platform_names).pluck(:name, :id)
+                                options   = Hash[*platforms.flatten] # #{"Jane" => 2, "John" => 1}
+                                importer.batch_replace('platform_id', options) #replacing "Jane" with 1, etc
+
+                                system_names = importer.values_at('system_id')
+                                systems   = System.where(name: system_names).pluck(:name, :id)
+                                options   = Hash[*systems.flatten]
+                                importer.batch_replace('system_id', options)
+
+                                type_names = importer.values_at('type_id')
+                                types   = Type.where(name: type_names).pluck(:name, :id)
+                                options   = Hash[*types.flatten]
+                                importer.batch_replace('type_id', options)
+
+                                location_names = importer.values_at('location_id')
+                                locations   = Location.where(name: location_names).pluck(:name, :id)
+                                options   = Hash[*locations.flatten]
+                                importer.batch_replace('location_id', options)
+
+                                vendor_names = importer.values_at('vendor_id')
+                                vendors   = Vendor.where(name: vendor_names).pluck(:name, :id)
+                                options   = Hash[*vendors.flatten]
+                                importer.batch_replace('vendor_id', options)
+
+                                protocol_names = importer.values_at('protocol_id')
+                                protocols   = Protocol.where(name: protocol_names).pluck(:name, :id)
+                                options   = Hash[*protocols.flatten]
+                                importer.batch_replace('protocol_id', options)
+                              rescue
+
+                              end
+                          },
                           back: -> { config.namespace.resource_for(NetworkElement).route_collection_path }
     permit_params :name, :description,
                   :ip, :port,

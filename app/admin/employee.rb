@@ -8,6 +8,7 @@ ActiveAdmin.register Employee do
                               force_encoding: :auto,
                               csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                           ),
+                          headers_rewrites: { 'surveillance' => 'surveillance_id' },
                           before_batch_import: ->(importer){
                               begin
                                 surveillance_names = importer.values_at('surveillance')
