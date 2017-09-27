@@ -1,7 +1,26 @@
 ActiveAdmin.register Platform do
   menu :parent => I18n.t("active_admin.security_management"),
        :priority => 4
+  active_admin_import validate: true,
+                      template: 'import' ,
+                      template_object: ActiveAdminImport::Model.new(
+                          hint: I18n.t("active_admin.hint_csv_import"),
+                          force_encoding: :auto,
+                          csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
+                      ),
+                      headers_rewrites: { 'state' => 'state_id'
+                                        },
+                      before_batch_import: ->(importer){
+                          begin
+                            state_names = importer.values_at('state_id')
+                            states = State.where(name: state_names).pluck(:name, :id)
+                            options   = Hash[*states.flatten]
+                            importer.batch_replace('state_id', options)
+                          rescue
 
+                          end
+                      },
+                      back: -> { config.namespace.resource_for(Platform).route_collection_path }
   permit_params :name, :description, :state_id, surveillance_ids:[]
 
   index :title => I18n.t("active_admin.platforms") do
