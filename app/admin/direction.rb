@@ -21,7 +21,7 @@ ActiveAdmin.register Direction do
 
                                  end
                              },
-                             back: -> { config.namespace.resource_for(VicePresidency).route_collection_path }
+                             back: -> { config.namespace.resource_for(Direction).route_collection_path }
   permit_params :name, :description, :vice_presidency_id
 
   filter :name, :label => I18n.t("active_admin.name")
