@@ -108,3 +108,6 @@ gem 'paperclip-sftp', git: "git@github.com:spectator/paperclip-sftp.git"
 
 # PDF
 gem 'wicked_pdf'
+
+# Obfuscate
+gem "acts_as_hashids"
