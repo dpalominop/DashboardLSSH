@@ -2,14 +2,27 @@ ActiveAdmin.register Leadership do
     menu :parent => I18n.t("active_admin.employee_management"),
          :priority => 4
 
-    active_admin_import validate: true,
-                          template: 'import' ,
-                          template_object: ActiveAdminImport::Model.new(
-                              hint: "Configure CSV options",
-                              force_encoding: :auto,
-                              csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
-                          ),
-                          back: -> { config.namespace.resource_for(Surveillance).route_collection_path }
+         active_admin_import validate: true,
+                               template: 'import' ,
+                               template_object: ActiveAdminImport::Model.new(
+                                   hint: I18n.t("active_admin.hint_csv_import"),
+                                   force_encoding: :auto,
+                                   csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
+                               ),
+                               headers_rewrites: { 'management' => 'management_id'
+                                                 },
+                               before_batch_import: ->(importer){
+                                   begin
+                                     management_names = importer.values_at('management_id')
+                                     # replacing author name with author id
+                                     managements = Management.where(name: management_names).pluck(:name, :id)
+                                     options   = Hash[*managements.flatten] # #{"Jane" => 2, "John" => 1}
+                                     importer.batch_replace('management_id', options) #replacing "Jane" with 1, etc
+                                   rescue
+
+                                   end
+                               },
+                               back: -> { config.namespace.resource_for(Leadership).route_collection_path }
 
     permit_params :name, :description, :management_id
 
