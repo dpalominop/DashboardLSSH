@@ -20,7 +20,7 @@ ActiveAdmin.register Platform do
   end
 
   member_action :pdf, method: :get do
-    render(pdf: "reporte-#{resource.name}")
+    render(pdf: "Reporte #{resource.name}")
   end
 
   action_item :pdf, :only => :show do

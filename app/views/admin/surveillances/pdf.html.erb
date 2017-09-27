@@ -170,94 +170,13 @@ a, h1, h3 {
 </style>
 </head>
 <body>
-    <h1>Reporte de Plataforma</h1>
+    <h1>Reporte de Supervisión</h1>
+    <br>
+    
+    <a><b>Nombre:&emsp;</b><%= resource.name %></a>
     <br>
 
-    <h3> Datos </h3>
-    <div>
-        <table data-toggle="table">
-          <thead>
-            <tr style="page-break-inside: avoid;">
-              <th>Nombre</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="page-break-inside: avoid;">
-              <td><%=h resource.name %></td>
-              <td><%=h resource.state.name %></td>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-    <br>
-
-    <h3> Elementos de Red y Ubicaciones </h3>
-    <div>
-        <table data-toggle="table">
-          <thead>
-            <tr style="page-break-inside: avoid;">
-              <th>Sistema</th>
-              <th>Tipo</th>
-              <th>Ubicación</th>
-              <th>Elemento de Red</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% for ne in resource.network_elements
-                        .joins(:system).merge(System.order(name: :asc))
-                        .joins(:type).merge(Type.order(name: :asc))
-                        .joins(:location).merge(Location.order(name: :asc))
-                        .order(ip: :asc) %>
-            <tr style="page-break-inside: avoid;">
-              <td><%=h ne.system.name %></td>
-              <td><%=h ne.type.name %></td>
-              <td><%=h ne.location.name %></td>
-              <td><%=h ne.name %><br><%=h ne.ip %></td>
-
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-    </div>
-    <br>
-
-    <h3> Elementos de Red y Usuarios </h3>
-    <div>
-        <table data-toggle="table">
-          <thead>
-            <tr style="page-break-inside: avoid;">
-              <th>Sistema</th>
-              <th>Tipo</th>
-              <th>Role</th>
-              <th>Usuarios</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% for cl in CommandList.where(platform: resource.id)
-                        .joins(:system).merge(System.order(name: :asc))
-                        .joins(:type).merge(Type.order(name: :asc))
-                        .joins(:role).merge(Role.order(name: :asc)) %>
-              <% if cl.employees %>
-              <tr style="page-break-inside: avoid;">
-                <td><%=h cl.system.name %></td>
-                <td><%=h cl.type.name %></td>
-                <td><%=h cl.role.name %></td>
-                <td>
-                  <% for emp in cl.employees.order(username: :asc) %>
-                    <%=h emp.username %> : <%=h emp.name %><br>
-                  <% end %>
-                </td>
-              </tr>
-              <% end %>
-          <% end %>
-          </tbody>
-        </table>
-    </div>
-    <br>
-
-    <h3> Supervisiones a las que pertenece </h3>
+    <h3> Organización </h3>
     <div>
         <table data-toggle="table">
           <thead>
@@ -266,20 +185,72 @@ a, h1, h3 {
               <th>Dirección</th>
               <th>Gerencia</th>
               <th>Jefatura</th>
-              <th>Supervisión</th>
             </tr>
           </thead>
           <tbody>
-          <% for srv in resource.surveillances
-                        .joins(:leadership).merge(Leadership.order(name: :asc))
-                        .order(name: :asc) %>
             <tr style="page-break-inside: avoid;">
-              <td><%=h srv.leadership.management.direction.vice_presidency.name %></td>
-              <td><%=h srv.leadership.management.direction.name %></td>
-              <td><%=h srv.leadership.management.name %></td>
-              <td><%=h srv.leadership.name %></td>
-              <td><%=h srv.name %></td>
+              <td><%=h resource.leadership.management.direction.vice_presidency.name %></td>
+              <td><%=h resource.leadership.management.direction.name %></td>
+              <td><%=h resource.leadership.management.name %></td>
+              <td><%=h resource.leadership.name %></td>
+              </td>
             </tr>
+          </tbody>
+        </table>
+    </div>
+    <br>
+
+    <h3> Plataformas y Elementos de Red </h3>
+    <div>
+        <table data-toggle="table">
+          <thead>
+            <tr style="page-break-inside: avoid;">
+              <th>Plataformas</th>
+              <th>Sistema</th>
+              <th>Tipo</th>
+              <th>Elemento de Red</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% for pt in resource.platforms.order(name: :asc) %>
+            <% for ne in pt.network_elements
+                            .joins(:system).merge(System.order(name: :asc))
+                            .joins(:type).merge(Type.order(name: :asc))
+                            .order(name: :asc) %>
+              <tr style="page-break-inside: avoid;">
+                <td><%=h pt.name %></td>
+                <td><%=h ne.system.name %></td>
+                <td><%=h ne.type.name %></td>
+                <td><%=h ne.name %><br><%=h ne.ip %></td>
+              </tr>
+            <% end %>
+          <% end %>
+          </tbody>
+        </table>
+    </div>
+    <br>
+
+    <h3> Empleados </h3>
+    <div>
+        <table data-toggle="table">
+          <thead>
+            <tr style="page-break-inside: avoid;">
+              <th>Nombre</th>
+              <th>Username</th>
+              <th>Documento</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% for emp in resource.employees
+                                .order(name: :asc)
+                                .order(username: :asc)
+                                .order(document: :asc) %>
+              <tr style="page-break-inside: avoid;">
+                <td><%=h emp.name %></td>
+                <td><%=h emp.username %></td>
+                <td><%=h emp.document %></td>
+                </td>
+              </tr>
           <% end %>
           </tbody>
         </table>

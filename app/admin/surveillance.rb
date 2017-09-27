@@ -3,6 +3,14 @@ ActiveAdmin.register Surveillance do
        :priority => 5
   permit_params :name, :description, :leadership_id, platform_ids: [], employee_ids: []
 
+  member_action :pdf, method: :get do
+    render(pdf: "Reporte #{resource.name}")
+  end
+
+  action_item :pdf, :only => :show do
+    link_to(I18n.t("active_admin.report"), pdf_admin_surveillance_path(id: resource.id))
+  end
+
   index :title => I18n.t("active_admin.surveillances") do
       selectable_column
       # id_column

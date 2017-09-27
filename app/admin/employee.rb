@@ -60,7 +60,7 @@ ActiveAdmin.register Employee do
     end
 
     member_action :pdf, method: :get do
-      render(pdf: "reporte-#{resource.username}")
+      render(pdf: "Reporte #{resource.username}")
     end
 
     action_item :pdf, :only => :show do

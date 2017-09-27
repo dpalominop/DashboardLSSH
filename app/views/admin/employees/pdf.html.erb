@@ -171,20 +171,55 @@ a, h1, h3 {
 </head>
 <body>
     <h1>Reporte de Empleado</h1>
-    <a><b>Nombre Completo:&emsp;</b><%= resource.name %></a>
     <br>
-    <a><b>Username:&emsp;&emsp;&emsp;&emsp;&emsp;</b><%= resource.username %></a>
+
+    <h3> Datos Personales </h3>
+    <div>
+        <table data-toggle="table">
+          <thead>
+            <tr style="page-break-inside: avoid;">
+              <th>Nombre</th>
+              <th>Documento</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="page-break-inside: avoid;">
+              <td><%=h resource.name %></td>
+              <td><%=h resource.document %></td>
+              <td><%=h resource.username %></td>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
     <br>
+
+    <h3> Organización </h3>
+    <div>
+        <table data-toggle="table">
+          <thead>
+            <tr style="page-break-inside: avoid;">
+              <th>Vice Presidencia</th>
+              <th>Dirección</th>
+              <th>Gerencia</th>
+              <th>Jefatura</th>
+              <th>Supervisión</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="page-break-inside: avoid;">
+              <td><%=h resource.surveillance.leadership.management.direction.vice_presidency.name %></td>
+              <td><%=h resource.surveillance.leadership.management.direction.name %></td>
+              <td><%=h resource.surveillance.leadership.management.name %></td>
+              <td><%=h resource.surveillance.leadership.name %></td>
+              <td><%=h resource.surveillance.name %></td>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
     <br>
-    <a><b>VicePresidencia:&emsp;&emsp;</b><%= resource.surveillance.leadership.management.direction.vice_presidency.name  %></a>
-    <br>
-    <a><b>Dirección:&emsp;&emsp;&emsp;&emsp;&emsp;</b><%= resource.surveillance.leadership.management.direction.name  %></a>
-    <br>
-    <a><b>Gerencia:&emsp;&emsp;&emsp;&emsp;&emsp; </b><%= resource.surveillance.leadership.management.name %></a>
-    <br>
-    <a><b>Jefatura:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b><%= resource.surveillance.leadership.name %></a>
-    <br>
-    <a><b>Supervisión:&emsp;&emsp;&emsp;&emsp;</b><%= resource.surveillance.name %></a>
 
     <h3> Lista de Acceso a Plataformas </h3>
     <div>
