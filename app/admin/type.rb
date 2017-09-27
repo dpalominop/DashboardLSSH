@@ -1,6 +1,6 @@
 ActiveAdmin.register Type do
   menu :parent => I18n.t("active_admin.security_management"),
-       :priority => 6
+       :priority => 3
   active_admin_import validate: true,
                       template: 'import' ,
                       template_object: ActiveAdminImport::Model.new(
