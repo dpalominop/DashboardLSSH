@@ -24,13 +24,19 @@ ActiveAdmin.register Direction do
                        back: -> { config.namespace.resource_for(Direction).route_collection_path }
   permit_params :name, :description, :vice_presidency_id
 
+  controller do
+    def scoped_collection
+      end_of_association_chain.includes(:vice_presidency)
+    end
+  end
+
   filter :name, :label => I18n.t("active_admin.name")
   filter :created_at, :label => I18n.t("active_admin.created_at")
   filter :updated_at, :label => I18n.t("active_admin.updated_at")
 
   index :title => I18n.t("active_admin.directions") do
       selectable_column
-      column I18n.t("active_admin.vice_presidency") do |dir|
+      column I18n.t("active_admin.vice_presidency"), :sortable => 'vice_presidencies.name' do |dir|
           if dir.vice_presidency_id then
               link_to VicePresidency.find(dir.vice_presidency_id).name, admin_vice_presidency_path(dir.vice_presidency_id)
           end
