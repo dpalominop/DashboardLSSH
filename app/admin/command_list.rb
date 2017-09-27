@@ -2,13 +2,43 @@ ActiveAdmin.register CommandList do
     menu :parent => I18n.t("active_admin.security_management"),
          :priority => 2
     active_admin_import validate: true,
-                          template: 'import' ,
-                          template_object: ActiveAdminImport::Model.new(
-                              hint: I18n.t("active_admin.hint_csv_import"),
-                              force_encoding: :auto,
-                              csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
-                          ),
-                          back: -> { config.namespace.resource_for(CommandList).route_collection_path }
+                        template: 'import' ,
+                        template_object: ActiveAdminImport::Model.new(
+                            hint: I18n.t("active_admin.hint_csv_import"),
+                            force_encoding: :auto,
+                            csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
+                        ),
+                        headers_rewrites: { 'platform' => 'platform_id',
+                                            'system' => 'system_id',
+                                            'type' => 'type_id',
+                                            'role' => 'role_id'
+                                          },
+                        before_batch_import: ->(importer){
+                            begin
+                              platform_names = importer.values_at('platform_id')
+                              platforms = Platform.where(name: platform_names).pluck(:name, :id)
+                              options   = Hash[*platforms.flatten]
+                              importer.batch_replace('platform_id', options)
+
+                              system_names = importer.values_at('system_id')
+                              systems = System.where(name: system_names).pluck(:name, :id)
+                              options   = Hash[*systems.flatten]
+                              importer.batch_replace('system_id', options)
+
+                              type_names = importer.values_at('type_id')
+                              types = Type.where(name: type_names).pluck(:name, :id)
+                              options   = Hash[*types.flatten]
+                              importer.batch_replace('type_id', options)
+
+                              role_names = importer.values_at('role_id')
+                              roles = Role.where(name: role_names).pluck(:name, :id)
+                              options   = Hash[*roles.flatten]
+                              importer.batch_replace('role_id', options)
+                            rescue
+
+                            end
+                        },
+                        back: -> { config.namespace.resource_for(CommandList).route_collection_path }
     permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, :all_commands, command_ids: [], exclude_command_ids: [], sudo_command_ids: []
 
     controller do
