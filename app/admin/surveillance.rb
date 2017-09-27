@@ -1,6 +1,27 @@
 ActiveAdmin.register Surveillance do
   menu :parent => I18n.t("active_admin.employee_management"),
        :priority => 5
+  active_admin_import validate: true,
+                      template: 'import' ,
+                      template_object: ActiveAdminImport::Model.new(
+                          hint: I18n.t("active_admin.hint_csv_import"),
+                          force_encoding: :auto,
+                          csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
+                      ),
+                      headers_rewrites: { 'leadership' => 'leadership_id'
+                                        },
+                      before_batch_import: ->(importer){
+                          begin
+                            leadership_names = importer.values_at('leadership_id')
+                            # replacing author name with author id
+                            leaderships = Leadership.where(name: leadership_names).pluck(:name, :id)
+                            options   = Hash[*leaderships.flatten] # #{"Jane" => 2, "John" => 1}
+                            importer.batch_replace('leadership_id', options) #replacing "Jane" with 1, etc
+                          rescue
+
+                          end
+                      },
+                      back: -> { config.namespace.resource_for(Surveillance).route_collection_path }
   permit_params :name, :description, :leadership_id, platform_ids: [], employee_ids: []
 
   member_action :pdf, method: :get do
