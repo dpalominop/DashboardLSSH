@@ -5,7 +5,7 @@ ActiveAdmin.register Command do
   active_admin_import validate: true,
                         template: 'import' ,
                         template_object: ActiveAdminImport::Model.new(
-                            hint: "Configure CSV options",
+                            hint: I18n.t("active_admin.hint_csv_import"),
                             force_encoding: :auto,
                             csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                         ),

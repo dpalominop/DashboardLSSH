@@ -1,6 +1,14 @@
 ActiveAdmin.register VicePresidency do
   menu :parent => I18n.t("active_admin.employee_management"),
        :priority => 1
+  active_admin_import validate: true,
+                       template: 'import' ,
+                       template_object: ActiveAdminImport::Model.new(
+                           hint: I18n.t("active_admin.hint_csv_import"),
+                           force_encoding: :auto,
+                           csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
+                       ),
+                       back: -> { config.namespace.resource_for(VicePresidency).route_collection_path }
   permit_params :name, :description
 
   filter :name, :label => I18n.t("active_admin.name")

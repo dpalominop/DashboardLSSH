@@ -3,6 +3,7 @@ es:
     dashboard:  Inicio
     powered_by: ""
     combination_taken: "Esta combinación ha sido tomada!"
+    hint_csv_import: "Cargar archivo csv:"
 
     new_model: "Nuevo"
     edit_model: "Editar"
