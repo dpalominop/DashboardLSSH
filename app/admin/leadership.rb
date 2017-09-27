@@ -26,13 +26,19 @@ ActiveAdmin.register Leadership do
 
     permit_params :name, :description, :management_id
 
+    controller do
+      def scoped_collection
+        end_of_association_chain.includes(:management)
+      end
+    end
+
     filter :name, :label => I18n.t("active_admin.name")
     filter :created_at, :label => I18n.t("active_admin.created_at")
     filter :updated_at, :label => I18n.t("active_admin.updated_at")
 
     index :title => I18n.t("active_admin.leaderships") do
         selectable_column
-        column I18n.t("active_admin.management") do |lds|
+        column I18n.t("active_admin.management"), :sortable => "managements.name" do |lds|
             if lds.management_id then
                 link_to Management.find(lds.management_id).name, admin_management_path(lds.management_id)
             end

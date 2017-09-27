@@ -32,10 +32,16 @@ ActiveAdmin.register Surveillance do
     link_to(I18n.t("active_admin.report"), pdf_admin_surveillance_path(id: resource.id))
   end
 
+  controller do
+    def scoped_collection
+      end_of_association_chain.includes(:leadership)
+    end
+  end
+
   index :title => I18n.t("active_admin.surveillances") do
       selectable_column
       # id_column
-      column I18n.t("active_admin.leadership") do |su|
+      column I18n.t("active_admin.leadership"), :sortable => "leaderships.name" do |su|
         if su.leadership_id then
           link_to Leadership.find(su.leadership_id).name, admin_leadership_path(su.leadership_id)
         end
