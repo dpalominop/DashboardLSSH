@@ -3,21 +3,21 @@ ActiveAdmin.register Command do
        :priority => 1
 
   active_admin_import validate: true,
-                        template: 'import' ,
-                        template_object: ActiveAdminImport::Model.new(
-                            hint: I18n.t("active_admin.hint_csv_import"),
-                            force_encoding: :auto,
-                            csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
-                        ),
-                        after_batch_import: ->(importer) {
-                           importer.values_at('name').map { |x| x }.each do |name|
-                             if Command.exists?(name: name) && not(ExcludeCommand.exists?(name: name)) && not(SudoCommand.exists?(name: name))
-                               ExcludeCommand.create!(name: name)
-                               SudoCommand.create!(name: name)
-                             end
+                      template: 'import' ,
+                      template_object: ActiveAdminImport::Model.new(
+                          hint: I18n.t("active_admin.hint_csv_import"),
+                          force_encoding: :auto,
+                          csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
+                      ),
+                      after_batch_import: ->(importer) {
+                         importer.values_at('name').map { |x| x }.each do |name|
+                           if Command.exists?(name: name) && not(ExcludeCommand.exists?(name: name)) && not(SudoCommand.exists?(name: name))
+                             ExcludeCommand.create!(name: name)
+                             SudoCommand.create!(name: name)
                            end
-                        },
-                        back: -> { config.namespace.resource_for(Command).route_collection_path }
+                         end
+                      },
+                      back: -> { config.namespace.resource_for(Command).route_collection_path }
 
   permit_params :name, :active_admin_import_model
 
