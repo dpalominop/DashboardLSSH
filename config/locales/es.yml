@@ -4,6 +4,7 @@ es:
     powered_by: ""
     combination_taken: "Esta combinación ha sido tomada!"
     hint_csv_import: "Cargar archivo csv:"
+    sessions_by_empleado: "Sesiones por Empleado"
 
     new_model: "Nuevo"
     edit_model: "Editar"

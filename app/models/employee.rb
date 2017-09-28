@@ -1,5 +1,6 @@
 class Employee < ApplicationRecord
     belongs_to :surveillance
+    has_many :sessions
 
     has_many :command_list_employees, :dependent => :destroy
     has_many :command_lists, through: :command_list_employees

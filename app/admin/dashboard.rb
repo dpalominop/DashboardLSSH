@@ -14,10 +14,26 @@ ActiveAdmin.register_page "Dashboard" do
   columns do
     column do
       panel I18n.t("active_admin.sessions") do
-        line_chart Session.group_by_day_of_week(:created_at, format: "%a").count, download: true
+        line_chart Session.group_by_day(:created_at, last: 7).count, download: true
       end
     end
   end
+
+  columns do
+    column do
+      panel I18n.t("active_admin.sessions_by_empleado") do
+        column_chart Employee.all.map { |employee| {name: employee
+                                                        .name,
+                                                    data: employee
+                                                        .sessions
+                                                        .group_by_day(:created_at, last: 7)
+                                                        .count
+                                                    }
+                                      }, download: true
+      end
+    end
+  end
+
   # columns do
   #   column do
   #     panel "Employees Creation" do
