@@ -22,14 +22,17 @@ ActiveAdmin.register_page "Dashboard" do
   columns do
     column do
       panel I18n.t("active_admin.sessions_by_empleado") do
-        column_chart Employee.all.map { |employee| {name: employee
+        column_chart Employee.all.map { |employee| if employee.sessions.group_by_day(:created_at, last: 7).count.size >0 then
+                                                {
+                                                  name: employee
                                                         .name,
-                                                    data: employee
+                                                  data: employee
                                                         .sessions
                                                         .group_by_day(:created_at, last: 7)
                                                         .count
-                                                    }
-                                      }, download: true
+                                                }
+                                              end
+                                    }, download: true
       end
     end
   end

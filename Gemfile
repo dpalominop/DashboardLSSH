@@ -81,6 +81,9 @@ gem 'chartkick'
 # Agroupar por fecha
 gem 'groupdate'
 
+# Hightop
+gem 'hightop'
+
 # SSH
 gem 'net-ssh'
 
