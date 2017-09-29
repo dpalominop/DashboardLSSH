@@ -5,6 +5,7 @@ es:
     combination_taken: "Esta combinación ha sido tomada!"
     hint_csv_import: "Cargar archivo csv:"
     sessions_by_empleado: "Sesiones por Empleado"
+    sessions_all: "Todas las sesiones"
 
     new_model: "Nuevo"
     edit_model: "Editar"

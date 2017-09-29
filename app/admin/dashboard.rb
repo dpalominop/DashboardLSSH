@@ -13,7 +13,7 @@ ActiveAdmin.register_page "Dashboard" do
   # end
   columns do
     column do
-      panel I18n.t("active_admin.sessions") do
+      panel I18n.t("active_admin.sessions_all") do
         line_chart Session.group_by_day(:created_at, last: 7).count, download: true
       end
     end
