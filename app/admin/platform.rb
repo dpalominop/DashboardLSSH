@@ -27,7 +27,7 @@ ActiveAdmin.register Platform do
     selectable_column
     column I18n.t("active_admin.name"), :sortable => :name do |pl|
       if pl.name then
-        link_to pl.name, admin_platform_path(pl.id)
+        link_to pl.name, admin_platform_path(pl.to_param)
       end
     end
     column I18n.t("active_admin.state"), :sortable => :state_id do |pl|
@@ -43,7 +43,7 @@ ActiveAdmin.register Platform do
   end
 
   action_item :pdf, :only => :show do
-    link_to(I18n.t("active_admin.report"), pdf_admin_platform_path(id: resource.id))
+    link_to(I18n.t("active_admin.report"), pdf_admin_platform_path(id: resource.to_param))
   end
 
   filter :name, :label => I18n.t("active_admin.name")
@@ -66,7 +66,7 @@ ActiveAdmin.register Platform do
           table_for resource.surveillances do
               column I18n.t("active_admin.name") do |sv|
                 if sv.name then
-                  link_to sv.name, admin_surveillance_path(sv.id)
+                  link_to sv.name, admin_surveillance_path(sv.to_param)
                 end
               end
               column I18n.t("active_admin.description") do |sv|

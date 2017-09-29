@@ -8,7 +8,7 @@ ActiveAdmin.register User do
     #id_column
     column I18n.t("active_admin.name"), :sortable => :name do |us|
       if us.name then
-        link_to us.name, admin_user_path(us.id)
+        link_to us.name, admin_user_path(us.to_param)
       end
     end
     column I18n.t("active_admin.username"), :sortable => :username  do |us|

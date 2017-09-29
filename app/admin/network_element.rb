@@ -107,32 +107,37 @@ ActiveAdmin.register NetworkElement do
         #id_column
         column I18n.t("active_admin.platform"), :sortable => 'platforms.name' do |ne|
             if ne.platform_id then
-                link_to Platform.find(ne.platform_id).name, admin_platform_path(ne.platform_id)
+                pt = Platform.find(ne.platform_id)
+                link_to pt.name, admin_platform_path(pt.to_param)
             end
         end
         column I18n.t("active_admin.system"), :sortable => 'systems.name' do |ne|
             if ne.system_id then
-                link_to System.find(ne.system_id).name, admin_system_path(ne.system_id)
+                sys = System.find(ne.system_id)
+                link_to sys.name, admin_system_path(sys.to_param)
             end
         end
         column I18n.t("active_admin.type"), :sortable => 'types.name' do |ne|
             if ne.type_id then
-                link_to Type.find(ne.type_id).name, admin_type_path(ne.type_id)
+                tp = Type.find(ne.type_id)
+                link_to tp.name, admin_type_path(tp.to_param)
             end
         end
         column I18n.t("active_admin.location"), :sortable => 'locations.name' do |ne|
             if ne.location_id then
-                link_to Location.find(ne.location_id).name, admin_location_path(ne.location_id)
+                lc = Location.find(ne.location_id)
+                link_to lc.name, admin_location_path(lc.to_param)
             end
         end
         column I18n.t("active_admin.vendor"), :sortable => 'vendors.name' do |ne|
             if ne.vendor_id then
-                link_to Vendor.find(ne.vendor_id).name, admin_vendor_path(ne.vendor_id)
+                vn = Vendor.find(ne.vendor_id)
+                link_to vn.name, admin_vendor_path(vn.to_param)
             end
         end
         column I18n.t("active_admin.name"), :sortable => :name do |ne|
             if ne.name then
-                link_to ne.name, admin_network_element_path(ne.id)
+                link_to ne.name, admin_network_element_path(ne.to_param)
             end
         end
         # column :description
@@ -186,7 +191,7 @@ ActiveAdmin.register NetworkElement do
                                         system:network_element.system_id,
                                         type: network_element.type_id) do
                 column I18n.t("active_admin.name") do |cl|
-                    link_to cl.name, admin_command_list_path(cl.id)
+                    link_to cl.name, admin_command_list_path(cl.to_param)
                 end
                 column I18n.t("active_admin.description") do |cl|
                     a cl.description
@@ -198,22 +203,27 @@ ActiveAdmin.register NetworkElement do
     sidebar I18n.t("active_admin.network_element_details"), only: :show do
         attributes_table_for network_element do
             row I18n.t("active_admin.platform") do |ne|
-                link_to Platform.find(ne.platform_id).name, admin_platform_path(ne.platform_id)
+                pt = Platform.find(ne.platform_id)
+                link_to pt.name, admin_platform_path(pt.to_param)
             end
             row I18n.t("active_admin.system") do |ne|
-                link_to System.find(ne.system_id).name, admin_system_path(ne.system_id)
+                sys = System.find(ne.system_id)
+                link_to sys.name, admin_system_path(sys.to_param)
             end
             row I18n.t("active_admin.type") do |ne|
-                link_to Type.find(ne.type_id).name, admin_type_path(ne.type_id)
+                tp = Type.find(ne.type_id)
+                link_to tp.name, admin_type_path(tp.to_param)
             end
             row I18n.t("active_admin.location") do |ne|
                 if ne.location_id then
-                    link_to Location.find(ne.location_id).name, admin_location_path(ne.location_id)
+                    lc = Location.find(ne.location_id)
+                    link_to lc.name, admin_location_path(lc.to_param)
                 end
             end
             row I18n.t("active_admin.vendor") do |ne|
                 if ne.vendor_id then
-                    link_to Vendor.find(ne.vendor_id).name, admin_vendor_path(ne.vendor_id)
+                    vn = Vendor.find(ne.vendor_id)
+                    link_to vn.name, admin_vendor_path(vn.to_param)
                 end
             end
             row I18n.t("active_admin.name") do |ne|
@@ -227,7 +237,8 @@ ActiveAdmin.register NetworkElement do
                 ne.port
             end
             row I18n.t("active_admin.protocol") do |ne|
-                link_to Protocol.find(ne.protocol_id).name, admin_protocol_path(ne.protocol_id)
+                ptc = Protocol.find(ne.protocol_id)
+                link_to ptc.name, admin_protocol_path(ptc.to_param)
             end
         end
     end

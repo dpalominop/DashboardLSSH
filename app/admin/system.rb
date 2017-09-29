@@ -19,7 +19,7 @@ ActiveAdmin.register System do
       selectable_column
       column I18n.t("active_admin.name"), :sortable => :name do |sys|
           if sys.name then
-              link_to sys.name, admin_system_path(sys.id)
+              link_to sys.name, admin_system_path(sys.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |sys|

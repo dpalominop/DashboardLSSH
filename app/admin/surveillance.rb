@@ -29,7 +29,7 @@ ActiveAdmin.register Surveillance do
   end
 
   action_item :pdf, :only => :show do
-    link_to(I18n.t("active_admin.report"), pdf_admin_surveillance_path(id: resource.id))
+    link_to(I18n.t("active_admin.report"), pdf_admin_surveillance_path(id: resource.to_param))
   end
 
   controller do
@@ -43,12 +43,13 @@ ActiveAdmin.register Surveillance do
       # id_column
       column I18n.t("active_admin.leadership"), :sortable => "leaderships.name" do |su|
         if su.leadership_id then
-          link_to Leadership.find(su.leadership_id).name, admin_leadership_path(su.leadership_id)
+          ldr = Leadership.find(su.leadership_id)
+          link_to ldr.name, admin_leadership_path(ldr.to_param)
         end
       end
       column I18n.t("active_admin.name"), :sortable => :name do |su|
           if su.name then
-              link_to su.name, admin_surveillance_path(su.id)
+              link_to su.name, admin_surveillance_path(su.to_param)
           end
       end
       actions
@@ -73,7 +74,7 @@ ActiveAdmin.register Surveillance do
       panel I18n.t("active_admin.platforms") do
           table_for resource.platforms do
               column I18n.t("active_admin.name") do |pl|
-                  link_to pl.name, admin_platform_path(pl.id)
+                  link_to pl.name, admin_platform_path(pl.to_param)
               end
           end
       end
@@ -81,7 +82,7 @@ ActiveAdmin.register Surveillance do
       panel I18n.t("active_admin.employees") do
           table_for resource.employees do
               column I18n.t("active_admin.username") do |emp|
-                  link_to emp.username, admin_employee_path(emp.id)
+                  link_to emp.username, admin_employee_path(emp.to_param)
               end
               column I18n.t("active_admin.name") do |emp|
                   emp.name

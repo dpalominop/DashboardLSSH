@@ -38,12 +38,13 @@ ActiveAdmin.register Direction do
       selectable_column
       column I18n.t("active_admin.vice_presidency"), :sortable => 'vice_presidencies.name' do |dir|
           if dir.vice_presidency_id then
-              link_to VicePresidency.find(dir.vice_presidency_id).name, admin_vice_presidency_path(dir.vice_presidency_id)
+              vp = VicePresidency.find(dir.vice_presidency_id)
+              link_to vp.name, admin_vice_presidency_path(vp.to_param)
           end
       end
       column I18n.t("active_admin.name"), :sortable => :name do |dir|
           if dir.name then
-              link_to dir.name, admin_direction_path(dir.id)
+              link_to dir.name, admin_direction_path(dir.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |dir|
@@ -66,7 +67,8 @@ ActiveAdmin.register Direction do
             res.name
         end
         row I18n.t("active_admin.vice_presidency") do |res|
-            link_to VicePresidency.find(res.vice_presidency_id).name, admin_vice_presidency_path(res.vice_presidency_id)
+            vp = VicePresidency.find(res.vice_presidency_id)
+            link_to vp.name, admin_vice_presidency_path(vp.to_param)
         end
         row I18n.t("active_admin.created_at") do |res|
             res.created_at

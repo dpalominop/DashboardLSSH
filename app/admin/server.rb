@@ -11,7 +11,7 @@ ActiveAdmin.register Server do
       # id_column
       column I18n.t("active_admin.hostname"), :sortable => :hostname  do |ser|
         if ser.hostname then
-          link_to ser.hostname, admin_server_path(ser.id)
+          link_to ser.hostname, admin_server_path(ser.to_param)
         end
       end
       column :ip

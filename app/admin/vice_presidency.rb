@@ -19,7 +19,7 @@ ActiveAdmin.register VicePresidency do
       selectable_column
       column I18n.t("active_admin.name"), :sortable => :name do |vp|
           if vp.name then
-              link_to vp.name, admin_vice_presidency_path(vp.id)
+              link_to vp.name, admin_vice_presidency_path(vp.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |vp|

@@ -19,7 +19,7 @@ ActiveAdmin.register Location do
       selectable_column
       column I18n.t("active_admin.name"), :sortable => :name do |loc|
           if loc.name then
-              link_to loc.name, admin_location_path(loc.id)
+              link_to loc.name, admin_location_path(loc.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |loc|

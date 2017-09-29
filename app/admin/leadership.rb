@@ -40,12 +40,13 @@ ActiveAdmin.register Leadership do
         selectable_column
         column I18n.t("active_admin.management"), :sortable => "managements.name" do |lds|
             if lds.management_id then
-                link_to Management.find(lds.management_id).name, admin_management_path(lds.management_id)
+                mng = Management.find(lds.management_id)
+                link_to mng.name, admin_management_path(mng.to_param)
             end
         end
         column I18n.t("active_admin.name"), :sortable => :name do |lds|
             if lds.name then
-                link_to lds.name, admin_leadership_path(lds.id)
+                link_to lds.name, admin_leadership_path(lds.to_param)
             end
         end
         column I18n.t("active_admin.created_at"), :sortable => :created_at do |lds|
@@ -68,7 +69,8 @@ ActiveAdmin.register Leadership do
               res.name
           end
           row I18n.t("active_admin.management") do |res|
-              link_to Management.find(res.management_id).name, admin_management_path(res.management_id)
+              mng = Management.find(res.management_id)
+              link_to mng.name, admin_management_path(mng.to_param)
           end
           row I18n.t("active_admin.created_at") do |res|
               res.created_at

@@ -19,7 +19,7 @@ ActiveAdmin.register Type do
       selectable_column
       column I18n.t("active_admin.name"), :sortable => :name do |type|
           if type.name then
-              link_to type.name, admin_type_path(type.id)
+              link_to type.name, admin_type_path(type.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |type|

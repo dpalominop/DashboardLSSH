@@ -18,7 +18,7 @@ ActiveAdmin.register Role do
       selectable_column
       column I18n.t("active_admin.name"), :sortable => :name do |role|
           if role.name then
-              link_to role.name, admin_role_path(role.id)
+              link_to role.name, admin_role_path(role.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |role|

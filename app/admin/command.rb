@@ -52,7 +52,7 @@ ActiveAdmin.register Command do
       selectable_column
       column I18n.t("active_admin.name"), :sortable => :name do |cm|
           if cm.name then
-              link_to cm.name, admin_command_path(cm.id)
+              link_to cm.name, admin_command_path(cm.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |cm|

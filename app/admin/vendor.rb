@@ -19,7 +19,7 @@ ActiveAdmin.register Vendor do
       selectable_column
       column I18n.t("active_admin.name"), :sortable => :name do |vn|
           if vn.name then
-              link_to vn.name, admin_vendor_path(vn.id)
+              link_to vn.name, admin_vendor_path(vn.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |vn|

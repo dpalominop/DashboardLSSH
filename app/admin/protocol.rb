@@ -19,7 +19,7 @@ ActiveAdmin.register Protocol do
       selectable_column
       column I18n.t("active_admin.name"), :sortable => :name do |prot|
           if prot.name then
-              link_to prot.name, admin_protocol_path(prot.id)
+              link_to prot.name, admin_protocol_path(prot.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |prot|

@@ -61,27 +61,31 @@ ActiveAdmin.register CommandList do
         #id_column
         column I18n.t("active_admin.platform"), :sortable => 'platforms.name' do |cl|
             if cl.platform_id then
-                link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
+                pt = Platform.find(cl.platform_id)
+                link_to pt.name, admin_platform_path(pt.to_param)
             end
         end
         column I18n.t("active_admin.system"), :sortable => 'systems.name' do |cl|
             if cl.system_id then
-                link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
+                sys = System.find(cl.system_id)
+                link_to sys.name, admin_system_path(sys.to_param)
             end
         end
         column I18n.t("active_admin.type"), :sortable => 'types.name' do |cl|
             if cl.type_id then
-                link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
+                tp = Type.find(cl.type_id)
+                link_to tp.name, admin_type_path(tp.to_param)
             end
         end
         column I18n.t("active_admin.name"), :sortable => :name do |cl|
             if cl.name then
-                link_to cl.name, admin_command_list_path(cl.id)
+                link_to cl.name, admin_command_list_path(cl.to_param)
             end
         end
         column I18n.t("active_admin.role"), :sortable => 'roles.name' do |cl|
             if cl.role_id then
-                link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
+                rl = Role.find(cl.role_id)
+                link_to rl.name, admin_role_path(rl.to_param)
             end
         end
         # actions
@@ -164,7 +168,7 @@ ActiveAdmin.register CommandList do
                                         system:command_list.system_id,
                                         type: command_list.type_id) do |ne|
                 column I18n.t("active_admin.name") do |ne|
-                    link_to ne.name, admin_network_element_path(ne.id)
+                    link_to ne.name, admin_network_element_path(ne.to_param)
                 end
                 column I18n.t("active_admin.description") do |ne|
                   ne.description
@@ -176,13 +180,16 @@ ActiveAdmin.register CommandList do
     sidebar I18n.t("active_admin.commands_lists_details"), only: :show do
         attributes_table_for command_list do
             row I18n.t("active_admin.platform") do |cl|
-                link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
+                pt = Platform.find(cl.platform_id)
+                link_to pt.name, admin_platform_path(pt.to_param)
             end
             row I18n.t("active_admin.system") do |cl|
-                link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
+                sys = System.find(cl.system_id)
+                link_to sys.name, admin_system_path(sys.to_param)
             end
             row I18n.t("active_admin.type") do |cl|
-                link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
+                tp = Type.find(cl.type_id)
+                link_to tp.name, admin_type_path(tp.to_param)
             end
             row I18n.t("active_admin.name") do |cl|
                 cl.name
@@ -192,7 +199,8 @@ ActiveAdmin.register CommandList do
             end
             row I18n.t("active_admin.role") do |cl|
                 if cl.role_id then
-                    link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
+                    rl = Role.find(cl.role_id)
+                    link_to rl.name, admin_role_path(rl.to_param)
                 end
             end
         end

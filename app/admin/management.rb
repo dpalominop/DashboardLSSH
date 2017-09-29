@@ -38,12 +38,13 @@ ActiveAdmin.register Management do
       selectable_column
       column I18n.t("active_admin.direction"), :sortable => "directions.name" do |mng|
           if mng.direction_id then
-              link_to Direction.find(mng.direction_id).name, admin_direction_path(mng.direction_id)
+              dir = Direction.find(mng.direction_id)
+              link_to dir.name, admin_direction_path(dir.to_param)
           end
       end
       column I18n.t("active_admin.name"), :sortable => :name do |mng|
           if mng.name then
-              link_to mng.name, admin_management_path(mng.id)
+              link_to mng.name, admin_management_path(mng.to_param)
           end
       end
       column I18n.t("active_admin.created_at"), :sortable => :created_at do |mng|
@@ -66,7 +67,8 @@ ActiveAdmin.register Management do
             res.name
         end
         row I18n.t("active_admin.direction") do |res|
-            link_to Direction.find(res.direction_id).name, admin_direction_path(res.direction_id)
+            dir = Direction.find(res.direction_id)
+            link_to dir.name, admin_direction_path(dir.to_param)
         end
         row I18n.t("active_admin.created_at") do |res|
             res.created_at
