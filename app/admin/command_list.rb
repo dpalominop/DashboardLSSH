@@ -41,10 +41,19 @@ ActiveAdmin.register CommandList do
                         back: -> { config.namespace.resource_for(CommandList).route_collection_path }
     permit_params :name, :description, :platform_id, :system_id, :type_id, :role_id, :all_commands, command_ids: [], exclude_command_ids: [], sudo_command_ids: []
 
+    member_action :clone, method: :post do
+      @command_list = resource.dup
+      render :new, layout: false
+    end
+
     controller do
       def scoped_collection
         end_of_association_chain.includes(:platform, :system, :type, :role)
       end
+    end
+
+    action_item :clone, :only => :show do
+      link_to(I18n.t("active_admin.clone"), clone_admin_command_list_path(id: command_list.to_param), :method=> :post)
     end
 
     index :title => I18n.t("active_admin.commands_lists") do
@@ -75,7 +84,10 @@ ActiveAdmin.register CommandList do
                 link_to Role.find(cl.role_id).name, admin_role_path(cl.role_id)
             end
         end
-        actions
+        # actions
+        actions defaults: true do |cl|
+          link_to(I18n.t("active_admin.clone"), clone_admin_command_list_path(id: cl.to_param), method: :post)
+        end
     end
 
     filter :name, :label => I18n.t("active_admin.name")
