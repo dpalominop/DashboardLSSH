@@ -64,7 +64,7 @@ ActiveAdmin.register Employee do
     end
 
     action_item :pdf, :only => :show do
-      link_to(I18n.t("active_admin.report"), pdf_admin_employee_path(id: resource.id))
+      link_to(I18n.t("active_admin.report"), pdf_admin_employee_path(id: resource.to_param))
     end
 
     controller do
@@ -95,7 +95,7 @@ ActiveAdmin.register Employee do
         #id_column
         column I18n.t("active_admin.name"), :sortable => :name do |emp|
           if emp.name then
-            link_to emp.name, admin_employee_path(emp.id)
+            link_to emp.name, admin_employee_path(emp.to_param)
           end
         end
         column :username
@@ -106,7 +106,8 @@ ActiveAdmin.register Employee do
         end
         column I18n.t("active_admin.surveillance"), :sortable => 'surveillances.name' do |emp|
             if emp.surveillance_id then
-                link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
+                srv = Surveillance.find(emp.surveillance_id)
+                link_to srv.name, admin_surveillance_path(srv.to_param)
             end
         end
         actions
@@ -140,16 +141,19 @@ ActiveAdmin.register Employee do
         panel I18n.t("active_admin.commands_lists") do
             table_for employee.command_lists do
                 column I18n.t("active_admin.platform") do |cl|
-                    link_to Platform.find(cl.platform_id).name, admin_platform_path(cl.platform_id)
+                    pt = Platform.find(cl.platform_id)
+                    link_to pt.name, admin_platform_path(pt.to_param)
                 end
                 column I18n.t("active_admin.system") do |cl|
-                    link_to System.find(cl.system_id).name, admin_system_path(cl.system_id)
+                    sys = System.find(cl.system_id)
+                    link_to sys.name, admin_system_path(sys.to_param)
                 end
                 column I18n.t("active_admin.type") do |cl|
-                    link_to Type.find(cl.type_id).name, admin_type_path(cl.type_id)
+                    tp = Type.find(cl.type_id)
+                    link_to tp.name, admin_type_path(tp.to_param)
                 end
                 column I18n.t("active_admin.name") do |cl|
-                    link_to cl.name, admin_command_list_path(cl.id)
+                    link_to cl.name, admin_command_list_path(cl.to_param)
                 end
                 # column 'Network Element' do |cl|
                 #     if cl.network_element_id then
@@ -167,7 +171,8 @@ ActiveAdmin.register Employee do
             row :document
             row I18n.t("active_admin.surveillance") do |emp|
                 if emp.surveillance_id then
-                    link_to Surveillance.find(emp.surveillance_id).name, admin_surveillance_path(emp.surveillance_id)
+                    srv = Surveillance.find(emp.surveillance_id)
+                    link_to srv.name, admin_surveillance_path(srv.to_param)
                 end
             end
         end
