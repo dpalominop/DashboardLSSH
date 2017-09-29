@@ -89,7 +89,7 @@ ActiveAdmin.register NetworkElement do
     end
 
     action_item :clone, :only => :show do
-      link_to(I18n.t("active_admin.clone"), clone_admin_network_element_path(id: network_element.id), :method=> :post)
+      link_to(I18n.t("active_admin.clone"), clone_admin_network_element_path(id: network_element.to_param), :method=> :post)
     end
 
     action_item :connectivity, :only => :show do
@@ -147,7 +147,7 @@ ActiveAdmin.register NetworkElement do
         # end
         # actions
         actions defaults: true do |ne|
-          link_to(I18n.t("active_admin.clone"), clone_admin_network_element_path(id: ne.id), method: :post)
+          link_to(I18n.t("active_admin.clone"), clone_admin_network_element_path(id: ne.to_param), method: :post)
         end
     end
 
