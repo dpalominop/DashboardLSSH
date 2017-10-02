@@ -30,6 +30,13 @@ ActiveAdmin.register Management do
     end
   end
 
+  csv do
+    column :name, humanize_name: false
+    column :direction, humanize_name: false  do |mng|
+        mng.direction.name
+    end
+  end
+
   filter :name, :label => I18n.t("active_admin.name")
   filter :created_at, :label => I18n.t("active_admin.created_at")
   filter :updated_at, :label => I18n.t("active_admin.updated_at")

@@ -38,6 +38,13 @@ ActiveAdmin.register Surveillance do
     end
   end
 
+  csv do
+    column :name, humanize_name: false
+    column :leadership, humanize_name: false  do |srv|
+        srv.leadership.name
+    end
+  end
+
   index :title => I18n.t("active_admin.surveillances") do
       selectable_column
       # id_column

@@ -30,6 +30,13 @@ ActiveAdmin.register Direction do
     end
   end
 
+  csv do
+    column :name, humanize_name: false
+    column :vice_presidency, humanize_name: false  do |dir|
+        dir.vice_presidency.name
+    end
+  end
+
   filter :name, :label => I18n.t("active_admin.name")
   filter :created_at, :label => I18n.t("active_admin.created_at")
   filter :updated_at, :label => I18n.t("active_admin.updated_at")
