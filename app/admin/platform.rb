@@ -23,6 +23,13 @@ ActiveAdmin.register Platform do
                       back: -> { config.namespace.resource_for(Platform).route_collection_path }
   permit_params :name, :description, :state_id, surveillance_ids:[]
 
+  csv do
+    column :name, humanize_name: false
+    column :state, humanize_name: false  do |pt|
+        pt.state.name
+    end
+  end
+
   index :title => I18n.t("active_admin.platforms") do
     selectable_column
     column I18n.t("active_admin.name"), :sortable => :name do |pl|

@@ -56,6 +56,22 @@ ActiveAdmin.register CommandList do
       link_to(I18n.t("active_admin.clone"), clone_admin_command_list_path(id: command_list.to_param), :method=> :post)
     end
 
+    csv do
+      column :platform, humanize_name: false  do |cl|
+          cl.platform.name
+      end
+      column :system, humanize_name: false  do |cl|
+          cl.system.name
+      end
+      column :type, humanize_name: false  do |cl|
+          cl.type.name
+      end
+      column :name, humanize_name: false
+      column :role, humanize_name: false  do |cl|
+          cl.role.name
+      end
+    end
+
     index :title => I18n.t("active_admin.commands_lists") do
         selectable_column
         #id_column

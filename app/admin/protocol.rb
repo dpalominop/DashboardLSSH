@@ -11,6 +11,10 @@ ActiveAdmin.register Protocol do
                       back: -> { config.namespace.resource_for(Protocol).route_collection_path }
   permit_params :name
 
+  csv do
+    column :name, humanize_name: false
+  end
+
   filter :name, :label => I18n.t("active_admin.name")
   filter :created_at, :label => I18n.t("active_admin.created_at")
   filter :updated_at, :label => I18n.t("active_admin.updated_at")

@@ -43,6 +43,10 @@ ActiveAdmin.register Command do
     destroy!
   end
 
+  csv do
+    column :name, humanize_name: false
+  end
+
   filter :name, :label => I18n.t("active_admin.name")
   filter :command_lists, :label => I18n.t("active_admin.commands_lists")
   filter :created_at, :label => I18n.t("active_admin.created_at")

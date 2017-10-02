@@ -102,6 +102,30 @@ ActiveAdmin.register NetworkElement do
       end
     end
 
+    csv do
+      column :platform, humanize_name: false  do |ne|
+          ne.platform.name
+      end
+      column :system, humanize_name: false  do |ne|
+          ne.system.name
+      end
+      column :type, humanize_name: false  do |ne|
+          ne.type.name
+      end
+      column :location, humanize_name: false  do |ne|
+          ne.location.name
+      end
+      column :vendor, humanize_name: false  do |ne|
+          ne.vendor.name
+      end
+      column :name, humanize_name: false
+      column :ip, humanize_name: false
+      column :port, humanize_name: false
+      column :protocol, humanize_name: false  do |ne|
+          Protocol.find(ne.protocol_id).name
+      end
+    end
+
     index :title => I18n.t("active_admin.network_elements") do
         selectable_column
         #id_column
