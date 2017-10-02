@@ -3,6 +3,13 @@ ActiveAdmin.register Server do
        :if => proc{ can? :manage, User}
   permit_params :hostname, :ip, :port, :username, :password
 
+  csv do
+    column :hostname, humanize_name: false
+    column :ip, humanize_name: false
+    column :port, humanize_name: false
+    column :username, humanize_name: false
+  end
+
   filter :hostname, :label => I18n.t("active_admin.hostname")
   filter :ip
 
