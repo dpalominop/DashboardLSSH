@@ -2,34 +2,34 @@ ActiveAdmin.register Employee do
     menu  :parent => I18n.t("active_admin.employee_management")
     #menu :priority => 5
     active_admin_import validate: true,
-                          template: 'import' ,
-                          template_object: ActiveAdminImport::Model.new(
-                              hint: "Configure CSV options",
-                              force_encoding: :auto,
-                              csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
-                          ),
-                          headers_rewrites: { 'surveillance' => 'surveillance_id' },
-                          before_batch_import: ->(importer){
-                              begin
-                                surveillance_names = importer.values_at('surveillance')
-                                # replacing author name with author id
-                                surveillances   = Surveillance.where(name: surveillance_names).pluck(:name, :id)
-                                options = Hash[*surveillances.flatten] # #{"Jane" => 2, "John" => 1}
-                                importer.batch_replace('surveillance_id', options) #replacing "Jane" with 1, etc
-                              rescue
+                        template: 'import' ,
+                        template_object: ActiveAdminImport::Model.new(
+                            hint: "Configure CSV options",
+                            force_encoding: :auto,
+                            csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
+                        ),
+                        headers_rewrites: { 'surveillance' => 'surveillance_id' },
+                        before_batch_import: ->(importer){
+                            begin
+                              surveillance_names = importer.values_at('surveillance')
+                              # replacing author name with author id
+                              surveillances   = Surveillance.where(name: surveillance_names).pluck(:name, :id)
+                              options = Hash[*surveillances.flatten] # #{"Jane" => 2, "John" => 1}
+                              importer.batch_replace('surveillance_id', options) #replacing "Jane" with 1, etc
+                            rescue
 
-                              end
-                          },
-                          after_batch_import: ->(importer) {
-                            importer.values_at('username').map { |x| x }.each do |username|
-                              if Employee.exists?(username: username)
-                                Server.all.each do |server|
-                                  server.addUser(username: username)
-                                end
+                            end
+                        },
+                        after_batch_import: ->(importer) {
+                          importer.values_at('username').map { |x| x }.each do |username|
+                            if Employee.exists?(username: username)
+                              Server.all.each do |server|
+                                server.addUser(username: username)
                               end
                             end
-                          },
-                          back: -> { config.namespace.resource_for(Employee).route_collection_path }
+                          end
+                        },
+                        back: -> { config.namespace.resource_for(Employee).route_collection_path }
     permit_params :name, :username, :document, :surveillance_id, command_list_ids: []
 
     member_action :update, method: [:put, :patch] do
@@ -86,6 +86,16 @@ ActiveAdmin.register Employee do
     #     logger.debug tmp
     #     render json: command_lists.map { |cl| cl.as_json(only: [:id, :name]) }
     # end
+
+    csv do
+      column :name, humanize_name: false
+      column :username, humanize_name: false
+      column :document, humanize_name: false
+      column :surveillance, humanize_name: false  do |emp|
+          emp.surveillance.name
+      end
+      # column(:author) { |post| post.author.full_name }
+    end
 
     filter :username
     filter :document, :label => I18n.t("active_admin.document")
