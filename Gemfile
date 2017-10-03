@@ -114,3 +114,6 @@ gem 'wicked_pdf'
 
 # Obfuscate
 gem "acts_as_hashids"
+
+# State Machine
+gem 'active_admin-state_machine'

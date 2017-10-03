@@ -6,6 +6,8 @@ es:
     hint_csv_import: "Cargar archivo csv:"
     sessions_by_empleado: "Sesiones por Empleado"
     sessions_all: "Todas las sesiones"
+    status: "Estado"
+    blocked: "Bloqueado!"
 
     new_model: "Nuevo"
     edit_model: "Editar"
@@ -175,6 +177,14 @@ es:
         restrict_dependent_destroy:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
+
+  employees:
+    bloquear:
+      flash:
+        success: "Empleado Bloqueado"
+    eliminar:
+      flash:
+        success: "Empleado Removido"
   date:
     abbr_day_names:
     - dom

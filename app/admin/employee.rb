@@ -1,6 +1,13 @@
 ActiveAdmin.register Employee do
     menu  :parent => I18n.t("active_admin.employee_management")
-    #menu :priority => 5
+
+    state_action :bloquear
+    state_action :eliminar do
+      resource.sessions.destroy_all
+      resource.destroy
+      redirect_to collection_path
+    end
+
     active_admin_import validate: true,
                         template: 'import' ,
                         template_object: ActiveAdminImport::Model.new(
@@ -30,7 +37,7 @@ ActiveAdmin.register Employee do
                           end
                         },
                         back: -> { config.namespace.resource_for(Employee).route_collection_path }
-    permit_params :name, :username, :document, :surveillance_id, command_list_ids: []
+    permit_params :name, :username, :document, :status, :surveillance_id, command_list_ids: []
 
     member_action :update, method: [:put, :patch] do
       employee = Employee.find(params[:id])
@@ -49,6 +56,7 @@ ActiveAdmin.register Employee do
           server.addUser(username: params[:employee][:username])
         end
       end
+      params['employee']["status"]="active"
       create!
     end
 
@@ -68,6 +76,7 @@ ActiveAdmin.register Employee do
     end
 
     controller do
+      actions :all, :except => [:destroy]
       def scoped_collection
         end_of_association_chain.includes(:surveillance)
       end
@@ -94,7 +103,6 @@ ActiveAdmin.register Employee do
       column :surveillance, humanize_name: false  do |emp|
           emp.surveillance.name
       end
-      # column(:author) { |post| post.author.full_name }
     end
 
     filter :username
@@ -148,6 +156,16 @@ ActiveAdmin.register Employee do
     end
 
     show title: :name do
+        if employee.status == "blocked" then
+          panel I18n.t("active_admin.status") do
+              columns do
+                column id: "employee_status" do
+                  span I18n.t("active_admin.blocked")
+                end
+              end
+          end
+        end
+
         panel I18n.t("active_admin.commands_lists") do
             table_for employee.command_lists do
                 column I18n.t("active_admin.platform") do |cl|
