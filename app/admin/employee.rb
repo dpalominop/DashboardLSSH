@@ -55,8 +55,10 @@ ActiveAdmin.register Employee do
         Server.all.each do |server|
           server.addUser(username: params[:employee][:username])
         end
+
+        params['employee']["status"]="active"
       end
-      params['employee']["status"]="active"
+
       create!
     end
 
