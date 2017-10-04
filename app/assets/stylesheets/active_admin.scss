@@ -46,6 +46,14 @@ $am-theme-primary-700: #009688 !default;
   font-size: 0.8125rem;
 }
 
+.status_tag.active {
+  background: #27ae60;
+}
+
+.status_tag.blocked {
+  background: #c0392b;
+}
+
 body .show.admin_network_elements #main_content_wrapper{
   max-width: 72.5%;
 }

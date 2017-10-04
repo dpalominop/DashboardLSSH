@@ -7,7 +7,8 @@ es:
     sessions_by_empleado: "Sesiones por Empleado"
     sessions_all: "Todas las sesiones"
     status: "Estado"
-    blocked: "Bloqueado!"
+    blocked: "Bloqueado"
+    active: "Activo"
 
     new_model: "Nuevo"
     edit_model: "Editar"

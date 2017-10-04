@@ -121,7 +121,7 @@ ActiveAdmin.register Employee do
         column :username
         column I18n.t("active_admin.document"), :sortable => :document do |emp|
           if emp.document then
-            a emp.document
+            emp.document
           end
         end
         column I18n.t("active_admin.surveillance"), :sortable => 'surveillances.name' do |emp|
@@ -129,6 +129,9 @@ ActiveAdmin.register Employee do
                 srv = Surveillance.find(emp.surveillance_id)
                 link_to srv.name, admin_surveillance_path(srv.to_param)
             end
+        end
+        column I18n.t("active_admin.status"), :sortable => :status do |emp|
+          status_tag emp.status, label: I18n.t("active_admin.#{emp.status}")
         end
         actions
     end
@@ -162,7 +165,7 @@ ActiveAdmin.register Employee do
           panel I18n.t("active_admin.status") do
               columns do
                 column id: "employee_status" do
-                  span I18n.t("active_admin.blocked")
+                  status_tag resource.status, label: I18n.t("active_admin.#{resource.status}")
                 end
               end
           end
