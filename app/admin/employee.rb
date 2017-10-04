@@ -105,6 +105,7 @@ ActiveAdmin.register Employee do
       column :surveillance, humanize_name: false  do |emp|
           emp.surveillance.name
       end
+      column :status, humanize_name: false
     end
 
     filter :username
