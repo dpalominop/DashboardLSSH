@@ -31,8 +31,8 @@ ActiveAdmin.register Session do
               link_to sr.hostname, admin_server_path(sr.to_param)
           end
       end
-      column I18n.t("active_admin.initiation"), :sortable => :initiation  do |se|
-          se.initiation
+      column I18n.t("active_admin.initiation"), :sortable => :created_at  do |se|
+          se.created_at
       end
       # attachment_column :document
       column I18n.t("active_admin.document"), :sortable => :document_file_name do |se|
