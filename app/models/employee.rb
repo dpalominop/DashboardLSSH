@@ -18,6 +18,10 @@ class Employee < ApplicationRecord
         transition ACTIVED => BLOCKED
       end
 
+      event :desbloquear do
+        transition BLOCKED => ACTIVED
+      end
+
       event :eliminar do
         transition BLOCKED => DELETED
       end

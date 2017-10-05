@@ -2,6 +2,7 @@ ActiveAdmin.register Employee do
     menu  :parent => I18n.t("active_admin.employee_management")
 
     state_action :bloquear
+    state_action :desbloquear
     state_action :eliminar do
       resource.sessions.destroy_all
       resource.destroy

@@ -240,6 +240,9 @@ es:
     bloquear:
       flash:
         success: "Empleado Bloqueado"
+    desbloquear:
+      flash:
+        success: "Empleado Desbloqueado"
     eliminar:
       flash:
         success: "Empleado Removido"
