@@ -126,6 +126,18 @@ ActiveAdmin.register NetworkElement do
       end
     end
 
+    batch_action :destroy, confirm: I18n.t("active_admin.batch_confirm_network_element")  do |ids|
+      ids = ids.map { |i| i.to_i }
+      batch_action_collection.find(ids.flatten).each do |resource|
+        resource.destroy
+      end
+      if ids.size == 1 then
+        redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_network_element")
+      else
+        redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_network_elements")
+      end
+    end
+
     index :title => I18n.t("active_admin.network_elements") do
         selectable_column
         #id_column

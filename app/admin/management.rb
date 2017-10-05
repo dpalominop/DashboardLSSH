@@ -37,6 +37,18 @@ ActiveAdmin.register Management do
     end
   end
 
+  batch_action :destroy, confirm: I18n.t("active_admin.batch_confirm_management")  do |ids|
+    ids = ids.map { |i| i.to_i }
+    batch_action_collection.find(ids.flatten).each do |resource|
+      resource.destroy
+    end
+    if ids.size == 1 then
+      redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_management")
+    else
+      redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_managements")
+    end
+  end
+
   filter :name, :label => I18n.t("active_admin.name")
   filter :created_at, :label => I18n.t("active_admin.created_at")
   filter :updated_at, :label => I18n.t("active_admin.updated_at")

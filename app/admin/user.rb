@@ -3,6 +3,18 @@ ActiveAdmin.register User do
        :if => proc{ can? :manage, User}
   permit_params :email, :password, :password_confirmation, :username, :name, :role
 
+  batch_action :destroy, confirm: I18n.t("active_admin.batch_confirm_user")  do |ids|
+    ids = ids.map { |i| i.to_i }
+    batch_action_collection.find(ids.flatten).each do |resource|
+      resource.destroy
+    end
+    if ids.size == 1 then
+      redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_user")
+    else
+      redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_users")
+    end
+  end
+
   index :download_links => false do
     selectable_column
     #id_column

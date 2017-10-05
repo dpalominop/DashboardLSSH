@@ -72,6 +72,18 @@ ActiveAdmin.register CommandList do
       end
     end
 
+    batch_action :destroy, confirm: I18n.t("active_admin.batch_confirm_command_list")  do |ids|
+      ids = ids.map { |i| i.to_i }
+      batch_action_collection.find(ids.flatten).each do |resource|
+        resource.destroy
+      end
+      if ids.size == 1 then
+        redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_command_list")
+      else
+        redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_command_lists")
+      end
+    end
+
     index :title => I18n.t("active_admin.commands_lists") do
         selectable_column
         #id_column

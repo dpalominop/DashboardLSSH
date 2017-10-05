@@ -66,6 +66,7 @@ ActiveAdmin.register Employee do
       Server.all.each do |server|
         server.delUser(username: Employee.find(params[:id]).username)
       end
+      Employee.find(params[:id]).sessions.destroy_all
       destroy!
     end
 
@@ -106,6 +107,19 @@ ActiveAdmin.register Employee do
           emp.surveillance.name
       end
       column :status, humanize_name: false
+    end
+
+    batch_action :destroy, confirm: I18n.t("active_admin.batch_confirm_employee")  do |ids|
+      ids = ids.map { |i| i.to_i }
+      batch_action_collection.find(ids.flatten).each do |resource|
+        resource.sessions.destroy_all
+        resource.destroy
+      end
+      if ids.size == 1 then
+        redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_employee")
+      else
+        redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_employees")
+      end
     end
 
     filter :username

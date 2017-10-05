@@ -8,7 +8,7 @@ ActiveAdmin.register DefaultPermission do
   config.filters = false
 
   index :title => I18n.t("active_admin.default_permissions"), :download_links => false do
-      selectable_column
+      # selectable_column
       #id_column
       #column :forbidden
       #column :warning_counter

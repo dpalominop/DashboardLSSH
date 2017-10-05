@@ -9,7 +9,7 @@ ActiveAdmin.register GlobalSetting, as: "Global Settings" do
     config.filters = false
 
     index :title => I18n.t("active_admin.global_settings"), :download_links => false do
-        selectable_column
+        # selectable_column
         #id_column
         column I18n.t("active_admin.logpath") do |gs|
           gs.logpath
