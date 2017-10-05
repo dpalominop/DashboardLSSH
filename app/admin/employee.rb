@@ -18,7 +18,7 @@ ActiveAdmin.register Employee do
                         headers_rewrites: { 'surveillance' => 'surveillance_id' },
                         before_batch_import: ->(importer){
                             begin
-                              surveillance_names = importer.values_at('surveillance')
+                              surveillance_names = importer.values_at('surveillance_id')
                               # replacing author name with author id
                               surveillances   = Surveillance.where(name: surveillance_names).pluck(:name, :id)
                               options = Hash[*surveillances.flatten] # #{"Jane" => 2, "John" => 1}
@@ -189,11 +189,6 @@ ActiveAdmin.register Employee do
                 column I18n.t("active_admin.name") do |cl|
                     link_to cl.name, admin_command_list_path(cl.to_param)
                 end
-                # column 'Network Element' do |cl|
-                #     if cl.network_element_id then
-                #         link_to NetworkElement.find(cl.network_element_id).name, admin_network_element_path(cl.network_element_id)
-                #     end
-                # end
             end
         end
     end
