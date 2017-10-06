@@ -4,6 +4,9 @@ ActiveAdmin.register Employee do
     state_action :bloquear
     state_action :desbloquear
     state_action :eliminar do
+      Server.all.each do |server|
+        server.delUser(username: resource.username)
+      end
       resource.sessions.destroy_all
       resource.destroy
       redirect_to collection_path
@@ -29,12 +32,8 @@ ActiveAdmin.register Employee do
                             end
                         },
                         after_batch_import: ->(importer) {
-                          importer.values_at('username').map { |x| x }.each do |username|
-                            if Employee.exists?(username: username)
-                              Server.all.each do |server|
-                                server.addUser(username: username)
-                              end
-                            end
+                          Server.all.each do |server|
+                            server.addUser(username: importer.values_at('username').map { |x| x if Employee.exists?(username: x)})
                           end
                         },
                         back: -> { config.namespace.resource_for(Employee).route_collection_path }
@@ -53,14 +52,16 @@ ActiveAdmin.register Employee do
 
     collection_action :create, method: [:post] do
       if params[:employee] then
-        Server.all.each do |server|
-          server.addUser(username: params[:employee][:username])
-        end
-
         params['employee']["status"]="active"
       end
 
       create!
+
+      if params[:employee] && Employee.exists?(username: params[:employee][:username]) then
+        Server.all.each do |server|
+          server.addUser(username: params[:employee][:username])
+        end
+      end
     end
 
     member_action :destroy, method: [:delete] do
@@ -111,11 +112,16 @@ ActiveAdmin.register Employee do
     end
 
     batch_action :destroy, confirm: I18n.t("active_admin.batch_confirm_employee")  do |ids|
-      ids = ids.map { |i| i.to_i }
-      batch_action_collection.find(ids.flatten).each do |resource|
+      usernames = ids.map { |i| Employee.find(i.to_i).username }
+      Server.all.each do |server|
+        server.delUser(username: usernames)
+      end
+      ids.each do |id|
+        resource = Employee.find(id.to_i)
         resource.sessions.destroy_all
         resource.destroy
       end
+
       if ids.size == 1 then
         redirect_to collection_path, notice: I18n.t("active_admin.batch_destroy_employee")
       else
