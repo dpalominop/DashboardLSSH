@@ -11,6 +11,7 @@ es:
     status: "Estado"
     blocked: "Bloqueado"
     active: "Activo"
+    providers: "Proveedores"
     batch_destroy_command_lists: "Las listas de comandos han sido borradas"
     batch_destroy_command_list: "La lista de comando ha sido borrada"
     batch_confirm_command_list: "Eliminar listas de comandos: ¿Está seguro?"
@@ -75,7 +76,7 @@ es:
     submit: "Guardar"
 
     name: "Nombre"
-    description: "Descripción"
+    description: "Notas"
     platform: "Plataforma"
     system: "Sistema"
     systems: "Sistemas"

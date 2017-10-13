@@ -99,7 +99,21 @@ ActiveAdmin.register Surveillance do
       end
 
       panel I18n.t("active_admin.employees") do
-          table_for resource.employees do
+          table_for resource.employees.where(is_provider: false) do
+              column I18n.t("active_admin.username") do |emp|
+                  link_to emp.username, admin_employee_path(emp.to_param)
+              end
+              column I18n.t("active_admin.name") do |emp|
+                  emp.name
+              end
+              column I18n.t("active_admin.document") do |emp|
+                  emp.document
+              end
+          end
+      end
+
+      panel I18n.t("active_admin.providers") do
+          table_for resource.employees.where(is_provider: true) do
               column I18n.t("active_admin.username") do |emp|
                   link_to emp.username, admin_employee_path(emp.to_param)
               end
