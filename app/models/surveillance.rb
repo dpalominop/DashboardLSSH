@@ -4,7 +4,10 @@ class Surveillance < ApplicationRecord
   has_many :platform_surveillances, :dependent => :destroy
   has_many :platforms, through: :platform_surveillances
 
-  has_many :employees
+  has_many :employee_surveillances, :dependent => :destroy
+  has_many :employees, through: :employee_surveillances
+
+  # has_many :employees
 
   validates :name,  :presence => true,  :uniqueness => {:case_sensitive => false}
 end

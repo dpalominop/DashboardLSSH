@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002214819) do
+ActiveRecord::Schema.define(version: 20171012232914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(version: 20171002214819) do
     t.index ["name"], name: "index_commands_on_name", unique: true
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "ruc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "default_permissions", force: :cascade do |t|
     t.string "forbidden", default: "[';', '&', '|','`','>','<', '$(', '${']"
     t.integer "warning_counter", default: 2
@@ -107,6 +114,15 @@ ActiveRecord::Schema.define(version: 20171002214819) do
     t.index ["vice_presidency_id"], name: "index_directions_on_vice_presidency_id"
   end
 
+  create_table "employee_surveillances", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.bigint "surveillance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_employee_surveillances_on_employee_id"
+    t.index ["surveillance_id"], name: "index_employee_surveillances_on_surveillance_id"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -115,6 +131,9 @@ ActiveRecord::Schema.define(version: 20171002214819) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+    t.boolean "is_provider"
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["document"], name: "index_employees_on_document", unique: true
     t.index ["surveillance_id"], name: "index_employees_on_surveillance_id"
     t.index ["username"], name: "index_employees_on_username", unique: true
@@ -328,6 +347,9 @@ ActiveRecord::Schema.define(version: 20171002214819) do
   add_foreign_key "command_lists", "roles"
   add_foreign_key "command_lists", "systems"
   add_foreign_key "command_lists", "types"
+  add_foreign_key "employee_surveillances", "employees"
+  add_foreign_key "employee_surveillances", "surveillances"
+  add_foreign_key "employees", "companies"
   add_foreign_key "employees", "surveillances"
   add_foreign_key "network_elements", "locations"
   add_foreign_key "network_elements", "platforms"

@@ -37,7 +37,7 @@ ActiveAdmin.register Employee do
                           end
                         },
                         back: -> { config.namespace.resource_for(Employee).route_collection_path }
-    permit_params :name, :username, :document, :status, :surveillance_id, command_list_ids: []
+    permit_params :name, :username, :document, :status, :is_provider, :company_id, command_list_ids: [], surveillance_ids: []
 
     member_action :update, method: [:put, :patch] do
       employee = Employee.find(params[:id])
@@ -47,12 +47,20 @@ ActiveAdmin.register Employee do
           server.addUser(username: params[:employee][:username])
         end
       end
+      if params[:employee][:is_provider] == "0" then
+        cp = Company.find_or_create_by(name: "Telefónica")
+        params[:employee][:company_id] = cp.id
+      end
       update!
     end
 
     collection_action :create, method: [:post] do
       if params[:employee] then
         params['employee']["status"]="active"
+        if params[:employee][:is_provider] == "0" then
+          cp = Company.find_or_create_by(name: "Telefónica")
+          params[:employee][:company_id] = cp.id
+        end
       end
 
       create!
@@ -82,9 +90,9 @@ ActiveAdmin.register Employee do
 
     controller do
       actions :all, :except => [:destroy]
-      def scoped_collection
-        end_of_association_chain.includes(:surveillance)
-      end
+      # def scoped_collection
+      #   end_of_association_chain.includes(:surveillance)
+      # end
     end
 
     # collection_action :change_command_list, method: :get do
@@ -105,9 +113,9 @@ ActiveAdmin.register Employee do
       column :name, humanize_name: false
       column :username, humanize_name: false
       column :document, humanize_name: false
-      column :surveillance, humanize_name: false  do |emp|
-          emp.surveillance.name
-      end
+      # column :surveillances, humanize_name: false  do |emp|
+      #     Surveillance.where(id: emp.surveillance_ids).pluck(:name)
+      # end
       column :status, humanize_name: false
     end
 
@@ -129,10 +137,11 @@ ActiveAdmin.register Employee do
       end
     end
 
+    filter :is_provider, :label => I18n.t("active_admin.is_provider")
     filter :username
     filter :document, :label => I18n.t("active_admin.document")
 
-    index :title => I18n.t("active_admin.employees") do
+    index :title => I18n.t("active_admin.users") do
         selectable_column
         #id_column
         column I18n.t("active_admin.name"), :sortable => :name do |emp|
@@ -146,12 +155,20 @@ ActiveAdmin.register Employee do
             emp.document
           end
         end
-        column I18n.t("active_admin.surveillance"), :sortable => 'surveillances.name' do |emp|
-            if emp.surveillance_id then
-                srv = Surveillance.find(emp.surveillance_id)
-                link_to srv.name, admin_surveillance_path(srv.to_param)
-            end
+        column I18n.t("active_admin.company"), :sortable => :document do |emp|
+          if emp.company_id then
+            emp.company
+          end
         end
+        column I18n.t("active_admin.is_provider"), :sortable => :document do |emp|
+          emp.is_provider
+        end
+        # column I18n.t("active_admin.surveillance"), :sortable => 'surveillances.name' do |emp|
+        #     if emp.surveillance_id then
+        #         srv = Surveillance.find(emp.surveillance_id)
+        #         link_to srv.name, admin_surveillance_path(srv.to_param)
+        #     end
+        # end
         column I18n.t("active_admin.status"), :sortable => :status do |emp|
           status_tag emp.status, label: I18n.t("active_admin.#{emp.status}")
         end
@@ -163,16 +180,17 @@ ActiveAdmin.register Employee do
             f.input :name, :label => I18n.t("active_admin.name")
             f.input :username
             f.input :document, :label => I18n.t("active_admin.document")
-            f.input :surveillance_id, as: :nested_select, minimum_input_length: 0,
-                  level_1: { attribute: :vice_presidency_id, collection: VicePresidency.all },
-                  level_2: { attribute: :direction_id, collection: Direction.all },
-                  level_3: { attribute: :management_id, collection: Management.all },
-                  level_4: { attribute: :leadership_id, collection: Leadership.all },
-                  level_5: { attribute: :surveillance_id, collection: Surveillance.all }
-            f.input :command_list_ids, as: :tags,
+            f.input :is_provider, :label => I18n.t("active_admin.is_provider")
+            f.input :company_id, as: :select,
+                    collection: Company.where.not(name: "Telefónica"),
+                    :label => I18n.t("active_admin.company")
+            f.input :surveillance_ids, as: :tags, width: '100%',
+                    collection: Surveillance.all,
+                    :label => I18n.t("active_admin.surveillances")
+            f.input :command_list_ids, as: :tags, width: '100%',
                     collection: CommandList.where(platform_id:
                       PlatformSurveillance.where(surveillance_id:
-                        resource.surveillance_id
+                        resource.surveillance_ids
                       ).pluck(:platform_id)
                     ), :label => I18n.t("active_admin.commands_lists")
             # f.input :command_list_ids, as: :search_select, collection: CommandList.all,
@@ -219,12 +237,12 @@ ActiveAdmin.register Employee do
             row :name
             row :username
             row :document
-            row I18n.t("active_admin.surveillance") do |emp|
-                if emp.surveillance_id then
-                    srv = Surveillance.find(emp.surveillance_id)
-                    link_to srv.name, admin_surveillance_path(srv.to_param)
-                end
-            end
+            # row I18n.t("active_admin.surveillance") do |emp|
+            #     if emp.surveillance_id then
+            #         srv = Surveillance.find(emp.surveillance_id)
+            #         link_to srv.name, admin_surveillance_path(srv.to_param)
+            #     end
+            # end
         end
     end
 

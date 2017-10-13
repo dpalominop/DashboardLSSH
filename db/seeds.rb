@@ -28,3 +28,5 @@ SudoCommand.create!(name: 'cd')
 # Default States
 State.create!(name: 'development')
 State.create!(name: 'production')
+# Default Company
+Company.create!(name: 'Telefónica', ruc: "20102010201")

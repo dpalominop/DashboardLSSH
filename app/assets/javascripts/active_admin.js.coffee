@@ -67,6 +67,8 @@
 #     return
 #   return
 $(document).on 'ready page:load', ->
+  # $('.js-example-basic-single').select2()
+
   if $('#command_list_all_commands').prop('checked')
     $('#command_list_command_ids_input').hide()
     $('#command_list_exclude_command_ids_input').show()
@@ -83,6 +85,22 @@ $(document).on 'ready page:load', ->
       $('#command_list_exclude_command_ids_input').hide()
     return
 
+  if $('#employee_is_provider').prop('checked')
+    $("#employee_company_id_input").show()
+    $("#employee_surveillance_ids_input label[for='employee_surveillance_ids']").text("Supervisiones");
+  else
+    $("#employee_company_id_input").hide()
+    $("#employee_surveillance_ids_input label[for='employee_surveillance_ids']").text("Supervisión");
+
+  $('input#employee_is_provider').change ->
+    if @checked
+      $("#employee_company_id_input").show()
+      $("#employee_surveillance_ids_input label[for='employee_surveillance_ids']").text("Supervisiones");
+    else
+      $("#employee_company_id_input").hide()
+      $("#employee_surveillance_ids_input label[for='employee_surveillance_ids']").text("Supervisión");
+      return
+
   $('#connectivity').click ->
     $('#network_element_table tbody tr').each ->
       $(this).find("td:first").html('Cargando')
@@ -90,9 +108,9 @@ $(document).on 'ready page:load', ->
       $.get(window.location.href+'/connectivity')
       return
 
-  $("#employee_surveillance_id_input label[for='employee_vice_presidency_id']").text("Vice Presidencia");
-  $("#employee_surveillance_id_input label[for='employee_direction_id']").text("Dirección");
-  $("#employee_surveillance_id_input label[for='employee_management_id']").text("Gerencia");
-  $("#employee_surveillance_id_input label[for='employee_leadership_id']").text("Jefatura");
-  $("#employee_surveillance_id_input label[for='employee_surveillance_id']").text("Supervisión");
+  # $("#employee_surveillance_id_input label[for='employee_vice_presidency_id']").text("Vice Presidencia");
+  # $("#employee_surveillance_id_input label[for='employee_direction_id']").text("Dirección");
+  # $("#employee_surveillance_id_input label[for='employee_management_id']").text("Gerencia");
+  # $("#employee_surveillance_id_input label[for='employee_leadership_id']").text("Jefatura");
+  # $("#employee_surveillance_id_input label[for='employee_surveillance_id']").text("Supervisión");
 return

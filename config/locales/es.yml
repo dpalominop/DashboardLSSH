@@ -6,6 +6,8 @@ es:
     hint_csv_import: "Cargar archivo csv:"
     sessions_by_empleado: "Sesiones por Empleado"
     sessions_all: "Todas las sesiones"
+    is_provider: "Es Proveedor?"
+    company: "Compañia"
     status: "Estado"
     blocked: "Bloqueado"
     active: "Activo"
@@ -210,7 +212,7 @@ es:
       management: "Gerencias"
       leadership: "Jefaturas"
       surveillance: "Supervisiones"
-      employee: "Empleados"
+      employee: "Usuarios"
       role: "Roles"
 
       command: "Comandos"
