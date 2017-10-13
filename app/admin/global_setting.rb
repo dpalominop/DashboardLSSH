@@ -3,7 +3,7 @@ ActiveAdmin.register GlobalSetting, as: "Global Settings" do
          :parent => I18n.t("active_admin.system"),
          :if => proc{ can? :manage, User}
 
-    permit_params :logpath, :loglevel, :logfilename, :syslogname
+    permit_params :logpath, :loglevel, :logfilename, :syslogname, :company
     actions :index, :update, :edit
 
     config.filters = false
@@ -20,8 +20,8 @@ ActiveAdmin.register GlobalSetting, as: "Global Settings" do
         column I18n.t("active_admin.logfilename") do |gs|
           gs.logfilename
         end
-        column I18n.t("active_admin.created_at") do |gs|
-          gs.created_at
+        column I18n.t("active_admin.company") do |gs|
+          gs.company
         end
         column I18n.t("active_admin.updated_at") do |gs|
           gs.updated_at
@@ -32,6 +32,7 @@ ActiveAdmin.register GlobalSetting, as: "Global Settings" do
 
     form do |f|
         f.inputs I18n.t("active_admin.global_settings") do
+            f.input :company, :label => I18n.t("active_admin.company")
             f.input :logpath, :label => I18n.t("active_admin.logpath")
             f.input :loglevel, :label => I18n.t("active_admin.loglevel")
             f.input :logfilename, :label => I18n.t("active_admin.logfilename")

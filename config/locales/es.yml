@@ -7,7 +7,7 @@ es:
     sessions_by_empleado: "Sesiones por Empleado"
     sessions_all: "Todas las sesiones"
     is_provider: "Es Proveedor?"
-    company: "Compañia"
+    company: "Compañía"
     status: "Estado"
     blocked: "Bloqueado"
     active: "Activo"

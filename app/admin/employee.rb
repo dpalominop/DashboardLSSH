@@ -48,7 +48,7 @@ ActiveAdmin.register Employee do
         end
       end
       if params[:employee][:is_provider] == "0" then
-        cp = Company.find_or_create_by(name: "Telefónica")
+        cp = Company.find_or_create_by(name: GlobalSetting.first.company)
         params[:employee][:company_id] = cp.id
       end
       update!
@@ -58,7 +58,7 @@ ActiveAdmin.register Employee do
       if params[:employee] then
         params['employee']["status"]="active"
         if params[:employee][:is_provider] == "0" then
-          cp = Company.find_or_create_by(name: "Telefónica")
+          cp = Company.find_or_create_by(name: GlobalSetting.first.company)
           params[:employee][:company_id] = cp.id
         end
       end
@@ -182,7 +182,7 @@ ActiveAdmin.register Employee do
             f.input :document, :label => I18n.t("active_admin.document")
             f.input :is_provider, :label => I18n.t("active_admin.is_provider")
             f.input :company_id, as: :select,
-                    collection: Company.where.not(name: "Telefónica"),
+                    collection: Company.where.not(name: GlobalSetting.first.company),
                     :label => I18n.t("active_admin.company")
             f.input :surveillance_ids, as: :tags, width: '100%',
                     collection: Surveillance.all,
