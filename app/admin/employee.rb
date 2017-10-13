@@ -20,14 +20,20 @@ ActiveAdmin.register Employee do
                             force_encoding: :auto,
                             csv_options: { col_sep: ",", row_sep: nil, quote_char: nil }
                         ),
-                        headers_rewrites: { 'surveillance' => 'surveillance_id' },
+                        headers_rewrites: { 'surveillance' => 'surveillance_id',
+                                            'company' => 'company_id'
+                                          },
                         before_batch_import: ->(importer){
                             begin
                               surveillance_names = importer.values_at('surveillance_id')
-                              # replacing author name with author id
                               surveillances   = Surveillance.where(name: surveillance_names).pluck(:name, :id)
-                              options = Hash[*surveillances.flatten] # #{"Jane" => 2, "John" => 1}
-                              importer.batch_replace('surveillance_id', options) #replacing "Jane" with 1, etc
+                              options = Hash[*surveillances.flatten]
+                              importer.batch_replace('surveillance_id', options)
+
+                              company_names = importer.values_at('company_id')
+                              companies   = Company.where(name: company_names).pluck(:name, :id)
+                              options = Hash[*companies.flatten]
+                              importer.batch_replace('company_id', options)
                             rescue
 
                             end
