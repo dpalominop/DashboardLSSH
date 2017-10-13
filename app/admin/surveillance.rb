@@ -43,6 +43,12 @@ ActiveAdmin.register Surveillance do
     column :leadership, humanize_name: false  do |srv|
         srv.leadership.name
     end
+    column :platforms, humanize_name: false  do |srv|
+        srv.platforms.pluck(:name).to_param
+    end
+    column :employees, humanize_name: false  do |srv|
+        srv.employees.pluck(:username).to_param
+    end
   end
 
   batch_action :destroy, confirm: I18n.t("active_admin.batch_confirm_surveillance")  do |ids|
