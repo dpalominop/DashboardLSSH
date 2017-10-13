@@ -211,6 +211,22 @@ ActiveAdmin.register Employee do
           end
         end
 
+        if employee.is_provider then
+          panel I18n.t("active_admin.surveillances") do
+              table_for employee.surveillances do
+                column I18n.t("active_admin.name") do |srv|
+                  link_to srv.name, admin_surveillance_path(srv.to_param)
+                end
+                column I18n.t("active_admin.leadership") do |srv|
+                  link_to srv.leadership.name, admin_leadership_path(srv.leadership.to_param)
+                end
+                column I18n.t("active_admin.management") do |srv|
+                  link_to srv.leadership.management.name, admin_management_path(srv.leadership.management.to_param)
+                end
+              end
+          end
+        end
+
         panel I18n.t("active_admin.commands_lists") do
             table_for employee.command_lists do
                 column I18n.t("active_admin.platform") do |cl|
@@ -232,17 +248,19 @@ ActiveAdmin.register Employee do
         end
     end
 
-    sidebar I18n.t("active_admin.employee_details"), only: :show do
+    sidebar I18n.t("active_admin.user_details"), only: :show do
         attributes_table_for employee do
             row :name
             row :username
             row :document
-            # row I18n.t("active_admin.surveillance") do |emp|
-            #     if emp.surveillance_id then
-            #         srv = Surveillance.find(emp.surveillance_id)
-            #         link_to srv.name, admin_surveillance_path(srv.to_param)
-            #     end
-            # end
+            if not employee.is_provider then
+              row I18n.t("active_admin.surveillance") do |emp|
+                  if emp.surveillances.first then
+                      srv = emp.surveillances.first
+                      link_to srv.name, admin_surveillance_path(srv.to_param)
+                  end
+              end
+            end
         end
     end
 
