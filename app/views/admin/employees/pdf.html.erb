@@ -170,7 +170,11 @@ a, h1, h3 {
 </style>
 </head>
 <body>
+    <% if resource.is_provider %>
+    <h1>Reporte de Proveedor</h1>
+    <% else %>
     <h1>Reporte de Empleado</h1>
+    <% end %>
     <br>
 
     <h3> Datos Personales </h3>
@@ -195,6 +199,31 @@ a, h1, h3 {
     </div>
     <br>
 
+    <% if resource.is_provider %>
+    <h3> Supervisiones </h3>
+    <div>
+        <table data-toggle="table">
+          <thead>
+            <tr style="page-break-inside: avoid;">
+              <th>Supervisión</th>
+              <th>Jefatura</th>
+              <th>Gerencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for srv in resource.surveillances %>
+            <tr style="page-break-inside: avoid;">
+              <td><%=h srv.name %></td>
+              <td><%=h srv.leadership.name %></td>
+              <td><%=h srv.leadership.management.name %></td>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+    <br>
+    <% else %>
     <h3> Organización </h3>
     <div>
         <table data-toggle="table">
@@ -209,17 +238,18 @@ a, h1, h3 {
           </thead>
           <tbody>
             <tr style="page-break-inside: avoid;">
-              <td><%=h resource.surveillance.leadership.management.direction.vice_presidency.name %></td>
-              <td><%=h resource.surveillance.leadership.management.direction.name %></td>
-              <td><%=h resource.surveillance.leadership.management.name %></td>
-              <td><%=h resource.surveillance.leadership.name %></td>
-              <td><%=h resource.surveillance.name %></td>
+              <td><%=h resource.surveillances.first.leadership.management.direction.vice_presidency.name %></td>
+              <td><%=h resource.surveillances.first.leadership.management.direction.name %></td>
+              <td><%=h resource.surveillances.first.leadership.management.name %></td>
+              <td><%=h resource.surveillances.first.leadership.name %></td>
+              <td><%=h resource.surveillances.first.name %></td>
               </td>
             </tr>
           </tbody>
         </table>
     </div>
     <br>
+    <% end %>
 
     <h3> Lista de Acceso a Plataformas </h3>
     <div>
