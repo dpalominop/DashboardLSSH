@@ -146,6 +146,7 @@ ActiveAdmin.register Employee do
     end
 
     filter :is_provider, :label => I18n.t("active_admin.is_provider")
+    filter :status, :label => I18n.t("active_admin.status")
     filter :username
     filter :document, :label => I18n.t("active_admin.document")
 
