@@ -91,9 +91,6 @@ ActiveAdmin.register Employee do
 
     controller do
       actions :all, :except => [:destroy]
-      # def scoped_collection
-      #   end_of_association_chain.includes(:surveillance)
-      # end
     end
 
     # collection_action :change_command_list, method: :get do
@@ -114,9 +111,13 @@ ActiveAdmin.register Employee do
       column :name, humanize_name: false
       column :username, humanize_name: false
       column :document, humanize_name: false
-      # column :surveillances, humanize_name: false  do |emp|
-      #     Surveillance.where(id: emp.surveillance_ids).pluck(:name)
-      # end
+      column :company, humanize_name: false  do |emp|
+          emp.company.name
+      end
+      column :is_provider, humanize_name: false
+      column :surveillances, humanize_name: false  do |emp|
+          emp.surveillances.pluck(:name).to_param
+      end
       column :status, humanize_name: false
     end
 
@@ -164,12 +165,6 @@ ActiveAdmin.register Employee do
         column I18n.t("active_admin.is_provider"), :sortable => :document do |emp|
           emp.is_provider
         end
-        # column I18n.t("active_admin.surveillance"), :sortable => 'surveillances.name' do |emp|
-        #     if emp.surveillance_id then
-        #         srv = Surveillance.find(emp.surveillance_id)
-        #         link_to srv.name, admin_surveillance_path(srv.to_param)
-        #     end
-        # end
         column I18n.t("active_admin.status"), :sortable => :status do |emp|
           status_tag emp.status, label: I18n.t("active_admin.#{emp.status}")
         end
