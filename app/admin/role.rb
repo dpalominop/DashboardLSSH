@@ -1,5 +1,6 @@
 ActiveAdmin.register Role do
-  menu :parent => I18n.t("active_admin.employee_management")
+  menu :parent => I18n.t("active_admin.security_management"),
+       :priority => 7
   active_admin_import validate: true,
                       template: 'import' ,
                       template_object: ActiveAdminImport::Model.new(

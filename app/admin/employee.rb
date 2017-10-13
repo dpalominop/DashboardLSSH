@@ -1,5 +1,6 @@
 ActiveAdmin.register Employee do
-    menu  :parent => I18n.t("active_admin.employee_management")
+    menu  :parent => I18n.t("active_admin.employee_management"),
+          :priority => 6
 
     state_action :bloquear
     state_action :desbloquear
