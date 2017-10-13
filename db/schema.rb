@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012232914) do
+ActiveRecord::Schema.define(version: 20171013193656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(version: 20171012232914) do
     t.string "name"
     t.string "username"
     t.string "document"
-    t.bigint "surveillance_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
@@ -135,7 +134,6 @@ ActiveRecord::Schema.define(version: 20171012232914) do
     t.bigint "company_id"
     t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["document"], name: "index_employees_on_document", unique: true
-    t.index ["surveillance_id"], name: "index_employees_on_surveillance_id"
     t.index ["username"], name: "index_employees_on_username", unique: true
   end
 
@@ -350,7 +348,6 @@ ActiveRecord::Schema.define(version: 20171012232914) do
   add_foreign_key "employee_surveillances", "employees"
   add_foreign_key "employee_surveillances", "surveillances"
   add_foreign_key "employees", "companies"
-  add_foreign_key "employees", "surveillances"
   add_foreign_key "network_elements", "locations"
   add_foreign_key "network_elements", "platforms"
   add_foreign_key "network_elements", "protocols"
