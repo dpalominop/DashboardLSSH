@@ -172,7 +172,7 @@ a, h1, h3 {
 <body>
     <h1>Reporte de Supervisión</h1>
     <br>
-    
+
     <a><b>Nombre:&emsp;</b><%= resource.name %></a>
     <br>
 
@@ -241,7 +241,34 @@ a, h1, h3 {
             </tr>
           </thead>
           <tbody>
-          <% for emp in resource.employees
+          <% for emp in resource.employees.where(is_provider: false)
+                                .order(name: :asc)
+                                .order(username: :asc)
+                                .order(document: :asc) %>
+              <tr style="page-break-inside: avoid;">
+                <td><%=h emp.name %></td>
+                <td><%=h emp.username %></td>
+                <td><%=h emp.document %></td>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+    </div>
+    <br>
+
+    <h3> Proveedores </h3>
+    <div>
+        <table data-toggle="table">
+          <thead>
+            <tr style="page-break-inside: avoid;">
+              <th>Nombre</th>
+              <th>Username</th>
+              <th>Documento</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% for emp in resource.employees.where(is_provider: true)
                                 .order(name: :asc)
                                 .order(username: :asc)
                                 .order(document: :asc) %>
