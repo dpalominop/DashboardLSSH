@@ -253,10 +253,20 @@ ActiveAdmin.register Employee do
 
     sidebar I18n.t("active_admin.user_details"), only: :show do
         attributes_table_for employee do
-            row :name
+            row I18n.t("active_admin.name") do |emp|
+                emp.name
+            end
             row :username
-            row :document
-            if not employee.is_provider then
+            row I18n.t("active_admin.document") do |emp|
+                emp.document
+            end
+            row I18n.t("active_admin.company") do |emp|
+                emp.company
+            end
+            row I18n.t("active_admin.is_provider") do |emp|
+                emp.is_provider
+            end
+            unless employee.is_provider then
               row I18n.t("active_admin.surveillance") do |emp|
                   if emp.surveillances.first then
                       srv = emp.surveillances.first
