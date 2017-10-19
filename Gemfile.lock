@@ -1,23 +1,4 @@
 GIT
-  remote: git://github.com/thoughtbot/paperclip.git
-  revision: 82cd3781b4bbfe20778fe5f9a6802d348cd5ee1a
-  specs:
-    paperclip (5.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      cocaine (~> 0.5.5)
-      mime-types
-      mimemagic (~> 0.3.0)
-
-GIT
-  remote: git@github.com:spectator/paperclip-sftp.git
-  revision: 47c47812efc6b25bad101fa31ce348e05bf72e55
-  specs:
-    paperclip-sftp (1.0.5)
-      net-sftp (>= 2.0.5)
-      paperclip (>= 3.2.0)
-
-GIT
   remote: https://github.com/activeadmin-plugins/active_admin_import.git
   revision: d5922a75886b93721607dc1abe584803d4bf6256
   specs:
@@ -53,6 +34,25 @@ GIT
       railties
       select2-rails (~> 3.5.9)
       xdan-datetimepicker-rails (~> 2.5.1)
+
+GIT
+  remote: https://github.com/spectator/paperclip-sftp.git
+  revision: 47c47812efc6b25bad101fa31ce348e05bf72e55
+  specs:
+    paperclip-sftp (1.0.5)
+      net-sftp (>= 2.0.5)
+      paperclip (>= 3.2.0)
+
+GIT
+  remote: https://github.com/thoughtbot/paperclip.git
+  revision: 9b4805354864bc729e1a79a67a795e79dc7f42ae
+  specs:
+    paperclip (5.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (~> 0.3.0)
 
 GIT
   remote: https://github.com/vigetlabs/active_material.git

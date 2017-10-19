@@ -105,9 +105,9 @@ group :development do
   gem 'rails-erd', require: false
 end
 
-gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+gem "paperclip", github:  "thoughtbot/paperclip"
 # gem "paperclip-storage-ftp"
-gem 'paperclip-sftp', git: "git@github.com:spectator/paperclip-sftp.git"
+gem 'paperclip-sftp', github:  "spectator/paperclip-sftp"
 
 # PDF
 gem 'wicked_pdf'

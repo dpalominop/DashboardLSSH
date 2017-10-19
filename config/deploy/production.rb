@@ -14,7 +14,7 @@ server "10.123.120.197", user: fetch(:username), password: fetch(:password), rol
 server "10.123.120.198", user: fetch(:username), password: fetch(:password), roles: %w{web}
 server "10.123.120.199", user: fetch(:username), password: fetch(:password), roles: %w{web}
 
-
+set :branch, ENV['BRANCH'] if ENV['BRANCH']
 
 # role-based syntax
 # ==================
